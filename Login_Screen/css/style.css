@@ -184,7 +184,7 @@ input[type='password'] {
 
 input[type='text']:focus + .symbol-input,
 input[type='password']:focus + .symbol-input {
-  color: #00c6fb;
+  color: #3881cc;
   padding-left: 70px;
 }
 
