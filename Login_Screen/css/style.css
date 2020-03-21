@@ -1,178 +1,222 @@
-/*----- START OF FONTS -----*/
+/*----- Fonts -----*/
 @font-face {
-    font-family: Montserrat-Bold;
-    src: url('../fonts/montserrat/Montserrat-Bold.ttf'); 
-  }
-  
-  @font-face {
-    font-family: Montserrat-ExtraBold;
-    src: url('../fonts/montserrat/Montserrat-ExtraBold.ttf'); 
-  }
-  /*----- END OF FONTS -----*/
-  
-  * {
-      margin: 0px; 
-      padding: 0px; 
-      box-sizing: border-box;
-  }
-  
-  body, html {
-    height: 100%;
-  }
-  
-  .outer {
-    width: 100%;
-    margin: 0 auto;
-  }
-  
-  .container {
-    width: 100%;  
-    min-height: 100vh;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    padding: 15px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    
-    position: relative;
-    z-index: 1;
-  }
-  
-  .container::before {
-    content: "";
-    display: block;
-    position: absolute;
-    z-index: -1;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background: url('../images/background.jpg') no-repeat center center fixed; 
-    background-size: cover;
-    opacity: 0.6;
-  }
-  
-  .form {
-    background-color: #fff;
-    width: 400px;
-    height: 500px;
-    margin: 7em auto;
-    border-radius: 1.5em;
-    box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
-    padding: 50px 0px;
-  }
-  
-  /*----- START OF LOGO AND SIGN IN -----*/
-  .form-logo {
-    width: 120px;
-    height: 120px;
-    padding-top: 20px;
-    overflow: hidden;
-    margin: 0 auto;
-  }
-  
-  .form-logo img {
-    width: 100%;
-  }
-  
-  .form-sign {
-    font-family: Montserrat-ExtraBold !important;
-    color: black;
-    font-size: 24px;
-    line-height: 1.2;
-    text-align: center;
-    padding-top: 20px;
-    padding-bottom: 25px;
-  
-    width: 100%;
-    display: block;
-  }
-  /*----- END OF LOGO AND SIGN IN -----*/
-  
-  /*----- START OF FORM GROUP (Username and Password) -----*/
-  .form-group {
-    padding-bottom: 10px;
-  }
-  
-  .input {
-    position: relative;
-    width: 75%;
-    margin-bottom: 10px;
-    margin-left: 12.5%;
-  }
-  
-  .form-input {
-    font-family: Montserrat-Bold;
-    font-size: 15px;
-    line-height: 1.2;
-    text-align: center;
-    letter-spacing: 1px;
-  
-    display: block;
-    width: 100%;
-    background: rgba(41, 38, 38, 0.04);
-    height: 50px;
-    border: none;
-    border-radius: 25px;
-    outline: none;
-    box-sizing: border-box;
-    padding: 0 30px;
-  }
-  
-  input[type=text]:focus, input[type=password]:focus {
-    border: 2px solid rgba(0, 0, 0, 0.18) !important;
-    padding: 12px 22px;
-  }
-  
-  /*----- END OF FORM GROUP (Username and Password) -----*/
-  
-  /*----- START OF FORM ACTIONS (Submit and Cancel )-----*/
-  .form-actions {
-    align: center;
-    padding-top: 10px;
-    width: 100%;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  
-  input[type=button] {
-    font-family: Montserrat-Bold;
-    font-size: 15px;
-    line-height: 1.5;
-    color: #e0e0e0;
-  
-    cursor: pointer;
-    width: 30%;
-    height: 50px;
-    border-radius: 25px;
-    background: #333333;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0 25px;
-    border: none;
-    box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
-  }
-  
-  input[type=button]:hover {
-    background-color: orange;
-    color: #fff;
-  }
-  /*----- END OF FORM ACTIONS (Submit and Cancel )-----*/
-  
+  font-family: Montserrat-Regular;
+  src: url('../fonts/montserrat/Montserrat-Regular.ttf');
+}
+
+@font-face {
+  font-family: Montserrat-Bold;
+  src: url('../fonts/montserrat/Montserrat-Bold.ttf');
+}
+
+@font-face {
+  font-family: Montserrat-ExtraBold;
+  src: url('../fonts/montserrat/Montserrat-ExtraBold.ttf');
+}
+
+/*----- Login home screen -----*/
+.logobtn {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 20%;
+  border-radius: 100%;
+  background: #3881cc;
+  padding: 20px;
+  width: 150px;
+  height: 150px;
+  outline: none;
+}
+
+.logobtn:hover {
+  box-shadow: 0 4px 8px 4px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.welcome {
+  font-family: Montserrat-Regular;
+  font-size: 30px;
+  line-height: 1.5;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  word-break: normal;
+  padding: 10px;
+  margin-left: 20%;
+  margin-right: 20%;
+  background-color: rgb(42, 43, 42);
+}
+
+body {
+  background: url('../images/background.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+
+/*----- Pop up login screen -----*/
+.modal {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+  background-color: white;
+  position: relative;
+  margin: auto;
+  margin-top: 15%;
+  width: 30%;
+  height: 53%;
+  border-radius: 25px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+/*----- Modal Header -----*/
+.imgcontainer {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 25px;
+  position: relative;
+  padding-top: 20px;
+}
+
+.closebtn {
+  width: 25px;
+  height: 25px;
+  right: 10px;
+  top: 10px;
+  position: absolute;
+  filter: contrast(50%);
+  outline: none;
+}
+
+.closebtn:hover,
+.closebtn:focus {
+  filter: contrast(75%);
+  cursor: pointer;
+}
+
+.logo-pop-up-screen {
+  width: 20%;
+  height: 20%;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  border-radius: 100%;
+  background: #3881cc;
+  padding: 20px;
+}
+
+.sign-in-header {
+  font-family: Montserrat-ExtraBold !important;
+  color: rgb(42, 43, 42);
+  font-size: 24px;
+  line-height: 1.2;
+  text-align: center;
+  width: 100%;
+  display: block;
+  padding-top: 20px;
+}
+
+/*----- Modal body - username and password input -----*/
+.container {
+  position: relative;
+}
+
+.input-wrapper {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
+input[type='text'],
+input[type='password'] {
+  display: block;
+  border-radius: 25px;
+  background: rgba(41, 38, 38, 0.04);
+  height: 50px;
+  border: 1px solid transparent;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 65%;
+  padding-left: 60px;
+  text-align: left;
+  outline: none;
+
+  font-family: Montserrat-Bold;
+  font-size: 15px;
+  line-height: 1.2;
+  color: rgb(42, 43, 42);
+  text-align: left;
+  letter-spacing: 1px;
+}
+
+.symbol-input {
+  font-size: 15px;
+  color: #999999;
+
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  border-radius: 25px;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  float: left;
+  padding-left: 75px;
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+input[type='text']:focus + .symbol-input,
+input[type='password']:focus + .symbol-input {
+  color: #00c6fb;
+  padding-left: 70px;
+}
+
+input[type='text']:focus,
+input[type='password']:focus {
+  border: 1px solid rgba(0, 0, 0, 0.18) !important;
+}
+
+/*----- Modal footer - login button -----*/
+.loginbtn {
+  display: block;
+  border-radius: 25px;
+  background: rgba(41, 38, 38, 0.04);
+  height: 50px;
+  border: none;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  width: 45%;
+  text-align: left;
+  outline: none;
+
+  font-family: Montserrat-Bold;
+  font-size: 15px;
+  line-height: 1.2;
+  background: rgb(42, 43, 42);
+  color: white;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+.loginbtn:hover {
+  background: orange;
+  color: white;
+}
