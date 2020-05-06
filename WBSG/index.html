@@ -20,13 +20,13 @@
         <a href="#login-popup">
           <img alt="Logo" src="images/logo.svg" class="logo-large logo-hover">
         </a>
-          </div>
+      </div>
       <div class="login-popup" id="login-popup">
         <form class="login-popup-content">
             <img alt="Logo" src="images/logo.svg" class="logo-medium" id="login-popup-logo">
             <div class="login-popup-text">
               <h1 id="login-popup-header">Sign in</h1>
-          </div>
+            </div>
             <a href="#">
               <i class="fa fa-close login-popup-close"></i>
             </a>
@@ -36,25 +36,7 @@
             <i class="fa fa-lock symbol-input" id="login-popup-password-icon"></i>
             <a href="#dashboard" class="login-popup-submit">Login</a>
         </form>
-        </div>
-      </form>
+      </div>  
     </div>
-
-    <script>
-      var modal = document.getElementById('modal')
-      var btn = document.getElementById('logo-button')
-      var span = document.getElementById('close-button')
-      btn.onclick = function () {
-        modal.style.display = 'block'
-      }
-      span.onclick = function () {
-        modal.style.display = 'none'
-      }
-      window.onclick = function (event) {
-        if (event.target == modal) {
-          modal.style.display = 'none'
-        }
-      }
-    </script>
   </body>
 </html>
