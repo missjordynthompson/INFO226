@@ -11,40 +11,14 @@
   </head>
 
   <body ng-controller="MainCtrl">
-    <input
-      type="image"
-      src="images/logo.svg"
-      class="logobtn"
-      id="logo-button"
-    />
-    <h1 class="welcome">Welcome to the Course Assignment App Board</h1>
-
-    <div id="modal" class="modal">
-      <form class="modal-content">
-        <div class="imgcontainer">
-          <input
-            type="image"
-            src="images/closebtn.png"
-            id="close-button"
-            class="closebtn"
-          />
-          <img src="images/logo.svg" alt="logo" class="logo-pop-up-screen" />
-          <span class="sign-in-header">Sign in</span>
+    <div class="login-container">
+      <div class="login-welcome">
+        <div class="login-welcome-text">
+          <h1 id="login-welcome-header">Welcome to the Course Assignment App Board</h1>
         </div>
-
-        <div class="container">
-          <div class="input-wrapper">
-            <input
-              class="input"
-              type="text"
-              ng-input="username-input"
-              placeholder="Username"
-              name="uname"
-              required
-            />
-            <span class="symbol-input">
-              <i class="fa fa-user"></i>
-            </span>
+        <a href="#login-popup">
+          <img alt="Logo" src="images/logo.svg" class="logo-large logo-hover">
+        </a>
           </div>
 
           <div class="input-wrapper">
