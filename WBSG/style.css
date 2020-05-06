@@ -322,6 +322,36 @@ border: 1px solid rgba(0, 0, 0, 0.18) !important;
   color: white;
 }
 
+/*----- Dashboard -----*/
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 50px 1fr 50px;
+  grid-template-areas:
+    'header'
+    'main'
+    'footer';
+  height: 100vh;
+}
+
+.menu-icon {
+  position: fixed; /* Needs to stay visible for all mobile scrolling */
+  display: flex;
+  top: 5px;
+  left: 10px;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  border-radius: 50%;
+  z-index: 1;
+  cursor: pointer;
+  padding: 12px;
+}
+
+.fa {
+  color: #575756;
+}
+
 /*----- Header -----*/
 .header {
   grid-area: header;
