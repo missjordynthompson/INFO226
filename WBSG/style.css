@@ -527,3 +527,17 @@ border: 1px solid rgba(0, 0, 0, 0.18) !important;
   height: 265px;
 }
 
+/*----- Footer -----*/
+.footer {
+  grid-area: footer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  background-color: #ffffff;
+}
+
+.footer-copyright {
+  color: #575756;
+}
+
