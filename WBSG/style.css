@@ -14,127 +14,66 @@
   src: url('../fonts/montserrat/Montserrat-ExtraBold.ttf');
 }
 
-/*----- Login home screen -----*/
-.logobtn {
+/*----- Logo -----*/
+.logo-large {
   display: block;
   margin-right: auto;
   margin-left: auto;
-  margin-top: 20%;
-  border-radius: 100%;
-  background: #3881cc;
-  padding: 20px;
-  width: 150px;
+  background: #47BDFF;
   height: 150px;
+  width: 150px;
+  padding: 20px;
+  border-radius: 50%;
   outline: none;
 }
 
-.logobtn:hover {
+.logo-medium {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  background: #47BDFF;
+  height: 150px;
+  width: 150px;
+  padding: 20px;
+  border-radius: 50%;
+  outline: none;
+}
+
+.logo-small {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  background: #47BDFF;
+  height: 150px;
+  width: 150px;
+  padding: 20px;
+  border-radius: 50%;
+  outline: none;
+}  
+
+.logo-hover:hover {
   box-shadow: 0 4px 8px 4px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.welcome {
-  font-family: Montserrat-Regular;
-  font-size: 30px;
-  line-height: 1.5;
-  color: white;
-  text-decoration: none;
-  text-align: center;
-  word-break: normal;
-  padding: 10px;
-  margin-left: 20%;
-  margin-right: 20%;
-  background-color: rgb(42, 43, 42);
+/*----- Applies to all -----*/
+* {
+  box-sizing: border-box;
+  margin: 0;
 }
 
-body {
-  background: url('../images/background.jpg') no-repeat center center fixed;
-  background-size: cover;
-}
-
-/*----- Pop up login screen -----*/
-.modal {
-  display: none;
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
+html, body {
+  font-family: 'Raleway', sans-serif;
+  font-size: 16px;
   height: 100%;
-  z-index: 1;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.6);
 }
 
-.modal-content {
-  background-color: white;
-  position: relative;
-  margin: auto;
-  margin-top: 15%;
-  width: 30%;
-  height: 53%;
-  border-radius: 25px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+@media screen and (max-width: 768px) {
+  html, body {
+      font-size: 12px;
+  }
 }
 
-/*----- Modal Header -----*/
-.imgcontainer {
-  text-align: center;
-  margin-top: 20px;
-  margin-bottom: 25px;
-  position: relative;
-  padding-top: 20px;
-}
-
-.closebtn {
-  width: 25px;
-  height: 25px;
-  right: 10px;
-  top: 10px;
-  position: absolute;
-  filter: contrast(50%);
-  outline: none;
-}
-
-.closebtn:hover,
-.closebtn:focus {
-  filter: contrast(75%);
-  cursor: pointer;
-}
-
-.logo-pop-up-screen {
-  width: 20%;
-  height: 20%;
-  display: block;
-  margin-right: auto;
-  margin-left: auto;
-  border-radius: 100%;
-  background: #3881cc;
-  padding: 20px;
-}
-
-.sign-in-header {
-  font-family: Montserrat-ExtraBold !important;
-  color: rgb(42, 43, 42);
-  font-size: 24px;
-  line-height: 1.2;
-  text-align: center;
-  width: 100%;
-  display: block;
-  padding-top: 20px;
-}
-
-/*----- Modal body - username and password input -----*/
-.container {
-  position: relative;
-}
-
-.input-wrapper {
-  position: relative;
-  width: 100%;
-  z-index: 1;
-}
-
-input[type='text'],
-input[type='password'] {
+.user-input {
   display: block;
   border-radius: 25px;
   background: rgba(41, 38, 38, 0.04);
@@ -143,7 +82,7 @@ input[type='password'] {
   margin: auto;
   margin-top: 10px;
   margin-bottom: 10px;
-  width: 65%;
+  width: 75%;
   padding-left: 60px;
   text-align: left;
   outline: none;
@@ -151,9 +90,173 @@ input[type='password'] {
   font-family: Montserrat-Bold;
   font-size: 15px;
   line-height: 1.2;
-  color: rgb(42, 43, 42);
+  color: 40433f;
   text-align: left;
   letter-spacing: 1px;
+}
+
+/*----- Login Page ------*/
+.login-container {
+  background: url("images/background.jpg") no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.login-welcome-text {
+  background-color: white;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -20%;
+  padding: 20px;
+  position: relative;
+  display: block;
+  width: 80%;
+  top: 30%;
+  transform: translateY(-50%);
+  color: #40433f;
+  line-height: 1.2;
+  text-align: center;
+}
+
+#login-welcome-header {
+  font-family: Montserrat-ExtraBold !important;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+#login-welcome-header2 {
+  font-family: Montserrat-Regular !important;
+  position: relative;
+  padding-top: 10px;
+}
+
+/*----- Login Popup -----*/
+.login-popup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 2;
+  visibility: hidden;
+  opacity: 0;
+  overflow: hiden;
+  transition: .64s ease-in-out;
+}
+
+.login-popup-content {
+  position: relative;
+  bottom: -100vw;
+  right: -100vh;
+  display: flex;
+  max-width: 450px;
+  max-height: 500px;
+  width: 60%;
+  height: 80%;
+  background-color: #fff;
+  transform: rotate(32deg);
+  transition: .64s ease-in-out;
+  border-radius: 10px;
+  margin-right: center;
+  margin-left: center;
+}
+
+.login-popup:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.login-popup-content {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
+.login-popup:target .login-popup-content {
+bottom: 0;
+right: 0;
+transform: rotate(0);
+}
+
+#login-popup-logo {
+  position: absolute;
+  top: 2rem;
+  margin: 0 auto;
+  right: 10px;
+  left: 10px;
+}
+
+.login-popup-text {
+  text-align: center;
+  font-family: Montserrat-Bold !important;
+  font-size: 12px;
+  line-height: 1.2;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+#login-popup-header {
+  position: absolute;
+  top: 40%;
+  right: 10px;
+  left: 10px;
+}
+
+.login-popup-close {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  padding: 9px 11px 10px 11px;
+  border-radius: 50%;
+  background-color: #40433f;
+  z-index: 4;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  opacity: 0.9;
+}
+
+.login-popup-close:hover,
+.login-popup-close:focus {
+  cursor: pointer;
+  opacity: 1;
+}
+
+#login-popup-userinput {
+  position: absolute;
+  top: 48%;
+  right: 20px;
+  left: 20px;
+}
+
+#login-popup-user-icon {
+  position: absolute;
+  top: 53.5%;
+  left: 19%;
+  font-size: 15px;
+}
+
+#login-popup-passwordinput {
+  position: absolute;
+  top: 61%;
+  right: 20px;
+  left: 20px;
+}
+
+#login-popup-password-icon {
+  position: absolute;
+  top: 66.5%;
+  left: 19%;
+  font-size: 15px;
 }
 
 .symbol-input {
@@ -168,13 +271,8 @@ input[type='password'] {
   align-items: center;
   position: absolute;
   border-radius: 25px;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
   pointer-events: none;
   float: left;
-  padding-left: 75px;
 
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
@@ -182,41 +280,44 @@ input[type='password'] {
   transition: all 0.4s;
 }
 
-input[type='text']:focus + .symbol-input,
-input[type='password']:focus + .symbol-input {
-  color: #3881cc;
-  padding-left: 70px;
+#login-popup-userinput:focus + .symbol-input,
+#login-popup-passwordinput:focus + .symbol-input {
+color: #faa21b;
 }
 
-input[type='text']:focus,
-input[type='password']:focus {
-  border: 1px solid rgba(0, 0, 0, 0.18) !important;
+#login-popup-userinput:focus,
+#login-popup-passwordinput:focus {
+border: 1px solid rgba(0, 0, 0, 0.18) !important;
 }
 
-/*----- Modal footer - login button -----*/
-.loginbtn {
+.login-popup-submit {
+  position: absolute;
+  top: 80%;
+  right: 60px;
+  left: 60px;
+
   display: block;
   border-radius: 25px;
-  background: rgba(41, 38, 38, 0.04);
   height: 50px;
-  border: none;
   margin: auto;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  width: 45%;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  width: 35%;
   text-align: left;
   outline: none;
+  text-decoration: none;
 
   font-family: Montserrat-Bold;
   font-size: 15px;
   line-height: 1.2;
-  background: rgb(42, 43, 42);
+  background: #40433f;
+  opacity: 0.9;
   color: white;
   text-align: center;
   letter-spacing: 1px;
 }
 
-.loginbtn:hover {
-  background: orange;
+.login-popup-submit:hover {
+  background: #faa21b;
   color: white;
 }

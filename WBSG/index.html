@@ -5,96 +5,38 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="icon" type="image/png" href="images/logo.svg" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <script
-      data-require="angular.js@1.4.x"
-      src="https://code.angularjs.org/1.4.12/angular.js"
-      data-semver="1.4.9"
-    ></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <script data-require="angular.js@1.4.x" src="https://code.angularjs.org/1.4.12/angular.js" data-semver="1.4.9"></script>
     <script src="app.js"></script>
   </head>
 
   <body ng-controller="MainCtrl">
-    <input
-      type="image"
-      src="images/logo.svg"
-      class="logobtn"
-      id="logo-button"
-    />
-    <h1 class="welcome">Welcome to the Course Assignment App Board</h1>
-
-    <div id="modal" class="modal">
-      <form class="modal-content">
-        <div class="imgcontainer">
-          <input
-            type="image"
-            src="images/closebtn.png"
-            id="close-button"
-            class="closebtn"
-          />
-          <img src="images/logo.svg" alt="logo" class="logo-pop-up-screen" />
-          <span class="sign-in-header">Sign in</span>
+    <div class="login-container">
+      <div class="login-welcome">
+        <div class="login-welcome-text">
+          <h1 id="login-welcome-header">Welcome to the Course Assignment App Board</h1>
+          <p id="login-welcome-header2">If you have a Wellington School of Business and Government (WBSG) login, please login using login link</p>
         </div>
-
-        <div class="container">
-          <div class="input-wrapper">
-            <input
-              class="input"
-              type="text"
-              ng-input="username-input"
-              placeholder="Username"
-              name="uname"
-              required
-            />
-            <span class="symbol-input">
-              <i class="fa fa-user"></i>
-            </span>
-          </div>
-
-          <div class="input-wrapper">
-            <input
-              class="input"
-              type="password"
-              ng-input="password-input"
-              placeholder="Password"
-              name="psw"
-              required
-            />
-            <span class="symbol-input">
-              <i class="fa fa-lock"></i>
-            </span>
-          </div>
-        </div>
-
-        <div class="container">
-          <input
-            type="button"
-            value="Login"
-            class="loginbtn"
-            ng-click="login-button"
-          />
-        </div>
-      </form>
+        <a href="#login-popup">
+          <img alt="Logo" src="images/logo.svg" class="logo-large logo-hover">
+        </a>
+      </div>
+      <div class="login-popup" id="login-popup">
+        <form class="login-popup-content">
+            <img alt="Logo" src="images/logo.svg" class="logo-medium" id="login-popup-logo">
+            <div class="login-popup-text">
+              <h1 id="login-popup-header">Sign in</h1>
+            </div>
+            <a href="#">
+              <i class="fa fa-close login-popup-close"></i>
+            </a>
+            <input type="text" id="login-popup-userinput" class="user-input" placeholder="Username" required>
+            <i class="fa fa-user symbol-input" id="login-popup-user-icon"></i>
+            <input type="password" id="login-popup-passwordinput" class="user-input" placeholder="Password" required>
+            <i class="fa fa-lock symbol-input" id="login-popup-password-icon"></i>
+            <a href="#dashboard" class="login-popup-submit">Login</a>
+        </form>
+      </div>  
     </div>
-
-    <script>
-      var modal = document.getElementById('modal')
-      var btn = document.getElementById('logo-button')
-      var span = document.getElementById('close-button')
-      btn.onclick = function () {
-        modal.style.display = 'block'
-      }
-      span.onclick = function () {
-        modal.style.display = 'none'
-      }
-      window.onclick = function (event) {
-        if (event.target == modal) {
-          modal.style.display = 'none'
-        }
-      }
-    </script>
   </body>
 </html>
