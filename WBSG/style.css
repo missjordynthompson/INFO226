@@ -14,21 +14,44 @@
   src: url('../fonts/montserrat/Montserrat-ExtraBold.ttf');
 }
 
-/*----- Login home screen -----*/
-.logobtn {
+/*----- Logo -----*/
+.logo-large {
   display: block;
   margin-right: auto;
   margin-left: auto;
-  margin-top: 20%;
-  border-radius: 100%;
-  background: #3881cc;
-  padding: 20px;
-  width: 150px;
+  background: #47BDFF;
   height: 150px;
+  width: 150px;
+  padding: 20px;
+  border-radius: 50%;
   outline: none;
 }
 
-.logobtn:hover {
+.logo-medium {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  background: #47BDFF;
+  height: 150px;
+  width: 150px;
+  padding: 20px;
+  border-radius: 50%;
+  outline: none;
+}
+
+.logo-small {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  background: #47BDFF;
+  height: 150px;
+  width: 150px;
+  padding: 20px;
+  border-radius: 50%;
+  outline: none;
+}
+
+.logo-hover:hover {
   box-shadow: 0 4px 8px 4px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
