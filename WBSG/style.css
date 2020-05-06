@@ -70,15 +70,9 @@ html, body {
   background-color: rgba(0, 0, 0, 0.6);
 }
 
-.modal-content {
-  background-color: white;
-  position: relative;
-  margin: auto;
-  margin-top: 15%;
-  width: 30%;
-  height: 53%;
-  border-radius: 25px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+@media screen and (max-width: 768px) {
+  html, body {
+      font-size: 12px;
 }
 
 /*----- Modal Header -----*/
