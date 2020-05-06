@@ -55,32 +55,15 @@
   box-shadow: 0 4px 8px 4px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.welcome {
-  font-family: Montserrat-Regular;
-  font-size: 30px;
-  line-height: 1.5;
-  color: white;
-  text-decoration: none;
-  text-align: center;
-  word-break: normal;
-  padding: 10px;
-  margin-left: 20%;
-  margin-right: 20%;
-  background-color: rgb(42, 43, 42);
+/*----- Applies to all -----*/
+* {
+  box-sizing: border-box;
+  margin: 0;
 }
 
-body {
-  background: url('../images/background.jpg') no-repeat center center fixed;
-  background-size: cover;
-}
-
-/*----- Pop up login screen -----*/
-.modal {
-  display: none;
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
+html, body {
+  font-family: 'Raleway', sans-serif;
+  font-size: 16px;
   height: 100%;
   z-index: 1;
   overflow: auto;
@@ -107,14 +90,26 @@ body {
   padding-top: 20px;
 }
 
-.closebtn {
-  width: 25px;
-  height: 25px;
-  right: 10px;
-  top: 10px;
-  position: absolute;
-  filter: contrast(50%);
+.user-input {
+  display: block;
+  border-radius: 25px;
+  background: rgba(41, 38, 38, 0.04);
+  height: 50px;
+  border: 1px solid transparent;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 75%;
+  padding-left: 60px;
+  text-align: left;
   outline: none;
+
+  font-family: Montserrat-Bold;
+  font-size: 15px;
+  line-height: 1.2;
+  color: 40433f;
+  text-align: left;
+  letter-spacing: 1px;
 }
 
 .closebtn:hover,
