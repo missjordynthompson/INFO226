@@ -21,29 +21,21 @@
           <img alt="Logo" src="images/logo.svg" class="logo-large logo-hover">
         </a>
           </div>
-
-          <div class="input-wrapper">
-            <input
-              class="input"
-              type="password"
-              ng-input="password-input"
-              placeholder="Password"
-              name="psw"
-              required
-            />
-            <span class="symbol-input">
-              <i class="fa fa-lock"></i>
-            </span>
+      <div class="login-popup" id="login-popup">
+        <form class="login-popup-content">
+            <img alt="Logo" src="images/logo.svg" class="logo-medium" id="login-popup-logo">
+            <div class="login-popup-text">
+              <h1 id="login-popup-header">Sign in</h1>
           </div>
-        </div>
-
-        <div class="container">
-          <input
-            type="button"
-            value="Login"
-            class="loginbtn"
-            ng-click="login-button"
-          />
+            <a href="#">
+              <i class="fa fa-close login-popup-close"></i>
+            </a>
+            <input type="text" id="login-popup-userinput" class="user-input" placeholder="Username" required>
+            <i class="fa fa-user symbol-input" id="login-popup-user-icon"></i>
+            <input type="password" id="login-popup-passwordinput" class="user-input" placeholder="Password" required>
+            <i class="fa fa-lock symbol-input" id="login-popup-password-icon"></i>
+            <a href="#dashboard" class="login-popup-submit">Login</a>
+        </form>
         </div>
       </form>
     </div>
