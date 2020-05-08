@@ -550,11 +550,7 @@ border: 1px solid rgba(0, 0, 0, 0.18) !important;
 }
 
 .card:nth-child(2) {
-  height: 200px;
-}
-
-.card:nth-child(3) {
-  height: 265px;
+  height: 485px;
 }
 
 /*----- Footer -----*/
