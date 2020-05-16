@@ -218,7 +218,6 @@ transform: rotate(0);
   border-radius: 50%;
   background-color: #40433f;
   z-index: 4;
-  color: #fff;
   text-align: center;
   cursor: pointer;
   text-decoration: none;
@@ -328,7 +327,6 @@ border: 1px solid rgba(0, 0, 0, 0.18) !important;
 
 /*----- Dashboard -----*/
 .grid-container {
-  display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 50px 1fr 50px;
   grid-template-areas:
@@ -336,20 +334,6 @@ border: 1px solid rgba(0, 0, 0, 0.18) !important;
     'main'
     'footer';
   height: 100vh;
-}
-
-.menu-icon {
-  position: fixed; /* Needs to stay visible for all mobile scrolling */
-  display: flex;
-  top: 5px;
-  left: 10px;
-  align-items: center;
-  justify-content: center;
-  background-color: #ffffff;
-  border-radius: 50%;
-  z-index: 1;
-  cursor: pointer;
-  padding: 12px;
 }
 
 .fa {
@@ -529,14 +513,6 @@ border: 1px solid rgba(0, 0, 0, 0.18) !important;
   box-sizing: border-box;
 }
 
-.card:first-child {
-  height: 485px;
-}
-
-.card:nth-child(2) {
-  height: 485px;
-}
-
 /*----- Footer -----*/
 .footer {
   grid-area: footer;
@@ -569,17 +545,9 @@ border: 1px solid rgba(0, 0, 0, 0.18) !important;
       "sidenav footer";
   }
 
-  .header-search {
-    margin-left: 0;
-  }
-
   .sidenav {
     position: relative;
     transform: translateX(0);
-  }
-
-  .sidenav-close-icon {
-    visibility: hidden;
   }
 }
 
