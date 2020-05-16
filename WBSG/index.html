@@ -41,9 +41,6 @@
     </div>
     <!-- Dashboard Screen -->
     <div class="grid-container" id="dashboard">
-      <div class="menu-icon">
-        <i class="fa fa-bars header-menu"></i>
-      </div>
       <header class="header">
         <div class="header-title" href="#home">WBSG</div>
         <div class="header-right">
@@ -51,34 +48,34 @@
             <a class="active" href="#home">Home</a>
             <a href="#assgn">Assignments</a>
             <a href="#coursedir">Course Directory</a>
-        </div>
+          </div>
           <div class="header-dropdown">
             <i class="fa fa-user-circle header-user-image"></i>
             <span class="header-user-name">{{User Name}}<i class="fa fa-angle-down"></i></span>
             <div class="header-dropdown-userlogout">
               <a href="#logout">Logout</a>
             </div>
-        </div>
+          </div>
         </div>
       </header>
 
       <main class="main">
         <div id="home" class="home-container">
-        <div class="main-header">
+          <div class="main-header">
             <div class="main-header-heading">Hello, {{ User }}</div>
-          <div class="main-header-updates">Dashboard</div>
-        </div>
-        <div class="main-overview">
-          <div class="overviewcard">
-            <div class="overviewcard-info">Your saved courses and assignments</div>
+            <div class="main-header-updates">Dashboard</div>
           </div>
-        </div>
-        <div class="main-cards">
-          <div class="card">Courses
-            Maybe have a + button at the top of this card for the user to add new courses to their directory 
-            (just leads them to the course directory page)
-            Has buttons on the side of each course for the user to delete course
+          <div class="main-overview">
+            <div class="overviewcard">
+              <div class="overviewcard-info">Your saved courses and assignments</div>
+            </div>
           </div>
+          <div class="main-cards">
+            <div class="card">Courses
+              Maybe have a + button at the top of this card for the user to add new courses to their directory 
+              (just leads them to the course directory page)
+              Has buttons on the side of each course for the user to delete course
+            </div>
           </div>
         </div>
         <div id="assgn" class="assignment-container">
