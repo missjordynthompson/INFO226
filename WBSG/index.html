@@ -45,10 +45,12 @@
         <i class="fa fa-bars header-menu"></i>
       </div>
       <header class="header">
-        <div class="header-search">
-          <!-- user should be able to search up all assignments and courses -->
-          <input type="search" class="header-search-input" placeholder="Search">
-          <i class="fa fa-search header-search-icon"></i>
+        <div class="header-title" href="#home">WBSG</div>
+        <div class="header-right">
+          <div class="header-menu">
+            <a class="active" href="#home">Home</a>
+            <a href="#assgn">Assignments</a>
+            <a href="#coursedir">Course Directory</a>
         </div>
         <div class="header-title">WBSG</div>
         <div class="header-user">
@@ -56,25 +58,13 @@
           <i class="fa fa-user header-user-image"></i>
           <!-- <div class="header-user-name">User Name</div> -->
         </div>
-      </header>
-      <aside class="sidenav">
-        <div class="sidenav-close-icon">
-          <i class="fa fa-close sidenav-brand-close"></i>
         </div>
-        <img class="sidenav-logo-icon logo-small" src="images/logo.svg">
-        <div class="header-title">WBSG</div>
-        <ul class="sidenav-list">
-          <!-- leads back to the home page of the dashboard with all courses the user has saved -->
-          <li class="sidenav-list-item">My Courses</li>
-          <!-- is able to get all of the assignments the user has for all courses)-->
-          <li class="sidenav-list-item">My Assigments</li>  
-          <!-- leads to the course directory of all courses -->
-          <li class="sidenav-list-item">Course Directory</li>
-        </ul>
-      </aside>
+      </header>
+
       <main class="main">
+        <div id="home" class="home-container">
         <div class="main-header">
-          <div class="main-header-heading">Hello, User</div>
+            <div class="main-header-heading">Hello, {{ User }}</div>
           <div class="main-header-updates">Dashboard</div>
         </div>
         <div class="main-overview">
@@ -88,8 +78,28 @@
             (just leads them to the course directory page)
             Has buttons on the side of each course for the user to delete course
           </div>
-          <div class="card">Assignments for that course
-            Has buttons on the side of each assignment for the user to mark assignment complete
+          </div>
+        </div>
+        <div id="assgn" class="assignment-container">
+          <div class="main-overview">
+            <div class="overviewcard">
+              <div class="overviewcard-info">All assignments in your courses</div>
+            </div>
+          </div>
+          <div class="main-cards">
+            <div class="card">blah blah blah
+            </div>
+          </div>
+        </div>
+        <div id="coursedir" class="coursedir-container">
+          <div class="main-overview">
+            <div class="overviewcard">
+              <div class="overviewcard-info">Course Directory</div>
+            </div>
+          </div>
+          <div class="main-cards">
+            <div class="card">blah blah blah
+            </div>
           </div>
         </div>
       </main>
