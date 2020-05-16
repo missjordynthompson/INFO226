@@ -225,6 +225,10 @@ transform: rotate(0);
   opacity: 0.9;
 }
 
+.fa-close:before {
+  color: white;
+}
+
 .login-popup-close:hover,
 .login-popup-close:focus {
   cursor: pointer;
