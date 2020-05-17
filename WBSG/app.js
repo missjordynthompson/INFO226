@@ -19,13 +19,14 @@ app.controller('MainCtrl', ['$scope', '$http', function ($scope, $http, $filter)
 	
 	//Simple credential check function
 	$scope.checkCred = function () {
+		alert("HI");
 		if ($scope.userInp != null && $scope.userPwd != null) {
 			if (sampleCredentials.has($scope.userInp)) {
 				if ($scope.userPwd == sampleCredentials.get($scope.userInp)) {
 					$scope.showLogin = false;
 					$scope.showDashboard = true;
 				} else {
-					alert ("User name or Password is invalid");
+					alert ("Username or Password is invalid");
 				}
 			} else {
 				alert("Username or Password is invalid");

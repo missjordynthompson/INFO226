@@ -541,7 +541,7 @@ button.dropdown:hover, button.dropdown.is-open {
   display: grid;
   column-gap: 20px;
   margin: 20px;
-  height: 510px;
+  height: 700px;
 }
 
 .card {
