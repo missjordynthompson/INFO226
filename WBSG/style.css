@@ -98,6 +98,8 @@ html, body {
 /*----- Login Page ------*/
 .login-container {
   background: url("images/background.jpg") no-repeat center center fixed;
+  background-color: rgba(255, 255, 255, 0.6);
+  background-blend-mode: lighten;
   background-size: cover;
   display: flex;
   align-items: center;
@@ -437,6 +439,47 @@ border: 1px solid rgba(0, 0, 0, 0.18) !important;
 .header-user-name {
   padding-left: 5px;
 }
+
+/*----- Courses Dropdown style starts -----*/
+button.dropdown {
+	width: 100%;
+	background-color: whitesmoke;
+	border: none;
+	outline: none;
+	text-align: center;
+	padding: 15px 20px;
+	font-size: 18px;
+	color: #444;
+	cursor: pointer;
+	transition: background-color 0.2s linear;
+}
+
+button.dropdown:after {
+	content: '\f055';
+	font-family: Montserrat;
+	font-size: 14px;
+	float: right;
+}
+
+button.dropdown.is-open:after {
+	content: '\f056';
+}
+
+button.dropdown:hover, button.dropdown.is-open {
+	background-color: #ddd;
+}
+
+.courses {
+	background-color: white;
+	border-left: 1px solid whitesmoke;
+	border-right: 1px solid whitesmoke;
+	padding: 0 20px;
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height 0.2s ease-in-out;
+}
+/*----- Courses Dropdown style ends -----*/
+
 
 /*----- Main -----*/
 .main {

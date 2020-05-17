@@ -12,7 +12,7 @@
 
   <body ng-controller="MainCtrl">
     <!-- Login Screen -->
-    <div class="login-container" id="logout">
+    <div class="login-container" id="logout" ng-show=showLogin>
       <div class="login-welcome">
         <div class="login-welcome-text">
           <h1 id="login-welcome-header">Welcome to the Course Assignment App Board</h1>
@@ -22,6 +22,8 @@
           <img alt="Logo" src="images/logo.svg" class="logo-large logo-hover">
         </a>
       </div>
+
+	  <!--Login Popup-->
       <div class="login-popup" id="login-popup">
         <form class="login-popup-content">
             <img alt="Logo" src="images/logo.svg" class="logo-medium" id="login-popup-logo">
@@ -31,16 +33,21 @@
             <a href="#">
               <i class="fa fa-close login-popup-close"></i>
             </a>
-            <input type="text" id="login-popup-userinput" class="user-input" placeholder="Username" required>
+            <input type="text" id="login-popup-userinput" class="user-input" ng-model="userInp" placeholder="Username" required>
             <i class="fa fa-user symbol-input" id="login-popup-user-icon"></i>
-            <input type="password" id="login-popup-passwordinput" class="user-input" placeholder="Password" required>
+            <input type="password" id="login-popup-passwordinput" class="user-input" ng-model="userPwd" placeholder="Password" required>
             <i class="fa fa-lock symbol-input" id="login-popup-password-icon"></i>
-            <a href="#dashboard" class="login-popup-submit">Login</a>
+            <!--<a href="#dashboard" class="login-popup-submit">Login</a>-->
+			<input type="submit" class="login-popup-submit" ng-click=checkCred() value="Login">
+			<p ng-bind="feedback"></p>
         </form>
       </div>  
+	  <!--Login Popup ends-->
     </div>
+	<!--Login Screen ends-->
+
     <!-- Dashboard Screen -->
-    <div class="grid-container" id="dashboard">
+    <div class="grid-container" id="dashboard" ng-show=showDashboard>
       <header class="header">
         <div class="header-title" href="#home">WBSG</div>
         <div class="header-right">
@@ -75,6 +82,68 @@
               Maybe have a + button at the top of this card for the user to add new courses to their directory 
               (just leads them to the course directory page)
               Has buttons on the side of each course for the user to delete course
+			  
+				<!--Course content starts-->
+				<h1> Courses </h1>
+				<button class="dropdown">SWEN 325</button>
+				<div class="courses">
+					<p>
+					<br><b>Assignment 1</b></br>
+					</p>
+					<p>
+					<br><b>Assignment 2</b></br>
+					</p>
+					<p>
+					<br><b>Final Project</b></br>
+					<br></br>
+					</p>
+				</div>
+
+				<button class="dropdown">SWEN 304</button> 
+				<div class="courses">
+					<p>
+					<br><b>Assignment 1</b></br>
+					</p>
+					<p>
+					<br><b>Project 1</b></br>
+					</p>
+					<p>
+					<br><b>Assignment 2</b></br>
+					<br></br>
+					</p>
+				</div>
+
+				<button class="dropdown">CYBR 371</button>
+				<div class="courses">
+					<p>
+					<br><b>Assignment 1</b></br>
+					</p>
+					<p>
+					<br><b>Assignment 2</b></br>
+					</p>
+					<p>
+					<br><b>Assignment 3</b></br>
+					<br></br>
+					</p>
+				</div>
+
+				<button class="dropdown">NWEN 301</button>
+				<div class="courses">
+					<p>
+					<br><b>Assignment 1</b></br>
+					</p>
+					<p>
+					<br><b>Project 1</b></br>
+					</p>
+					<p>
+					<br><b>Assignment 2</b></br>
+					<p>
+					<br><b>Project 2</b></br>
+					<br></br>
+					</p>
+				</div>
+				<!--Course content ends-->
+
             </div>
           </div>
         </div>
