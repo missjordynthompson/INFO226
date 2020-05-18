@@ -306,17 +306,17 @@ transform: rotate(0);
   padding-top: 10px;
 }
 
-#login-popup-header {
-  position: absolute;
-  top: 40%;
-  right: 10px;
-  left: 10px;
-}
-
 #login-popup-logo {
   position: absolute;
   top: 2rem;
   margin: 0 auto;
+  right: 10px;
+  left: 10px;
+}
+
+#login-popup-header {
+  position: absolute;
+  top: 38%;
   right: 10px;
   left: 10px;
 }
