@@ -73,4 +73,16 @@ app.controller('MainCtrl', ['$scope', '$http', function ($scope, $http, $filter)
 		header.classList.remove("sticky");
 	}
 	}
+	// Accordion in My Courses Section
+	for (var i = 0; i < 4; i++) {
+		$scope["accordion" + i] = false;
+	}
+
+	$scope.accordionFunction = function(index) {
+		if ($scope["accordion" + index] === true) {
+			$scope["accordion" + index] = false;
+		} else {
+			$scope["accordion" + index] = true;
+		}
+	}
 }]);
