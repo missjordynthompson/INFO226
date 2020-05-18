@@ -314,7 +314,17 @@ transform: rotate(0);
   left: 10px;
 }
 
-#login-popup-header {
+
+#invalid-login-popup {
+	position: absolute;
+	top: 75%;
+	right: 20px;
+	left: 20px;
+	font-size: 17px;
+}
+
+#login-popup-logo {
+
   position: absolute;
   top: 38%;
   right: 10px;
@@ -683,6 +693,19 @@ transform: rotate(0);
   border-top: 1px solid black;
   width: calc(100% + 20px);
   background-color: #ebebeb;
+}
+
+/*Changing tick color */
+#tick-button {
+	width: 28px;
+	height: 28px;
+	color: #47BDFF
+}
+
+#tick-button-clicked {
+	width: 28px;
+	height: 28px;
+	color: #32CD32
 }
 
 /*----- Add new -----*/
