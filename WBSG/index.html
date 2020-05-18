@@ -1,309 +1,316 @@
 <!DOCTYPE html>
 <html ng-app="plunker">
-  <head>
-    <title>WBSG</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="icon" type="image/png" href="images/logo.svg" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">    <script data-require="angular.js@1.4.x" src="https://code.angularjs.org/1.4.12/angular.js" data-semver="1.4.9"></script>
-    <script src="app.js"></script>
-  </head>
+	<head>
+		<title>WBSG</title>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="style.css" />
+		<link rel="icon" type="image/png" href="images/logo.svg" />
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">    <script data-require="angular.js@1.4.x" src="https://code.angularjs.org/1.4.12/angular.js" data-semver="1.4.9"></script>
+		<script src="app.js"></script>
+	</head>
 
-  <body ng-controller="MainCtrl">
-    <!-- Login Screen -->
-    <div class="login-container" id="logout" ng-show=showLogin>
-      <div class="login-welcome">
-        <div class="login-welcome-text clr-darkgrey center">
-          <h1 id="login-welcome-header">Welcome to the Course Assignment App Board</h1>
-          <p id="login-welcome-header2">If you have a Wellington School of Business and Government (WBSG) login, please login using login link</p>
-        </div>
-        <a href="#loginPopup">
-          <img alt="Logo" src="images/logo.svg" class="logo-large center logo-hover">
-        </a>
-      </div>
+	<body ng-controller="MainCtrl">
+		<!-- Login Screen -->
+		<div class="login-container" id="logout" ng-show=showLogin>
+			<div class="login-welcome">
+				<div class="login-welcome-text clr-darkgrey center">
+					<h1 id="login-welcome-header">Welcome to the Course Assignment App Board</h1>
+					<p id="login-welcome-header2">If you have a Wellington School of Business and Government (WBSG) login, please login using login link</p>
+				</div>
+				<a href="#loginPopup">
+					<img alt="Logo" src="images/logo.svg" class="logo-large center logo-hover">
+				</a>
+			</div>
 
-	    <!-- Login Popup -->
-      <div class="popup-transition overlay" id="loginPopup">
-        <form class="popup-content center">
-            <img alt="Logo" src="images/logo.svg" class="logo-medium center" id="login-popup-logo">
-            <div class="popup-text">
-              <h1 id="login-popup-header">Sign in</h1>
-            </div>
-            <a href="#"><i class="fa fa-times-circle clr-grey fa-2x popup-close"></i></a>
-            
-            <input type="text" id="login-popup-userinput" class="login-input user-input clr-darkgrey" ng-model="userInp" placeholder="Username" autocomplete="off" required>
-            <i class="fa fa-user symbol-input clr-lightgrey" id="login-popup-user-icon"></i>
-            
-            <input type="password" id="login-popup-passwordinput" class="login-input user-input clr-darkgrey" ng-model="userPwd" placeholder="Password" required>
-            <i class="fa fa-lock symbol-input clr-lightgrey" id="login-popup-password-icon"></i>
-            
-            <input type="submit" id="login-submit" class="popup-submit bkgclr-darkgrey" ng-click=checkCred() value="Login">
-			      <p ng-bind="feedback"></p>
-        </form>
-      </div>  
-    </div>
+			<!-- Login Popup -->
+			<div class="popup-transition overlay" id="loginPopup">
+				<form class="popup-content center">
+					<img alt="Logo" src="images/logo.svg" class="logo-medium center" id="login-popup-logo">
+					<div class="popup-text">
+						<h1 id="login-popup-header">Sign in</h1>
+						<div id="invalid-login-popup" ng-if="invalidCredentials"> Username or Password is Invalid </div>
+					</div>
+					<a href="#"><i class="fa fa-times-circle clr-grey fa-2x popup-close"></i></a>
 
-    <!-- <div id="overlay" onclick="transitionOff()">
-      <i class="fa fa-spinner fa-pulse"></i>
-    </div> -->
+					<input type="text" id="login-popup-userinput" class="login-input user-input clr-darkgrey" ng-model="userInp" placeholder="Username" autocomplete="off" required>
+					<i class="fa fa-user symbol-input clr-lightgrey" id="login-popup-user-icon"></i>
 
-    <!-- Dashboard Screen -->
-    <div class="grid-container" id="dashboard" ng-show=showDashboard>
-      <header class="header" id="myHeader">
-        <div class="header-title" href="#home">WBSG</div>
-        <div class="header-right">
-          <div class="header-menu">
-            <a href="#home">Home</a>
-            <a href="#assgn">Assignments</a>
-            <a href="#coursedir">Course Directory</a>
-          </div>
-          <div class="header-dropdown clr-grey">
-            <i class="fa fa-user-circle header-user-image fa-2x"></i><span class="header-user-name">{{userInp}}</span><i class="fa fa-angle-down header-user-down"></i>
-            <div class="header-dropdown-userlogout">
-              <a href="#logout">Logout</a>
-            </div>
-          </div>
-        </div>
-      </header>
+					<input type="password" id="login-popup-passwordinput" class="login-input user-input clr-darkgrey" ng-model="userPwd" placeholder="Password" required>
+					<i class="fa fa-lock symbol-input clr-lightgrey" id="login-popup-password-icon"></i>
 
-      <main class="main">
-        <!-- HOME SECTION -->
-        <div id="home" class="section-container">
-          <div class="main-header" id="mainHeader">
-            <div class="main-header-heading clr-grey">Hello, {{userInp}}</div>
-            <div class="main-header-updates">Dashboard</div>
-          </div>
-          <div class="main-overview">
-            <div class="overviewcard">
-              <div class="overviewcard-info">Your saved courses and assignments</div>
-            </div>
-          </div>
-          <div class="main-cards">
-            <div class="card">
-              <div id="grid-container-courses" ng-repeat="courses in coursedata | limitTo:4">
-                <button class="grid-item1 grid-item clr-grey grid-item-header trans-button" ng-click="accordionFunction($index)">
-                  <li>{{courses.ID}}</li>
-                  <li class="line" style="list-style: none; border-bottom: 4px solid #faa21b; width: 180px;"></li>
-                </button>
-                <button class="grid-item2 grid-item clr-grey trans-button" ng-click="accordionFunction($index)">
-                  <li>{{courses.Year}}</li>
-                </button>
-                <div class="grid-icons grid-item clr-grey">
-                  <span class="fa-stack" > <!--LECTURER VIEW ONLY-->
-                    <button class="fa fa-circle fa-2x trans-button" style="width: 28px; height: 28px; color: #faa21b"></button>
-                    <i class="fa fa-pen fa-stack-1x fa-inverse" style="padding-right: 6px"></i>
-                  </span>
-                  <button class="fa fa-minus-circle fa-2x trans-button" style="width: 28px; height: 28px; color: #40433f"></i>
-                </div>
-                <button class="grid-item4 grid-item clr-grey trans-button" ng-click="accordionFunction($index)">
-                  <li>{{courses.Name}}</li>
-                  <li>{{courses.Overview}}</li>
-                </button>
-                <button class="grid-item5 grid-item clr-grey trans-button" ng-click="accordionFunction($index)">
-                  <li>Trimester {{courses.Trimester}}</li>
-                  <li>Lecture Times: {{courses.LectureTimes}}</li>
-                  <li>Lecture ID: {{courses.LecturerID}}</li>
-                </button>
-                <div class="grid-item6" ng-show="accordion{{$index}}">
-                  <div id="grid-container-courses-assignments" ng-repeat="assignments in assignmentdata">
-                    <div class="grid-item1 grid-item clr-grey grid-item-header">
-                      <li>{{assignments.CourseID}}</li>
-                      <li style="font-weight: bold;">Assignment {{assignments.ID}}</li>
-                      <li class="line" style="list-style: none; border-bottom: 4px solid #faa21b; width: 180px;"></li>
-                    </div>
-                    <div class="grid-item2 grid-item clr-grey">
-                      <li>{{assignments.DueDate}}</li>
-                    </div>
-                    <div class="grid-icons grid-item clr-grey">
-                      <!--STUDENT VIEW ONLY-->
-                      <span class="fa-stack tooltip" >
-                        <button class="far fa-check-circle fa-2x trans-button" style="width: 28px; height: 28px; color: #47BDFF"></button>
-                        <!-- WHEN CLICKED BUTTON TURNS GREEN-->
-                        <!-- <span class="tooltiptext">Mark Assignment</span> -->
-                      </span>
-                      <!--LECTURER VIEW ONLY-->
-                      <button class="fa fa-minus-circle fa-2x trans-button" style="width: 28px; height: 28px; color: #40433f"></i>
-                      </div>
-                    <div class="grid-item4 grid-item clr-grey">
-                      <li>{{assignments.Name}}</li>
-                      <li>{{assignments.Overview}}</li>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-           <!-- TO ADD ANOTHER COURSE -->
-          <a href="#coursedir" class="plus-icon fa fa-plus-circle fa-4x" style="color: #47BDFF; text-decoration: none;"></a>
-        </div>
-        
-        <!-- ASSIGNMENT SECTION -->
-        <div id="assgn" class="section-container">
-          <div class="main-overview">
-            <div class="overviewcard">
-              <div class="overviewcard-info">All assignments in your courses</div>
-            </div>
-          </div>
-          <div class="main-cards">
-            <div class="card">
-              <div id="grid-container-assignments" ng-repeat="assignments in assignmentdata">
-                  <div class="grid-item1 grid-item clr-grey grid-item-header">
-                      <li>{{assignments.CourseID}}</li>
-                      <li style="font-weight: bold;">Assignment {{assignments.ID}}</li>
-                      <li class="line" style="list-style: none; border-bottom: 4px solid #faa21b; width: 180px;"></li>
-                  </div>
-                  <div class="grid-item2 grid-item clr-grey">
-                    <li>{{assignments.DueDate}}</li>
-                  </div>
-                  <div class="grid-icons grid-item clr-grey">
-                  <!--STUDENT VIEW ONLY-->
-                  <span class="fa-stack tooltip" >
-                    <button class="far fa-check-circle fa-2x trans-button" style="width: 28px; height: 28px; color: #47BDFF"></button>
-                    <!-- WHEN CLICKED BUTTON TURNS GREEN-->
-                    <!-- <span class="tooltiptext">Mark Assignment</span> -->
-                  </span>
-                  <!--LECTURER VIEW ONLY-->
-                  <button class="fa fa-minus-circle fa-2x trans-button" style="width: 28px; height: 28px; color: #40433f"></i>
-                  </div>
-                  <div class="grid-item4 grid-item clr-grey">
-                    <li>{{assignments.Name}}</li>
-                    <li>{{assignments.Overview}}</li>
-                  </div>
-              </div>
-            </div>
-          </div>
-          <!-- TO ADD ANOTHER ASSIGNMENT -->
-          <a href="#addAssgn" class="plus-icon trans-button fa fa-plus-circle fa-4x" style="color: #47BDFF; text-decoration: none;"></a>
-          <div class="popup-transition overlay" id="addAssgn">
-            <form class="popup-content center" style="max-width: 600px; max-height: 585px; height: 585px;">
-              <a href="#"><i class="fa fa-times-circle clr-grey fa-2x popup-close"></i></a>
-              
-              <div id="newassgn-grid">
-                <div class="newassgn-input1">
-                  <div class="popup-text">
-                    <h1 class="popup-header">Add Assignment</h1>
-                  </div>
-                </div>
-                <div class="newassgn-input3"> 
-                  <li><input type="text" class="user-input new-input clr-darkgrey" placeholder="Course ID" autocomplete="off" style="float: right;" required></li>
-                </div>
-                <div class="newassgn-input4">
-                  <li><input type="number" class="user-input new-input clr-darkgrey" placeholder="Assignment ID" autocomplete="off" style="float: left;" required></li>
-                </div>
-                <div class="newassgn-input5">
-                  <li><input type="text" class="user-input new-input clr-darkgrey center" placeholder="Assignment Name" autocomplete="off" required></li>
-                </div>
-                <div class="newassgn-input7" >
-                  <textarea class="new-input-textarea user-input" rows="3" cols="80" placeholder="Overview" autocomplete="off" required></textarea>
-                </div>
-                <div class="newassgn-input9">
-                  <li class="new-input-header-text">Due Date</li>
-                </div>
-                <div class="newassgn-input10">
-                  <li class="new-input-text" style="padding-left: calc(100% - 239px + 20px);">Date</li>
-                  <li><input type="date" class="user-input new-input clr-darkgrey" placeholder="Date" autocomplete="off" style="float: right;" required></li>
-                </div>
-                <div class="newassgn-input11">
-                  <li class="new-input-text" style="text-align: left; padding-left: 20px;">Time</li>
-                  <li><input type="time" class="user-input new-input clr-darkgrey" placeholder="Time" autocomplete="off" style="float: left;" required></li>
-                </div>
-                <div class="newassgn-input12">
-                  <li><input type="submit" class="popup-submit bkgclr-darkgrey center" value="Submit" style="position: relative; margin-top: 10px;"></li>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-        
-        <!-- COURSE DIRECTORY SECTION -->
-        <div id="coursedir" class="section-container">
-          <div class="main-overview">
-            <div class="overviewcard">
-              <div class="overviewcard-info">Course Directory</div>
-            </div>
-          </div>
-          <div class="main-cards">
-            <div class="card">
-              <div id="grid-container-coursedir" ng-repeat="courses in coursedata">
-                  <div class="grid-item1 grid-item clr-grey grid-item-header">
-                    <li>{{courses.ID}}</li>
-                    <li class="line" style="list-style: none; border-bottom: 4px solid #faa21b; width: 180px;"></li>
-                  </div>
-                  <div class="grid-item2 grid-item clr-grey">
-                    <li>{{courses.Year}}</li>
-                  </div>
-                <div class="grid-icons grid-item clr-grey">
-                  <!--LECTURER VIEW ONLY-->
-                  <span class="fa-stack" >
-                    <button class="fa fa-circle fa-2x trans-button" style="width: 28px; height: 28px; color: #faa21b"></button>
-                    <i class="fa fa-pen fa-stack-1x fa-inverse" style="padding-right: 6px"></i>
-                  </span>
-                  <button class="fa fa-minus-circle fa-2x trans-button" style="color:#40433f"></i>
-                </div>
-                  <div class="grid-item4 grid-item clr-grey">
-                    <li>{{courses.Name}}</li>
-                    <li>{{courses.Overview}}</li>
-                  </div>
-                  <div class="grid-item5 grid-item clr-grey">
-                    <li>Trimester {{courses.Trimester}}</li>
-                    <li>Lecture Times: {{courses.LectureTimes}}</li>
-                    <li>Lecture ID: {{courses.LecturerID}}</li>
-                  </div>
-              </div>
-            </div>
-          </div>
-          <!-- TO ADD ANOTHER COURSE -->
-          <a href="#addCourse" class="plus-icon trans-button fa fa-plus-circle fa-4x" style="color: #47BDFF; text-decoration: none;"></a>
-          <div class="popup-transition overlay" id="addCourse">
-            <form class="popup-content center" style="max-width: 600px; max-height: 605px; height: 605px;">
-              <a href="#"><i class="fa fa-times-circle clr-grey fa-2x popup-close"></i></a>
-              
-              <div id="newcourse-grid">
-                <div class="newcourse-input1">
-                  <div class="popup-text">
-                    <h1 class="popup-header">Add Course</h1>
-                  </div>
-                </div>
-                <div class="newcourse-input3"> 
-                  <li><input type="text" class="user-input new-input clr-darkgrey" placeholder="Course ID" autocomplete="off" style="float: right;" required></li>
-                </div>
-                <div class="newcourse-input4">
-                  <li><input type="text" class="user-input new-input clr-darkgrey" placeholder="Course Name" autocomplete="off" style="float: left;" required></li>
-                </div>
-                <div class="newcourse-input5" >
-                  <textarea class="new-input-textarea user-input" rows="3" cols="80" placeholder="Overview" autocomplete="off" required></textarea>
-                </div>
-                <div class="newcourse-input7">
-                  <li class="new-input-text" style="padding-left: calc(100% - 239px + 20px);">Year</li>
-                  <li><input type="number" class="user-input new-input clr-darkgrey" placeholder="Year" autocomplete="off" style="float: right;" required></li>
-                </div>
-                <div class="newcourse-input8">
-                  <li class="new-input-text" style="text-align: left; padding-left: 20px;">Trimester</li>
-                  <li><input type="number" class="user-input new-input clr-darkgrey" placeholder="Trimester" autocomplete="off" style="float: left;" required></li>
-                </div>
-                <div class="newcourse-input9">
-                  <li class="new-input-header-text" style="margin-top: 20px;">Lecture Times</li>
-                </div>
-                <div class="newcourse-input11">
-                  <li class="new-input-text" style="padding-left: calc(100% - 239px + 20px);">Day</li>
-                  <li><input type="text" class="user-input new-input clr-darkgrey" placeholder="Day" autocomplete="off" style="float: right;" required></li>
-                </div>
-                <div class="newcourse-input12">
-                  <li class="new-input-text" style="text-align: left; padding-left: 20px;">Time</li>
-                  <li><input type="time" class="user-input new-input clr-darkgrey" placeholder="Time" autocomplete="off" style="float: left;" required></li>
-                </div>
-                <div class="newcourse-input13">
-                  <li><input type="submit" class="popup-submit bkgclr-darkgrey center" value="Submit" style="position: relative; margin-top: 10px;"></li>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </main>
-      
-      <footer class="footer">
-        <div class="clr-grey">&copy; 2020 Jordyn Thompson and Jake Mai</div>
-      </footer>
-    </div>
-  </body>
+
+					<input type="submit" id="login-submit" class="popup-submit bkgclr-darkgrey" ng-click=checkCred() value="Login">
+				</form>
+			</div>  
+		</div>
+
+		 <!--<div id="overlay" onclick="transitionOff()">-->
+	  <!--<i class="fa fa-spinner fa-pulse"></i>-->
+	  <!--</div> -->
+
+	  <!-- Dashboard Screen -->
+	  <div class="grid-container" id="dashboard" ng-show=showDashboard>
+		  <!--Top Nav Bar-->
+		  <header class="header" id="myHeader">
+			  <div class="header-title" href="#home">WBSG</div>
+			  <div class="header-right">
+				  <div class="header-menu">
+					  <a href="#home">Home</a>
+					  <a href="#assgn">Assignments</a>
+					  <a href="#coursedir">Course Directory</a>
+				  </div>
+				  <div class="header-dropdown clr-grey">
+					  <i class="fa fa-user-circle header-user-image fa-2x"></i><span class="header-user-name">{{userInp}}</span><i class="fa fa-angle-down header-user-down"></i>
+					  <div class="header-dropdown-userlogout">
+						  <a href="#logout" ng-click="logout()">Logout</a>
+					  </div>
+				  </div>
+			  </div>
+		  </header>
+
+		  <main class="main">
+			  <!-- HOME SECTION: Saved Courses and Assignments -->
+			  <div id="home" class="section-container">
+				  <div class="main-header" id="mainHeader">
+					  <div class="main-header-heading clr-grey">Hello, {{userInp}}</div>
+					  <div class="main-header-updates">Dashboard</div>
+				  </div>
+				  <div class="main-overview">
+					  <div class="overviewcard">
+						  <div class="overviewcard-info">Your saved courses and assignments</div>
+					  </div>
+				  </div>
+					
+				  <!--Main Card-->
+				  <div class="main-cards">
+					  <div class="card">
+
+						  <!--Loop through and display each course and assignments-->
+						  <div id="grid-container-courses" ng-repeat="courses in courseData | limitTo:4">
+							  <button class="grid-item1 grid-item clr-grey grid-item-header trans-button" ng-click="accordionFunction($index)">
+								  <li>{{courses.courseID}}</li>
+								  <li class="line" style="list-style: none; border-bottom: 4px solid #faa21b; width: 180px;"></li>
+							  </button>
+							  <button class="grid-item2 grid-item clr-grey trans-button" ng-click="accordionFunction($index)">
+								  <li>{{courses.yearOffer}}</li>
+							  </button>
+							  <div class="grid-icons grid-item clr-grey">
+								  <span class="fa-stack" > <!--LECTURER VIEW ONLY-->
+									  <button class="fa fa-circle fa-2x trans-button" style="width: 28px; height: 28px; color: #faa21b"></button>
+									  <i class="fa fa-pen fa-stack-1x fa-inverse" style="padding-right: 6px"></i>
+								  </span>
+								  <button class="fa fa-minus-circle fa-2x trans-button" style="width: 28px; height: 28px; color: #40433f"></i>
+							  </div>
+							  <button class="grid-item4 grid-item clr-grey trans-button" ng-click="accordionFunction($index)">
+								  <li>{{courses.courseName}}</li>
+								  <li>{{courses.courseDescription}}</li>
+							  </button>
+							  <button class="grid-item5 grid-item clr-grey trans-button" ng-click="accordionFunction($index)">
+								  <li>Trimester {{courses.availableIn}}</li>
+								  <li>Lecture Times: {{courses.timeSlot}}</li>
+							  </button>
+							  <div class="grid-item6" ng-show="accordion{{$index}}">
+								  <div id="grid-container-courses-assignments" ng-repeat="assignments in assignmentData">
+									  <div class="grid-item1 grid-item clr-grey grid-item-header">
+										  <li>{{assignments.courseID}}</li>
+										  <li style="font-weight: bold;">Assignment {{assignments.assignmentNo}}</li>
+										  <li class="line" style="list-style: none; border-bottom: 4px solid #faa21b; width: 180px;"></li>
+									  </div>
+									  <div class="grid-item2 grid-item clr-grey">
+										  <li>{{assignments.dueDate}}</li>
+									  </div>
+									  <div class="grid-icons grid-item clr-grey">
+										  <!--STUDENT VIEW ONLY-->
+										  <span class="fa-stack tooltip" >
+											  <button class="far fa-check-circle fa-2x trans-button" id="tick-button" ng-click=test()></button>
+											  <!-- WHEN CLICKED BUTTON TURNS GREEN-->
+											   <!--<span class="tooltiptext">Mark Assignment</span> -->
+										  </span>
+										  <!--LECTURER VIEW ONLY-->
+										  <button class="fa fa-minus-circle fa-2x trans-button" style="width: 28px; height: 28px; color: #40433f"></i>
+									  </div>
+									  <div class="grid-item4 grid-item clr-grey">
+										  <li>{{assignments.assignmentTitle}}</li>
+										  <li>{{assignments.assignmentDescription}}</li>
+									  </div>
+								  </div>
+							  </div>
+						  </div>
+					  </div>
+				  </div>
+
+				  <!-- TO ADD ANOTHER COURSE -->
+				  <!--User will be directed to Course Directory to add course-->
+				  <a href="#coursedir" class="plus-icon fa fa-plus-circle fa-4x" style="color: #47BDFF; text-decoration: none;"></a>
+			  </div>
+
+			  <!-- ALL ASSIGNMENT SECTION -->
+			  <div id="assgn" class="section-container">
+				  <div class="main-overview">
+					  <div class="overviewcard">
+						  <div class="overviewcard-info">All assignments in your courses</div>
+					  </div>
+				  </div>
+				  <div class="main-cards">
+					  <div class="card">
+						  <!--Loop through and display all assignments-->
+						  <div id="grid-container-assignments" ng-repeat="assignments in assignmentData">
+							  <div class="grid-item1 grid-item clr-grey grid-item-header">
+								  <li>{{assignments.courseID}}</li>
+								  <li style="font-weight: bold;">Assignment {{assignments.assignmentNo}}</li>
+								  <li class="line" style="list-style: none; border-bottom: 4px solid #faa21b; width: 180px;"></li>
+							  </div>
+							  <div class="grid-item2 grid-item clr-grey">
+								  <li>{{assignments.dueDate}}</li>
+							  </div>
+							  <div class="grid-icons grid-item clr-grey">
+								  <!--STUDENT VIEW ONLY-->
+								  <span class="fa-stack tooltip" >
+									  <button class="far fa-check-circle fa-2x trans-button" style="width: 28px; height: 28px; color: #47BDFF"></button>
+									  <!-- WHEN CLICKED BUTTON TURNS GREEN-->
+									  <!-- <span class="tooltiptext">Mark Assignment</span> -->
+								  </span>
+								  <!--LECTURER VIEW ONLY-->
+								  <button class="fa fa-minus-circle fa-2x trans-button" style="width: 28px; height: 28px; color: #40433f"></i>
+							  </div>
+							  <div class="grid-item4 grid-item clr-grey">
+								  <li>{{assignments.assignmentTitle}}</li>
+								  <li>{{assignments.assignmentDescription}}</li>
+							  </div>
+						  </div>
+					  </div>
+				  </div>
+				  <!-- TO ADD ANOTHER ASSIGNMENT -->
+				  <a href="#addAssgn" class="plus-icon trans-button fa fa-plus-circle fa-4x" style="color: #47BDFF; text-decoration: none;"></a>
+				  <div class="popup-transition overlay" id="addAssgn">
+					  <form class="popup-content center" style="max-width: 600px; max-height: 585px; height: 585px;">
+						  <a href="#"><i class="fa fa-times-circle clr-grey fa-2x popup-close"></i></a>
+
+						  <div id="newassgn-grid">
+							  <div class="newassgn-input1">
+								  <div class="popup-text">
+									  <h1 class="popup-header">Add Assignment</h1>
+								  </div>
+							  </div>
+							  <div class="newassgn-input3"> 
+								  <li><input type="text" id="newass_1" class="user-input new-input clr-darkgrey" placeholder="Course ID" autocomplete="off" style="float: right;" required></li>
+							  </div>
+							  <div class="newassgn-input4">
+								  <li><input type="number" id="newass_2" class="user-input new-input clr-darkgrey" placeholder="Assignment ID" autocomplete="off" style="float: left;" required></li>
+							  </div>
+							  <div class="newassgn-input5">
+								  <li><input type="text" id="newass_3" class="user-input new-input clr-darkgrey center" placeholder="Assignment Name" autocomplete="off" required></li>
+							  </div>
+							  <div class="newassgn-input7" >
+								  <textarea id="newass_4" class="new-input-textarea user-input" rows="3" cols="80" placeholder="Overview" autocomplete="off" required></textarea>
+							  </div>
+							  <div class="newassgn-input9">
+								  <li class="new-input-header-text">Due Date</li>
+							  </div>
+							  <div class="newassgn-input10">
+								  <li class="new-input-text" style="padding-left: calc(100% - 239px + 20px);">Date</li>
+								  <li><input type="date" id="newass_5" class="user-input new-input clr-darkgrey" placeholder="Date" autocomplete="off" style="float: right;" required></li>
+							  </div>
+							  <div class="newassgn-input11">
+								  <li class="new-input-text" style="text-align: left; padding-left: 20px;">Time</li>
+								  <li><input type="time" id="newass_6" class="user-input new-input clr-darkgrey" placeholder="Time" autocomplete="off" style="float: left;" required></li>
+							  </div>
+							  <div class="newassgn-input12">
+								  <li><input type="submit" class="popup-submit bkgclr-darkgrey center" ng-click=addAssignment() value="Submit" style="position: relative; margin-top: 10px;"></li>
+							  </div>
+						  </div>
+					  </form>
+				  </div>
+			  </div>
+
+			  <!-- COURSE DIRECTORY SECTION -->
+			  <div id="coursedir" class="section-container">
+				  <div class="main-overview">
+					  <div class="overviewcard">
+						  <div class="overviewcard-info">Course Directory</div>
+					  </div>
+				  </div>
+				  <div class="main-cards">
+					  <div class="card">
+						  <div id="grid-container-coursedir" ng-repeat="courses in courseData">
+							  <div class="grid-item1 grid-item clr-grey grid-item-header">
+								  <li>{{courses.courseID}}</li>
+								  <li class="line" style="list-style: none; border-bottom: 4px solid #faa21b; width: 180px;"></li>
+							  </div>
+							  <div class="grid-item2 grid-item clr-grey">
+								  <li>{{courses.yearOffer}}</li>
+							  </div>
+							  <div class="grid-icons grid-item clr-grey">
+								  <!--LECTURER VIEW ONLY-->
+								  <span class="fa-stack" >
+									  <button class="fa fa-circle fa-2x trans-button" style="width: 28px; height: 28px; color: #faa21b"></button>
+									  <i class="fa fa-pen fa-stack-1x fa-inverse" style="padding-right: 6px"></i>
+								  </span>
+								  <button class="fa fa-minus-circle fa-2x trans-button" style="color:#40433f"></i>
+							  </div>
+							  <div class="grid-item4 grid-item clr-grey">
+								  <li>{{courses.courseName}}</li>
+								  <li>{{courses.courseDescription}}</li>
+							  </div>
+							  <div class="grid-item5 grid-item clr-grey">
+								  <li>Trimester {{courses.availableIn}}</li>
+								  <li>Lecture Times: {{courses.timeSlot}}</li>
+							  </div>
+						  </div>
+					  </div>
+				  </div>
+				  <!-- TO ADD ANOTHER COURSE -->
+				  <a href="#addCourse" class="plus-icon trans-button fa fa-plus-circle fa-4x" style="color: #47BDFF; text-decoration: none;"></a>
+				  <div class="popup-transition overlay" id="addCourse">
+					  <form class="popup-content center" style="max-width: 600px; max-height: 605px; height: 605px;">
+						  <a href="#"><i class="fa fa-times-circle clr-grey fa-2x popup-close"></i></a>
+
+						  <div id="newcourse-grid">
+							  <div class="newcourse-input1">
+								  <div class="popup-text">
+									  <h1 class="popup-header">Add Course</h1>
+								  </div>
+							  </div>
+							  <div class="newcourse-input3"> 
+								  <li><input type="text" id="newcourse_1" class="user-input new-input clr-darkgrey" placeholder="Course ID" autocomplete="off" style="float: right;" required></li>
+							  </div>
+							  <div class="newcourse-input4">
+								  <li><input type="text" id="newcourse_2" class="user-input new-input clr-darkgrey" placeholder="Course Name" autocomplete="off" style="float: left;" required></li>
+							  </div>
+							  <div class="newcourse-input5" >
+								  <textarea id="newcourse_3" class="new-input-textarea user-input" rows="3" cols="80" placeholder="Overview" autocomplete="off" required></textarea>
+							  </div>
+							  <div class="newcourse-input7">
+								  <li class="new-input-text" style="padding-left: calc(100% - 239px + 20px);">Year</li>
+								  <li><input type="number" id="newcourse_4" class="user-input new-input clr-darkgrey" placeholder="Year" autocomplete="off" style="float: right;" required></li>
+							  </div>
+							  <div class="newcourse-input8">
+								  <li class="new-input-text" style="text-align: left; padding-left: 20px;">Trimester</li>
+								  <li><input type="number" id="newcourse_5" class="user-input new-input clr-darkgrey" placeholder="Trimester" autocomplete="off" style="float: left;" required></li>
+							  </div>
+							  <div class="newcourse-input9">
+								  <li class="new-input-header-text" style="margin-top: 20px;">Lecture Times</li>
+							  </div>
+							  <div class="newcourse-input11">
+								  <li class="new-input-text" style="padding-left: calc(100% - 239px + 20px);">Day</li>
+								  <li><input type="text" id="newcourse_6" class="user-input new-input clr-darkgrey" placeholder="Day" autocomplete="off" style="float: right;" required></li>
+							  </div>
+							  <div class="newcourse-input12">
+								  <li class="new-input-text" style="text-align: left; padding-left: 20px;">Time</li>
+								  <li><input type="time" id="newcourse_7" class="user-input new-input clr-darkgrey" placeholder="Time" autocomplete="off" style="float: left;" required></li>
+							  </div>
+							  <div class="newcourse-input13">
+								  <li><input type="submit" class="popup-submit bkgclr-darkgrey center" ng-click=addCourse() value="Submit" style="position: relative; margin-top: 10px;"></li>
+							  </div>
+						  </div>
+					  </form>
+				  </div>
+			  </div>
+		  </main>
+
+		  <footer class="footer">
+			  <div class="clr-grey">&copy; 2020 Jordyn Thompson and Jake Mai</div>
+		  </footer>
+	  </div>
+	</body>
 </html>
