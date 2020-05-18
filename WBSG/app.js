@@ -15,18 +15,16 @@ app.controller('MainCtrl', ['$scope', '$http', function ($scope, $http, $filter)
 		["jordyn", "1234"],
 		["jesse", "1234"]
     ]);
-    
-	$scope.getcourses = "https://caab.sim.vuw.ac.nz/api/tukukipaul/course_directory.json";
-  	$http.get($scope.getcourses)
-    .then(function successCall(response) {
-      $scope.coursedata = response.data.courses;
-	});
-	
-	$scope.getassignments = "https://caab.sim.vuw.ac.nz/api/tukukipaul/assignment_directory.json";
-  	$http.get($scope.getassignments)
-    .then(function successCall(response) {
-      $scope.assignmentdata = response.data.assignments;
-    });
+
+	$scope.coursedata = [
+		{"ID":"INFO226","Name":"Application Development","Overview":"An introduction to the use of software languages and tools for rapid application development.","Year":2018,"Trimester":"1","LectureTimes":"Thursday 12.40pm","LecturerID":"1"},
+		{"ID":"INFO234","Name":"Business Process Design","Overview":"This course will explore the role and potential of IT to support business process management and design.","Year":2018,"Trimester":"2","LectureTimes":"Wednesday 10.30am","LecturerID":"2"}
+	];
+
+	$scope.assignmentdata = [
+		{"ID":"1","Name":"Assignment 1","Overview":"Build a Web application that allows the management of...","CourseID":"INFO226","DueDate":"2018-08-01T00:00:00"},
+		{"ID":"2","Name":"Assignment 1","Overview":"Create a ","CourseID":"INFO234","DueDate":"2018-08-01T00:00:00"}
+	];
 	
 	//Simple credential check function
 	$scope.checkCred = function () {
