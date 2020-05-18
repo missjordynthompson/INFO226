@@ -44,34 +44,30 @@ app.controller('MainCtrl', ['$scope', '$http', function ($scope, $http, $filter)
 			}
 		}
 	}
-	
-	//Courses Dropdown menu
-	var dropdowns = document.getElementsByClassName("dropdown");
 
-	for (var i = 0; i < dropdowns.length; i++) {
-		dropdowns[i].onclick = function() {
-			this.classList.toggle('is-open');
-
-			var content = this.nextElementSibling;
-			if (content.style.maxHeight) { 	//if expanded, click to minimize
-				content.style.maxHeight = null;
-			} else {
-				content.style.maxHeight = content.scrollHeight + "px"; // if minimized, click to expand
-			}
-		}
-	}
-	
-	/*----- For Nav Bar -----*/
+	// Navigation Bar Scroll
 	window.onscroll = function() { myFunction() };
-
 	var header = document.getElementById("myHeader");
 	var sticky = header.offsetHeight;
 	function myFunction() {
-	if (window.pageYOffset >= sticky) {
-		header.classList.add("sticky");
-	} else {
-		header.classList.remove("sticky");
+		if (window.pageYOffset >= sticky/2) {
+			header.classList.add("sticky");
+		} else {
+			header.classList.remove("sticky");
+		}
 	}
+
+	// Accordion in My Courses Section
+	for (var i = 0; i < 4; i++) {
+		$scope["accordion" + i] = false;
+	}
+
+	$scope.accordionFunction = function(index) {
+		if ($scope["accordion" + index] === true) {
+			$scope["accordion" + index] = false;
+		} else {
+			$scope["accordion" + index] = true;
+		}
 	}
 	// Accordion in My Courses Section
 	for (var i = 0; i < 4; i++) {
