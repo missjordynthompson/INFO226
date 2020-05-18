@@ -76,58 +76,57 @@
           </div>
           <div class="main-cards">
             <div class="card">
-              <div class="grid-container-courses dropdown" ng-repeat="courses in coursedata">
-                <!-- <button class="course-button"> -->
-                  <div class="grid-item1-courses grid-item grid-item-header">
+              <div id="grid-container-courses" ng-repeat="courses in coursedata | limitTo:4">
+                <button class="grid-item1 grid-item clr-grey grid-item-header trans-button" ng-click="accordionFunction($index)">
                     <li>{{courses.ID}}</li>
                     <li class="line" style="list-style: none; border-bottom: 4px solid #faa21b; width: 180px;"></li>
-                  </div>
-                  <div class="grid-item2 grid-item">
+                </button>
+                <button class="grid-item2 grid-item clr-grey trans-button" ng-click="accordionFunction($index)">
                     <li>{{courses.Year}}</li>
-                  </div>
-                <!-- </button> -->
-                <div class="grid-icons grid-item">
+                </button>
+                <div class="grid-icons grid-item clr-grey">
                   <span class="fa-stack" > <!--LECTURER VIEW ONLY-->
-                    <button class="fa fa-circle fa-2x trans-button" style="width: 28px; height: 28px; color: #575756;"></button>
+                    <button class="fa fa-circle fa-2x trans-button" style="width: 28px; height: 28px; color: #faa21b"></button>
                     <i class="fa fa-pen fa-stack-1x fa-inverse" style="padding-right: 6px"></i>
                   </span>
-                  <button class="fa fa-minus-circle fa-2x trans-button" style="width: 28px; height: 28px; color: red;"></i>
+                  <button class="fa fa-minus-circle fa-2x trans-button" style="width: 28px; height: 28px; color: #40433f"></i>
                 </div>
-                <!-- <button class="course-button"> -->
-                  <div class="grid-item4-courses grid-item">
+                <button class="grid-item4 grid-item clr-grey trans-button" ng-click="accordionFunction($index)">
                     <li>{{courses.Name}}</li>
                     <li>{{courses.Overview}}</li>
-                  </div>
-                  <div class="grid-item5-courses grid-item">
+                </button>
+                <button class="grid-item5 grid-item clr-grey trans-button" ng-click="accordionFunction($index)">
                     <li>Trimester {{courses.Trimester}}</li>
                     <li>Lecture Times: {{courses.LectureTimes}}</li>
                     <li>Lecture ID: {{courses.LecturerID}}</li>
-                  </div>
-                <!-- </button> -->
-              </div>
-              
-              <!-- <div class="grid-container-courses-assignments courses" ng-repeat="assignments in courses in saved_courses"> -->
-                  <!-- <div class="grid-item1-assignments grid-item grid-item-header">
+                </button>
+                <div class="grid-item6" ng-show="accordion{{$index}}">
+                  <div id="grid-container-courses-assignments" ng-repeat="assignments in assignmentdata">
+                    <div class="grid-item1 grid-item clr-grey grid-item-header">
                     <li>{{assignments.CourseID}}</li>
-                    <li>Assignment {{assignments.ID}}</li>
+                      <li style="font-weight: bold;">Assignment {{assignments.ID}}</li>
                     <li class="line" style="list-style: none; border-bottom: 4px solid #faa21b; width: 180px;"></li>
                   </div>
-                  <div class="grid-item2 grid-item">
-                    <li>{{courses.DueDate}}</li>
+                    <div class="grid-item2 grid-item clr-grey">
+                      <li>{{assignments.DueDate}}</li>
                   </div>
-                  <div class="grid-icons grid-item"> -->
+                    <div class="grid-icons grid-item clr-grey">
                     <!--STUDENT VIEW ONLY-->
-                    <!-- <span class="fa-stack tooltip" >
-                      <button class="far fa-check-circle fa-2x" style="padding: 0; border: 0; outline: none; width: 28px; height: 28px; color: #575756;"></button>
-                    </span> -->
+                      <span class="fa-stack tooltip" >
+                        <button class="far fa-check-circle fa-2x trans-button" style="width: 28px; height: 28px; color: #47BDFF"></button>
+                        <!-- WHEN CLICKED BUTTON TURNS GREEN-->
+                        <!-- <span class="tooltiptext">Mark Assignment</span> -->
+                      </span>
                     <!--LECTURER VIEW ONLY-->
-                    <!-- <button class="fa fa-minus-circle fa-2x" style="padding: 0; border: 0; outline: none; width: 28px; height: 28px; color: red;"></i> -->
-                  <!-- </div>
-                  <div class="grid-item4-assignments grid-item">
+                      <button class="fa fa-minus-circle fa-2x trans-button" style="width: 28px; height: 28px; color: #40433f"></i>
+                      </div>
+                    <div class="grid-item4 grid-item clr-grey">
                     <li>{{assignments.Name}}</li>
                     <li>{{assignments.Overview}}</li>
-                  </div> -->
-              <!-- </div> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <button class="plus-icon trans-button">
