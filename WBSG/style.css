@@ -130,20 +130,11 @@ html, body {
   font-size: 12px;
 }
 
-.login-welcome-text {
-  background-color: white;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: -10%;
-  padding: 20px;
-  position: relative;
-  display: block;
-  width: 80%;
-  top: 30%;
-  transform: translateY(-50%);
-  color: #40433f;
-  line-height: 1.2;
-  text-align: center;
+.trans-button {
+  outline: none;
+  background-color: transparent;
+  padding: 0; 
+  border: 0; 
 }
 
 .overlay {
@@ -649,9 +640,6 @@ transform: rotate(0);
   text-align: right;
 }
 
-<<<<<<< Updated upstream
-.grid-container-assignments {
-=======
 .grid-item6 {
   margin: 10px -10px -10px -10px;
   grid-column: 1 / span 3;
@@ -669,7 +657,6 @@ transform: rotate(0);
 }
 
 #newassgn-grid {
->>>>>>> Stashed changes
   display: grid;
   grid-gap: 10px;
   width: 100%;
