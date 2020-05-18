@@ -29,7 +29,7 @@
             <div class="popup-text">
               <h1 id="login-popup-header">Sign in</h1>
             </div>
-            <a href="#"><i class="fa fa-times-circle clr-grey fa-2x popup-close"></i></a>
+            <a href="#" class="fa fa-times-circle clr-grey fa-2x popup-close"></a>
             
             <input type="text" id="login-popup-userinput" class="login-input user-input clr-darkgrey" ng-model="userInp" placeholder="Username" autocomplete="off" required>
             <i class="fa fa-user symbol-input clr-lightgrey" id="login-popup-user-icon"></i>
@@ -38,7 +38,7 @@
             <i class="fa fa-lock symbol-input clr-lightgrey" id="login-popup-password-icon"></i>
             
             <input type="submit" id="login-submit" class="popup-submit bkgclr-darkgrey" ng-click=checkCred() value="Login">
-			      <p ng-bind="feedback"></p>
+            <p id="login-input-error" ng-bind="feedback"></p>
         </form>
       </div>  
     </div>

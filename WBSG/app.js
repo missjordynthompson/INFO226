@@ -37,10 +37,14 @@ app.controller('MainCtrl', ['$scope', '$http', function ($scope, $http, $filter)
 					$scope.showLogin = false;
 					$scope.showDashboard = true;
 				} else {
-					alert ("Username or Password is invalid");
+					$scope.feedback = "Incorrect login details";
+					$scope.userInp = null;
+					$scope.userPwd = null;
 				}
 			} else {
-				alert("Username or Password is invalid");
+				$scope.feedback = "Incorrect login details";
+				$scope.userInp = null;
+				$scope.userPwd = null;
 			}
 		}
 	}
