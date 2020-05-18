@@ -137,6 +137,12 @@ html, body {
   border: 0; 
 }
 
+#login-welcome-header {
+  font-family: Montserrat-ExtraBold !important;
+  position: relative;
+  padding-bottom: 10px;
+}
+
 .overlay {
   position: fixed;
   width: 100%;
@@ -594,9 +600,24 @@ transform: rotate(0);
   background-color: #ffffff;
   -webkit-column-break-inside: avoid;
   box-sizing: border-box;
+  border-top: 1px solid black;
 }
 
-.grid-container-courses {
+/*----- Grid for every card in each Section -----*/
+#grid-container-courses, #grid-container-coursedir {
+  display: grid;
+  grid-gap: 10px;
+  width: 100%;
+  grid-template-columns: auto auto 40px;
+  grid-template-rows: 18px 72px 1fr;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  padding: 10px;
+  list-style: none;
+}
+
+#grid-container-assignments, #grid-container-courses-assignments {
   display: grid;
   grid-gap: 10px;
   width: 100%;
@@ -606,15 +627,32 @@ transform: rotate(0);
   list-style: none;
 }
 
-.grid-item {
-  font-size: 14px;
-  font-family: Montserrat-Regular !important;
-  color: #575756;
+#grid-container-assignments {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+#grid-container-courses-assignments {
+  border-top: 1px solid black;
 }
 
 .grid-item-header {
   font-size: 16px;
   font-family: Montserrat-Bold !important;
+}
+
+.grid-item {
+  font-size: 14px;
+  font-family: Montserrat-Regular !important;
+}
+
+.grid-item1, .grid-item4 {
+  text-align: left;
+}
+
+.grid-item2 {
+  text-align: right;
 }
 
 .grid-icons {
@@ -623,19 +661,7 @@ transform: rotate(0);
   padding-left: calc(45px/2 - 28px/2);
 }
 
-.grid-item1-courses {
-  text-align: left;
-}
-
-.grid-item2 {
-  text-align: right;
-}
-
-.grid-item4-courses {
-  text-align: left;
-}
-
-.grid-item5-courses {
+.grid-item5 {
   display: inline;
   text-align: right;
 }
