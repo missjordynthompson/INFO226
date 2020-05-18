@@ -20,6 +20,7 @@ app.controller('MainCtrl', ['$scope', '$http', function ($scope, $http, $filter)
 		["jesse", "1234"]
     ]);
 
+
     
 	// Generate dummy json data
 	$scope.courseData = [
@@ -60,6 +61,7 @@ app.controller('MainCtrl', ['$scope', '$http', function ($scope, $http, $filter)
 		}
 	]
 
+
 	
 	// Simple credential check function
 	$scope.checkCred = function() {
@@ -68,6 +70,7 @@ app.controller('MainCtrl', ['$scope', '$http', function ($scope, $http, $filter)
 				if ($scope.userPwd == sampleCredentials.get($scope.userInp)) {
 					$scope.showLogin = false;
 					$scope.showDashboard = true;
+
 					$scope.invalidCredentials = false;
 
 					// Clear login box once the user logged in
@@ -80,6 +83,7 @@ app.controller('MainCtrl', ['$scope', '$http', function ($scope, $http, $filter)
 			}
 			else {
 				$scope.invalidCredentials = true;
+
 			}
 		}
 	}

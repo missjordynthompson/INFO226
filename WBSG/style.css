@@ -306,12 +306,14 @@ transform: rotate(0);
   padding-top: 10px;
 }
 
-#login-popup-header {
+#login-popup-logo {
   position: absolute;
-  top: 40%;
+  top: 2rem;
+  margin: 0 auto;
   right: 10px;
   left: 10px;
 }
+
 
 #invalid-login-popup {
 	position: absolute;
@@ -322,11 +324,22 @@ transform: rotate(0);
 }
 
 #login-popup-logo {
+
   position: absolute;
-  top: 2rem;
-  margin: 0 auto;
+  top: 38%;
   right: 10px;
   left: 10px;
+}
+
+#login-input-error {
+  position: absolute;
+  top: 44%;
+  text-align: center;
+  font-size: 15px;
+  font-family: Montserrat-Regular !important;
+  color: red;
+  padding-left: calc(450px/2 - 163.19px/2);
+  padding-right: calc(450px/2 - 163.19px/2);
 }
 
 .login-input {
