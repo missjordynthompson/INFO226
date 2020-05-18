@@ -38,9 +38,13 @@ app.controller('MainCtrl', ['$scope', '$http', function ($scope, $http, $filter)
 					$scope.showDashboard = true;
 				} else {
 					$scope.feedback = "Incorrect login details";
+					$scope.userInp = null;
+					$scope.userPwd = null;
 				}
 			} else {
 				$scope.feedback = "Incorrect login details";
+				$scope.userInp = null;
+				$scope.userPwd = null;
 			}
 		}
 	}
