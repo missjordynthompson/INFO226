@@ -32,25 +32,31 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 		{"ID":"2","Name":"Assignment 1","Overview":"Create a ","CourseID":"INFO234","DueDate":"2018-08-01T00:00:00"}
 	];
 	
-	//Simple credential check function
+	// Login Function
 	$scope.checkCred = function () {
-		// alert("HI");
-		if ($scope.userInp != null && $scope.userPwd != null) {
-			if (sampleCredentials.has($scope.userInp)) {
-				if ($scope.userPwd == sampleCredentials.get($scope.userInp)) {
+		if ($scope.username != null && $scope.password != null) {
+			for (var i = 0; i < $scope.userdata.length; i++) {
+				if ($scope.username == $scope.userdata[i].LoginName && $scope.password == $scope.userdata[i].Password) {
+					$scope.invalidCredentials = false;
+					$scope.ID = $scope.userdata[i].ID;
+					
 					$scope.showLogin = false;
 					$scope.showDashboard = true;
-				} else {
-					$scope.feedback = "Incorrect login details";
-					$scope.userInp = null;
-					$scope.userPwd = null;
+
+					if ($scope.userdata[i].UserType == 'student') {
+						$scope.type = 'student';
+					} else if ($scope.userdata[i].UserType == 'lecturer') {
+						$scope.type = 'lecturer';		
 				}
 			} else {
-				$scope.feedback = "Incorrect login details";
-				$scope.userInp = null;
-				$scope.userPwd = null;
+					$scope.invalidCredentials = true;
 			}
 		}
+		} else {
+			$scope.invalidCredentials = true;
+	}
+		document.getElementById("login-popup-userinput").value = "";
+		document.getElementById("login-popup-passwordinput").value = "";
 	}
 
 	// Navigation Bar Scroll
