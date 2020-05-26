@@ -1,7 +1,10 @@
 var app = angular.module('plunker', []);
+
 app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $http, $filter) {
 	$scope.showLogin = true;
 	$scope.showDashboard = false;
+	$scope.studentUser = false;
+	$scope.lecturerUser = false;
 
 	// Get all users
 	$scope.getusers = "https://caab.sim.vuw.ac.nz/api/thompsjord/user_list.json";
@@ -23,6 +26,11 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
     .then(function successCall(response) {
       $scope.assignmentdata = response.data.assignments;
 	});
+
+	$scope.assignmentdata = [
+		{"ID":"1","Name":"Assignment 1","Overview":"Build a Web application that allows the management of...","CourseID":"INFO226","DueDate":"2018-08-01T00:00:00"},
+		{"ID":"2","Name":"Assignment 1","Overview":"Create a ","CourseID":"INFO234","DueDate":"2018-08-01T00:00:00"}
+	];
 	
 	// Login Function
 	$scope.checkCred = function () {
@@ -39,57 +47,16 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 						$scope.type = 'student';
 					} else if ($scope.userdata[i].UserType == 'lecturer') {
 						$scope.type = 'lecturer';		
-				  }
-			  } else {
+				}
+			} else {
 					$scope.invalidCredentials = true;
-			  }
-		  }
+			}
+		}
 		} else {
 			$scope.invalidCredentials = true;
-	  }
+	}
 		document.getElementById("login-popup-userinput").value = "";
 		document.getElementById("login-popup-passwordinput").value = "";
-	}
-
-	//Log out function, bring user to main login screen
-	$scope.logout = function() {
-		$scope.showLogin = true;
-		$scope.showDashboard = false;
-	}
-
-	// Add New Assignments
-	$scope.addAssignment = function() {
-		// Still unsure on how new course will be created? Can we modify the json database?
-		// if yes, then input will be parsed to create a new json object
-		alert ("New assignment Added");
-		document.getElementById("newass_1").value = "";
-		document.getElementById("newass_2").value = "";
-		document.getElementById("newass_3").value = "";
-		document.getElementById("newass_4").value = "";
-		document.getElementById("newass_5").value = "";
-		document.getElementById("newass_6").value = "";
-	}
-
-
-	// Add New Courses
-	$scope.addCourse = function() {
-		// Still unsure on how new course will be created? Can we modify the json database?
-		// if yes, then input will be parsed to create a new json object
-		alert ("New course Added");
-		document.getElementById("newcourse_1").value = "";
-		document.getElementById("newcourse_2").value = "";
-		document.getElementById("newcourse_3").value = "";
-		document.getElementById("newcourse_4").value = "";
-		document.getElementById("newcourse_5").value = "";
-		document.getElementById("newcourse_6").value = "";
-		document.getElementById("newcourse_7").value = "";
-	}
-	
-
-	// Mark assignment as complete - work in progress 
-	$scope.test = function() {
-		console.log("test");
-		document.getElementById("tick-button").id = "tick-button-clicked";
 	}
 
 	// Navigation Bar Scroll
