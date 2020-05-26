@@ -96,17 +96,54 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 			$scope["markedAssgn" + index] = false;
 		}
 	};
-	}
-	// Accordion in My Courses Section
-	for (var i = 0; i < 4; i++) {
-		$scope["accordion" + i] = false;
-	}
 
-	$scope.accordionFunction = function(index) {
-		if ($scope["accordion" + index] === true) {
-			$scope["accordion" + index] = false;
-		} else {
-			$scope["accordion" + index] = true;
+	// Add new assignment
+	$scope.addAssgnForm = true;
+	$scope.addNewAssgn = function() {
+		$scope.addAssgnForm = false;
+		$scope.addedAssgn = true;
+
+		var date = $filter('date')($scope.newAssignmentDueDate1,'yyyy-MM-dd');
+		var time = $filter('date')($scope.newAssignmentDueDate2,'hh:mm:ss');
+		var newAssignmentDueDate = date + "T" + time;
+		var newAssignment = {
+			"ID":$scope.newAssignmentID,
+			"Name":$scope.newAssignmentName,
+			"Overview":$scope.newAssignmentOverview,
+			"CourseID":$scope.newAssignmentCourseID,
+			"DueDate":newAssignmentDueDate,
+	}
+		$scope.assignmentdata.push(newAssignment);
+
+		for (var i = 0; i < $scope.assignmentdata.length; i++) {
+			if ($scope.assignmentdata[i].ID == $scope.newAssignmentID
+				&& $scope.assignmentdata[i].Name == $scope.newAssignmentName
+				&& $scope.assignmentdata[i].Overview == $scope.newAssignmentOverview
+				&& $scope.assignmentdata[i].CourseID == $scope.newAssignmentCourseID
+				&& $scope.assignmentdata[i].DueDate == newAssignmentDueDate){
+				$scope.addAssgnFeedback = "Successfully added new assignment.";
+	}
+		}
+
+		if ($scope.addAssgnFeedback != "Successfully added new assignment.") {
+			$scope.addAssgnFeedback = "Error! Something went wrong :( Try again later.";
+		}
+	};
+
+	// Reset add new assignment form
+	$scope.resetAssgnForm = function() {
+		$scope.addAssgnForm = true;
+		$scope.addedAssgn = false;
+
+		// clear all inputs
+		$scope.newAssignmentID = "";
+		$scope.newAssignmentID = "";
+		$scope.newAssignmentName = "";
+		$scope.newAssignmentOverview = "";
+		$scope.newAssignmentCourseID = "";
+		$scope.newAssignmentDueDate1 = "";
+		$scope.newAssignmentDueDate2 = "";
+	};
 		}
 	}
 }]);
