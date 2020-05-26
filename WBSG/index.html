@@ -91,9 +91,8 @@
                   <li>{{courses.Year}}</li>
                 </button>
                 <div class="grid-icons grid-item clr-grey">
-                  <span class="fa-stack" > <!--LECTURER VIEW ONLY-->
-                    <button class="fa fa-circle fa-2x trans-button" style="width: 28px; height: 28px; color: #faa21b"></button>
-                    <i class="fa fa-pen fa-stack-1x fa-inverse" style="padding-right: 6px"></i>
+					        <!--LECTURER VIEW ONLY-->
+                  <span class="fa-stack" ng-show="type == 'lecturer'">
                   </span>
                   <button class="fa fa-minus-circle fa-2x trans-button" style="width: 28px; height: 28px; color: #40433f"></i>
                 </div>
@@ -118,9 +117,7 @@
                     </div>
                     <div class="grid-icons grid-item clr-grey">
                       <!--STUDENT VIEW ONLY-->
-                      <span class="fa-stack tooltip" >
-                        <button class="far fa-check-circle fa-2x trans-button" style="width: 28px; height: 28px; color: #47BDFF"></button>
-                        <!-- WHEN CLICKED BUTTON TURNS GREEN-->
+                      <span class="hover-button fa-stack tooltip" ng-show="type == 'student'">
                         <!-- <span class="tooltiptext">Mark Assignment</span> -->
                       </span>
                       <!--LECTURER VIEW ONLY-->
@@ -135,6 +132,7 @@
               </div>
             </div>
           </div>
+
            <!-- TO ADD ANOTHER COURSE -->
           <a href="#coursedir" class="plus-icon fa fa-plus-circle fa-4x" style="color: #47BDFF; text-decoration: none;"></a>
         </div>
@@ -159,9 +157,7 @@
                   </div>
                   <div class="grid-icons grid-item clr-grey">
                   <!--STUDENT VIEW ONLY-->
-                  <span class="fa-stack tooltip" >
-                    <button class="far fa-check-circle fa-2x trans-button" style="width: 28px; height: 28px; color: #47BDFF"></button>
-                    <!-- WHEN CLICKED BUTTON TURNS GREEN-->
+                  <span class="fa-stack tooltip" ng-show="type == 'student'">
                     <!-- <span class="tooltiptext">Mark Assignment</span> -->
                   </span>
                   <!--LECTURER VIEW ONLY-->
@@ -175,7 +171,7 @@
             </div>
           </div>
           <!-- TO ADD ANOTHER ASSIGNMENT -->
-          <a href="#addAssgn" class="plus-icon trans-button fa fa-plus-circle fa-4x" style="color: #47BDFF; text-decoration: none;"></a>
+          <a href="#addAssgn" ng-show="type == 'lecturer'" ng-click="resetAssgnForm()" class="plus-icon trans-button fa fa-plus-circle fa-4x" style="color: #47BDFF; text-decoration: none;"></a>
           <div class="popup-transition overlay" id="addAssgn">
             <form class="popup-content center" style="max-width: 600px; max-height: 585px; height: 585px;">
               <a href="#"><i class="fa fa-times-circle clr-grey fa-2x popup-close"></i></a>
@@ -241,7 +237,7 @@
                     <button class="fa fa-circle fa-2x trans-button" style="width: 28px; height: 28px; color: #faa21b"></button>
                     <i class="fa fa-pen fa-stack-1x fa-inverse" style="padding-right: 6px"></i>
                   </span>
-                  <button class="fa fa-minus-circle fa-2x trans-button" style="color:#40433f"></i>
+                  <button ng-show="type == 'lecturer'" ng-click="deleteCourse(course)" class="hover-button fa fa-minus-circle fa-2x trans-button" style="color:#40433f"></i>
                 </div>
                   <div class="grid-item4 grid-item clr-grey">
                     <li>{{courses.Name}}</li>
@@ -256,7 +252,7 @@
             </div>
           </div>
           <!-- TO ADD ANOTHER COURSE -->
-          <a href="#addCourse" class="plus-icon trans-button fa fa-plus-circle fa-4x" style="color: #47BDFF; text-decoration: none;"></a>
+          <a href="#addCourse" ng-show="type == 'lecturer'" ng-click="resetCourseForm()" class="plus-icon trans-button fa fa-plus-circle fa-4x" style="color: #47BDFF; text-decoration: none;"></a>
           <div class="popup-transition overlay" id="addCourse">
             <form class="popup-content center" style="max-width: 600px; max-height: 605px; height: 605px;">
               <a href="#"><i class="fa fa-times-circle clr-grey fa-2x popup-close"></i></a>
