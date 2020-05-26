@@ -3,8 +3,6 @@ var app = angular.module('plunker', []);
 app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $http, $filter) {
 	$scope.showLogin = true;
 	$scope.showDashboard = false;
-	$scope.studentUser = false;
-	$scope.lecturerUser = false;
 
 	// Get all users
 	$scope.getusers = "https://caab.sim.vuw.ac.nz/api/thompsjord/user_list.json";
@@ -26,11 +24,6 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
     .then(function successCall(response) {
       $scope.assignmentdata = response.data.assignments;
 	});
-
-	$scope.assignmentdata = [
-		{"ID":"1","Name":"Assignment 1","Overview":"Build a Web application that allows the management of...","CourseID":"INFO226","DueDate":"2018-08-01T00:00:00"},
-		{"ID":"2","Name":"Assignment 1","Overview":"Create a ","CourseID":"INFO234","DueDate":"2018-08-01T00:00:00"}
-	];
 	
 	// Login Function
 	$scope.checkCred = function () {
