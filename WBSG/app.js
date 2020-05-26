@@ -6,20 +6,26 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 	$scope.studentUser = false;
 	$scope.lecturerUser = false;
 
-	$scope.showStudentDashboard = false;
-	$scope.showLecturerDashboard = false;
+	// Get all users
+	$scope.getusers = "https://caab.sim.vuw.ac.nz/api/thompsjord/user_list.json";
+  	$http.get($scope.getusers)
+    .then(function successCall(response) {
+      $scope.userdata = response.data.users;
+	});
 
-	//Sample hash map of usernames and passwords
-	var sampleCredentials = new Map([
-		["jake", "1234"],
-		["jordyn", "1234"],
-		["jesse", "1234"]
-    ]);
+	// Get all courses
+	$scope.getcourses = "https://caab.sim.vuw.ac.nz/api/thompsjord/course_directory.json";
+  	$http.get($scope.getcourses)
+    .then(function successCall(response) {
+      $scope.coursedata = response.data.courses;
+	});
 
-	$scope.coursedata = [
-		{"ID":"INFO226","Name":"Application Development","Overview":"An introduction to the use of software languages and tools for rapid application development.","Year":2018,"Trimester":"1","LectureTimes":"Thursday 12.40pm","LecturerID":"1"},
-		{"ID":"INFO234","Name":"Business Process Design","Overview":"This course will explore the role and potential of IT to support business process management and design.","Year":2018,"Trimester":"2","LectureTimes":"Wednesday 10.30am","LecturerID":"2"}
-	];
+	// Get all assignments
+	$scope.getassignments = "https://caab.sim.vuw.ac.nz/api/thompsjord/assignment_directory.json";
+  	$http.get($scope.getassignments)
+    .then(function successCall(response) {
+      $scope.assignmentdata = response.data.assignments;
+	});
 
 	$scope.assignmentdata = [
 		{"ID":"1","Name":"Assignment 1","Overview":"Build a Web application that allows the management of...","CourseID":"INFO226","DueDate":"2018-08-01T00:00:00"},
