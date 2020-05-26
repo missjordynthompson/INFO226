@@ -40,7 +40,6 @@
             <i class="fa fa-lock symbol-input clr-lightgrey" id="login-popup-password-icon"></i>
             
             <input type="submit" id="login-submit" class="popup-submit bkgclr-darkgrey" ng-click=checkCred() value="Login">
-            <p id="login-input-error" ng-bind="feedback"></p>
         </form>
       </div>  
     </div>
@@ -77,7 +76,7 @@
           </div>
           <div class="main-overview">
             <div class="overviewcard">
-              <div class="overviewcard-info">Your saved courses and assignments</div>
+              	<div class="overviewcard-info">Your saved courses and assignments</div>
             </div>
           </div>
           <div class="main-cards">
@@ -85,7 +84,7 @@
               <div id="grid-container-courses" ng-repeat="course in coursedata | limitTo:4">
                 <button class="grid-item1 grid-item clr-grey grid-item-header trans-button" ng-click="accordionFunction($index)">
 					        <li>{{course.ID}}</li>
-                  <li class="line" style="list-style: none; border-bottom: 4px solid #faa21b; width: 180px;"></li>
+					        <li class="line" style="list-style: none; border-bottom: 4px solid #faa21b; width: 180px;"></li>
                 </button>
                 <button class="grid-item2 grid-item clr-grey trans-button" ng-click="accordionFunction($index)">
                   	<li>{{course.Year}}</li>
@@ -125,7 +124,7 @@
                       </span>
                       <!--LECTURER VIEW ONLY-->
                       <button ng-show="type == 'lecturer'" ng-click="deleteAssignment(assignment)" class="button-size hover-button fa fa-minus-circle fa-2x trans-button"></i>
-                      </div>
+						        </div>
                     <div class="grid-item4 grid-item clr-grey">
                       <li>{{assignment.Name}}</li>
                       <li>{{assignment.Overview}}</li>
@@ -150,15 +149,15 @@
           <div class="main-cards">
             <div class="card">
               <div id="grid-container-assignments" ng-repeat="assignment in assignmentdata">
-                  <div class="grid-item1 grid-item clr-grey grid-item-header">
+                <div class="grid-item1 grid-item clr-grey grid-item-header">
                   <li>{{assignment.CourseID}}</li>
                   <li style="font-weight: bold;">Assignment {{assignment.ID}}</li>
-                      <li class="line" style="list-style: none; border-bottom: 4px solid #faa21b; width: 180px;"></li>
-                  </div>
+                  <li class="line" style="list-style: none; border-bottom: 4px solid #faa21b; width: 180px;"></li>
+                </div>
                 <div class="grid-item2-assgn grid-item clr-grey">
                   <li>{{assignment.DueDate | date:"EEEE, MMMM d, y 'at' h:mm a"}}</li>
-                  </div>
-                  <div class="grid-icons grid-item clr-grey">
+                </div>
+                <div class="grid-icons grid-item clr-grey">
                   <!--STUDENT VIEW ONLY-->
                   <span class="fa-stack tooltip" ng-show="type == 'student'">
                     <button class="button-size hover-button far fa-check-circle fa-2x trans-button" ng-click="markAssignment($index)" ng-class="{'assgn-complete': markedAssgn{{$index}}, 'mark-assgn' : !markedAssgn{{$index}}}"></button>
@@ -166,11 +165,11 @@
                   </span>
                   <!--LECTURER VIEW ONLY-->
                   <button ng-show="type == 'lecturer'" ng-click="deleteAssgn(assignment)" class="hover-button fa fa-minus-circle fa-2x trans-button"></i>
-                  </div>
-                  <div class="grid-item4 grid-item clr-grey">
+                </div>
+                <div class="grid-item4 grid-item clr-grey">
                   <li>{{assignment.Name}}</li>
                   <li>{{assignment.Overview}}</li>
-                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -218,8 +217,8 @@
             <div class="popup-content center new-confirm" ng-show="addedAssgn">
               <a href="#"><i class="fa fa-times-circle clr-grey fa-2x popup-close"></i></a>
               <p class="new-confirm-text" id="new-assgn-feedback" ng-bind="addAssgnFeedback"></p>
+            </div>
           </div>
-        </div>
         </div>
         
         <!-- COURSE DIRECTORY SECTION -->
@@ -232,13 +231,13 @@
           <div class="main-cards">
             <div class="card">
               <div id="grid-container-coursedir" ng-repeat="course in coursedata">
-                  <div class="grid-item1 grid-item clr-grey grid-item-header">
+                <div class="grid-item1 grid-item clr-grey grid-item-header">
                   <li>{{course.ID}}</li>
-                    <li class="line" style="list-style: none; border-bottom: 4px solid #faa21b; width: 180px;"></li>
-                  </div>
-                  <div class="grid-item2 grid-item clr-grey">
+                  <li class="line" style="list-style: none; border-bottom: 4px solid #faa21b; width: 180px;"></li>
+                </div>
+                <div class="grid-item2 grid-item clr-grey">
                   <li>{{course.Year}}</li>
-                  </div>
+                </div>
                 <div class="grid-icons grid-item clr-grey">
                   <button ng-click="addToSavedCourses($index)" class="fa fa-plus-circle fa-2x trans-button {{saveCourse}}" style="width: 28px; height: 28px; color:#47BDFF"></button>
                   <!--LECTURER VIEW ONLY-->
@@ -248,15 +247,15 @@
                   </span>
                   <button ng-show="type == 'lecturer'" ng-click="deleteCourse(course)" class="hover-button fa fa-minus-circle fa-2x trans-button" style="color:#40433f"></i>
                 </div>
-                  <div class="grid-item4 grid-item clr-grey">
+                <div class="grid-item4 grid-item clr-grey">
                   <li>{{course.Name}}</li>
                   <li>{{course.Overview}}</li>
-                  </div>
-                  <div class="grid-item5 grid-item clr-grey">
+                </div>
+                <div class="grid-item5 grid-item clr-grey">
                   <li>Trimester {{course.Trimester}}</li>
                   <li>Lecture Times: {{course.LectureTimes}}</li>
                   <li>Lecture ID: {{course.LecturerID}}</li>
-                  </div>
+                </div>
               </div>
             </div>
           </div>
