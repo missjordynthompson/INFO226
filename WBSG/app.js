@@ -144,6 +144,58 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 		$scope.newAssignmentDueDate1 = "";
 		$scope.newAssignmentDueDate2 = "";
 	};
+
+	// Add new course
+	$scope.addCourseForm = true;
+	$scope.addNewCourse = function() {
+		$scope.addCourseForm = false;
+		$scope.addedCourse = true;
+			
+		var time = $filter('date')($scope.newCourseLectureTimes2,'h:mm a');
+		var newCourseLectureTimes = $scope.newCourseLectureTimes1 + " " + time;
+
+		var newCourse = {
+			"ID":$scope.newCourseID,
+			"Name":$scope.newCourseName,
+			"Overview":$scope.newCourseOverview,
+			"Year":$scope.newCourseYear,
+			"Trimester":$scope.newCourseTrimester,
+			"LectureTimes":newCourseLectureTimes,
+			"LecturerID":$scope.newCourseLecturerID,
 		}
+		$scope.coursedata.push(newCourse);
+
+		for (var i = 0; i < $scope.coursedata.length; i++) {
+			if ($scope.coursedata[i].ID == $scope.newCourseID 
+				&& $scope.coursedata[i].Name == $scope.newCourseName 
+				&& $scope.coursedata[i].Overview == $scope.newCourseOverview
+				&& $scope.coursedata[i].Year == $scope.newCourseYear
+				&& $scope.coursedata[i].Trimester == $scope.newCourseTrimester
+				&& $scope.coursedata[i].LectureTimes == newCourseLectureTimes
+				&& $scope.coursedata[i].LecturerID == $scope.newCourseLecturerID) {
+				$scope.addCourseFeedback = "Successfully added new course.";
 	}
+		}
+
+		// change this with http error
+		if ($scope.addCourseFeedback != "Successfully added new course.") {
+			$scope.addCourseFeedback = "Error! Something went wrong :( Try again later.";
+		}
+	};
+
+	// Reset add new course form
+	$scope.resetCourseForm = function() {
+		$scope.addCourseForm = true;
+		$scope.addedCourse = false;
+
+		// clear all inputs
+		$scope.newCourseID = "";
+		$scope.newCourseName = "";
+		$scope.newCourseOverview = "";
+		$scope.newCourseYear = "";
+		$scope.newCourseTrimester = "";
+		$scope.newCourseLectureTimes1 = "";
+		$scope.newCourseLectureTimes2 = "";
+		$scope.newCourseLecturerID = "";
+	};
 }]);
