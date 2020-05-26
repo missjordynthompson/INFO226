@@ -1,6 +1,6 @@
 var app = angular.module('plunker', []);
 
-app.controller('MainCtrl', ['$scope', '$http', function ($scope, $http, $filter) {
+app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $http, $filter) {
 	$scope.showLogin = true;
 	$scope.showDashboard = false;
 	$scope.studentUser = false;
