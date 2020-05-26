@@ -125,6 +125,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 	}
 		}
 
+		// change this with http error
 		if ($scope.addAssgnFeedback != "Successfully added new assignment.") {
 			$scope.addAssgnFeedback = "Error! Something went wrong :( Try again later.";
 		}

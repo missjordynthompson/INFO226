@@ -82,7 +82,7 @@
           </div>
           <div class="main-cards">
             <div class="card">
-              <div id="grid-container-courses" ng-repeat="course in savedcoursesdata | limitTo:4">
+              <div id="grid-container-courses" ng-repeat="course in coursedata | limitTo:4">
                 <button class="grid-item1 grid-item clr-grey grid-item-header trans-button" ng-click="accordionFunction($index)">
 					        <li>{{course.ID}}</li>
                   <li class="line" style="list-style: none; border-bottom: 4px solid #faa21b; width: 180px;"></li>
