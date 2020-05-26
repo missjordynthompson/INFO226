@@ -81,10 +81,9 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 	for (var i = 0; i < 4; i++) {
 		$scope["accordion" + i] = false;
 	}
-
 	$scope.accordionFunction = function(index) {
-		if ($scope["accordion" + index] === true) {
-			$scope["accordion" + index] = false;
+		$scope["accordion" + index] = !$scope["accordion" + index];
+	}
 		} else {
 			$scope["accordion" + index] = true;
 		}
