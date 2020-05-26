@@ -84,9 +84,18 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 	$scope.accordionFunction = function(index) {
 		$scope["accordion" + index] = !$scope["accordion" + index];
 	}
+
+	// Mark assignment as complete
+	for (var i = 0; i < 4; i++) {
+		$scope["markedAssgn" + i] = false;
+	}
+	$scope.markAssignment = function(index) {
+		if ($scope["markedAssgn" + index] == false) {
+			$scope["markedAssgn" + index] = true;
 		} else {
-			$scope["accordion" + index] = true;
+			$scope["markedAssgn" + index] = false;
 		}
+	};
 	}
 	// Accordion in My Courses Section
 	for (var i = 0; i < 4; i++) {
