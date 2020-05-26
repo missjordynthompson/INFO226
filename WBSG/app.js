@@ -71,6 +71,12 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 		}
 	}
 
+	// User log out
+	$scope.logout = function() {
+		$scope.showLogin = true;
+		$scope.showDashboard = false;
+	}
+
 	// Accordion in My Courses Section
 	for (var i = 0; i < 4; i++) {
 		$scope["accordion" + i] = false;
