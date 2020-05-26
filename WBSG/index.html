@@ -121,7 +121,7 @@
                         <!-- <span class="tooltiptext">Mark Assignment</span> -->
                       </span>
                       <!--LECTURER VIEW ONLY-->
-                      <button class="fa fa-minus-circle fa-2x trans-button" style="width: 28px; height: 28px; color: #40433f"></i>
+                      <button ng-show="type == 'lecturer'" ng-click="deleteAssignment(assignment)" class="button-size hover-button fa fa-minus-circle fa-2x trans-button"></i>
                       </div>
                     <div class="grid-item4 grid-item clr-grey">
                       <li>{{assignments.Name}}</li>
