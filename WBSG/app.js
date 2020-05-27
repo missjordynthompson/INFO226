@@ -196,4 +196,76 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 		$scope.newCourseLectureTimes2 = "";
 		$scope.newCourseLecturerID = "";
 	};
+
+	$scope.openModifyCourse = function(index) {
+		lectureTimes = $scope.coursedata[index].LectureTimes
+		var date = lectureTimes.substr(0, lectureTimes.indexOf(' '));
+		var time = lectureTimes.substr(lectureTimes.indexOf(' ')+1);
+
+		$scope.modifyCourseID = $scope.coursedata[index].ID;
+		$scope.modifyCourseName = $scope.coursedata[index].Name;
+		$scope.modifyCourseOverview = $scope.coursedata[index].Overview;
+		$scope.modifyCourseYear = $scope.coursedata[index].Year;
+		$scope.modifyCourseTrimester = $scope.coursedata[index].Trimester;
+		$scope.modifyCourseLectureTimes1 = date;
+		$scope.modifyCourseLectureTimes2 = time;
+		$scope.modifyCourseLecturerID = $scope.coursedata[index].LecturerID;
+	};
+
+	$scope.modifyCourseForm = true;
+	$scope.addModifiedCourse = function() {
+		$scope.modifyCourseForm = false;
+		$scope.modifiedCourse = true;
+
+		// find any changes
+		// var course = {
+		// 	"ID":$scope.modifyCourseID,
+		// 	"Name":$scope.modifyCourseName,
+		// 	"Overview":$scope.modifyCourseOverview,
+		// 	"Year":$scope.modifyCourseYear,
+		// 	"Trimester":$scope.modifyCourseTrimester,
+		// 	"LectureTimes":modifyCourseLectureTimes,
+		// 	"LecturerID":$scope.modifyCourseLecturerID,
+		// }
+
+		// update json server
+		// "https://caab.sim.vuw.ac.nz/api/thompsjord/update.course_directory.json";
+
+		// if ($scope.modifyCourseID == $scope.coursedata[index].ID,
+		// 	$scope.modifyCourseName == $scope.coursedata[index].Name,
+		// 	$scope.modifyCourseOverview == $scope.coursedata[index].Overview,
+		// 	$scope.modifyCourseYear == $scope.coursedata[index].Year,
+		// 	$scope.modifyCourseTrimester == $scope.coursedata[index].Trimester,
+		// 	$scope.modifyCourseLectureTimes == $scope.coursedata[index].LectureTimes,
+		// 	$scope.modifyCourseLecturerID == $scope.coursedata[index].LecturerID){
+			// $scope.modifyCourseFeedback = "Successfully modified course.";
+		// }
+
+		// // change this with http error
+		// if ($scope.addAssgnFeedback != "Successfully modified course.") {
+		// 	$scope.addAssgnFeedback = "Error! Something went wrong :( Try again later.";
+		// }
+		$scope.modifyCourseFeedback = "Successfully modified course.";
+	};
+	
+	$scope.openModifyAssgn = function(index) {
+		dueDate = $scope.assignmentdata[index].DueDate
+		var date = dueDate.substr(0, dueDate.indexOf('T'));
+		var time = dueDate.substr(dueDate.indexOf('T')+1);
+
+		$scope.modifyAssignmentID = $scope.assignmentdata[index].ID;
+		$scope.modifyAssignmentName = $scope.assignmentdata[index].Name;
+		$scope.modifyAssignmentCourseID = $scope.assignmentdata[index].CourseID;
+		$scope.modifyAssignmentOverview = $scope.assignmentdata[index].Overview;
+		$scope.modifyAssignmentDueDate1 = date;
+		$scope.modifyAssignmentDueDate2 = time;
+	};
+
+	$scope.modifyAssgnForm = true;
+	$scope.addModifiedAssgn = function() {
+		$scope.modifyAssgnForm = false;
+		$scope.modifiedAssgn = true;
+
+		$scope.modifyAssgnFeedback = "Successfully modified assignment.";
+	};
 }]);
