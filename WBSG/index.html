@@ -93,9 +93,9 @@
 					        <!--LECTURER VIEW ONLY-->
                   <span class="fa-stack" ng-show="type == 'lecturer'">
                     <button class="button-size hover-button fa fa-circle fa-2x trans-button orange-btn"></button>
-                    <i class="hover-button fa fa-pen fa-stack-1x fa-inverse" style="padding-right: 6px"></i>
+                    <i ng-click="modifyCourse($index)" class="hover-button fa fa-pen fa-stack-1x fa-inverse" style="padding-right: 6px"></i>
                   </span>
-					        <button ng-click="deleteSavedCourse(course)" class="hover-button fa fa-minus-circle fa-2x trans-button"></i>
+					        <button class="hover-button fa fa-minus-circle fa-2x trans-button"></i>
                 </div>
                 <button class="grid-item4 grid-item clr-grey trans-button" ng-click="accordionFunction($index)">
                   <li>{{course.Name}}</li>
