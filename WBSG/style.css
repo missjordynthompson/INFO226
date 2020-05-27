@@ -816,3 +816,7 @@ transform: rotate(0);
   height: 40px;
   font-size: 14px;
 }
+
+@media only screen and (max-width: 550px) {
+  /* plus icon needs to drop below the grid */
+}

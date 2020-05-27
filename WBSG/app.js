@@ -26,11 +26,6 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
     .then(function successCall(response) {
       $scope.assignmentdata = response.data.assignments;
 	});
-
-	$scope.assignmentdata = [
-		{"ID":"1","Name":"Assignment 1","Overview":"Build a Web application that allows the management of...","CourseID":"INFO226","DueDate":"2018-08-01T00:00:00"},
-		{"ID":"2","Name":"Assignment 1","Overview":"Create a ","CourseID":"INFO234","DueDate":"2018-08-01T00:00:00"}
-	];
 	
 	// Login Function
 	$scope.checkCred = function () {
@@ -112,8 +107,9 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 			"Overview":$scope.newAssignmentOverview,
 			"CourseID":$scope.newAssignmentCourseID,
 			"DueDate":newAssignmentDueDate,
-	}
+		}
 		$scope.assignmentdata.push(newAssignment);
+		// push to json server instead
 
 		for (var i = 0; i < $scope.assignmentdata.length; i++) {
 			if ($scope.assignmentdata[i].ID == $scope.newAssignmentID
@@ -122,7 +118,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 				&& $scope.assignmentdata[i].CourseID == $scope.newAssignmentCourseID
 				&& $scope.assignmentdata[i].DueDate == newAssignmentDueDate){
 				$scope.addAssgnFeedback = "Successfully added new assignment.";
-	}
+			}
 		}
 
 		// change this with http error
@@ -165,6 +161,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 			"LecturerID":$scope.newCourseLecturerID,
 		}
 		$scope.coursedata.push(newCourse);
+		// push to json server instead
 
 		for (var i = 0; i < $scope.coursedata.length; i++) {
 			if ($scope.coursedata[i].ID == $scope.newCourseID 
@@ -175,7 +172,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 				&& $scope.coursedata[i].LectureTimes == newCourseLectureTimes
 				&& $scope.coursedata[i].LecturerID == $scope.newCourseLecturerID) {
 				$scope.addCourseFeedback = "Successfully added new course.";
-	}
+			}
 		}
 
 		// change this with http error
