@@ -101,6 +101,9 @@ html, body {
   color: #47BDFF;
 }
 
+.bkgclr-blue {
+  background-color: #47BDFF;
+}
 
 .tooltip {
   position: relative;
@@ -728,13 +731,13 @@ transform: rotate(0);
   grid-gap: 10px;
   width: 100%;
   grid-template-columns: auto auto;
-  grid-template-rows: 1fr 50px 50px 220px 19px 68px 60px;
+  grid-template-rows: 1fr 50px 220px 19px 68px 60px;
   padding: 10px;
   list-style: none;
   align-items: center;
 }
 
-.assgn-input1, .assgn-input5, .assgn-input7, .assgn-input9, .assgn-input12  {
+.assgn-input1, .assgn-input6, .assgn-input8, .assgn-input11  {
   grid-column: 1 / span 2;
 }
 
@@ -743,13 +746,13 @@ transform: rotate(0);
   grid-gap: 10px;
   width: 100%;
   grid-template-columns: auto auto;
-  grid-template-rows: 1fr 50px 220px 50px 39px 68px 60px;
+  grid-template-rows: 1fr 50px 220px 68px 50px 29px 68px 60px;
   padding: 10px;
   list-style: none;
   align-items: center;
 }
 
-.course-input1, .course-input5, .course-input9, .course-input13  {
+.course-input1, .course-input5, .course-input9, .course-input11, .course-input15  {
   grid-column: 1 / span 2;
 }
 
