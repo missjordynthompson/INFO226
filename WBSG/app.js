@@ -70,6 +70,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 	$scope.logout = function() {
 		$scope.showLogin = true;
 		$scope.showDashboard = false;
+		$scope.invalidCredentials = false;
 	}
 
 	// Accordion in My Courses Section
@@ -79,6 +80,8 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 	$scope.accordionFunction = function(index) {
 		$scope["accordion" + index] = !$scope["accordion" + index];
 	}
+
+	// ----- ASSIGNMENT ------
 
 	// Mark assignment as complete
 	for (var i = 0; i < 4; i++) {
@@ -95,36 +98,28 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 	// Add new assignment
 	$scope.addAssgnForm = true;
 	$scope.addNewAssgn = function() {
-		$scope.addAssgnForm = false;
-		$scope.addedAssgn = true;
-
 		var date = $filter('date')($scope.newAssignmentDueDate1,'yyyy-MM-dd');
 		var time = $filter('date')($scope.newAssignmentDueDate2,'hh:mm:ss');
 		var newAssignmentDueDate = date + "T" + time;
-		var newAssignment = {
-			"ID":$scope.newAssignmentID,
-			"Name":$scope.newAssignmentName,
-			"Overview":$scope.newAssignmentOverview,
-			"CourseID":$scope.newAssignmentCourseID,
-			"DueDate":newAssignmentDueDate,
-		}
-		$scope.assignmentdata.push(newAssignment);
-		// push to json server instead
+		
+		var newAssignment = JSON.stringify({
+			ID:$scope.assignmentdata.length+1,
+			Name:$scope.newAssignmentName,
+			Overview:$scope.newAssignmentOverview,
+			CourseID:$scope.newAssignmentCourseID,
+			DueDate:newAssignmentDueDate,
+		});
 
-		for (var i = 0; i < $scope.assignmentdata.length; i++) {
-			if ($scope.assignmentdata[i].ID == $scope.newAssignmentID
-				&& $scope.assignmentdata[i].Name == $scope.newAssignmentName
-				&& $scope.assignmentdata[i].Overview == $scope.newAssignmentOverview
-				&& $scope.assignmentdata[i].CourseID == $scope.newAssignmentCourseID
-				&& $scope.assignmentdata[i].DueDate == newAssignmentDueDate){
-				$scope.addAssgnFeedback = "Successfully added new assignment.";
-			}
-		}
-
-		// change this with http error
-		if ($scope.addAssgnFeedback != "Successfully added new assignment.") {
+		$http.post("https://caab.sim.vuw.ac.nz/api/thompsjord/update.assignment_directory.json", newAssignment)
+		.then(function successCall(response) {
+			$scope.addAssgnForm = false;
+			$scope.addedAssgn = true;
+			$scope.addAssgnFeedback = "Successfully added new assignment.";
+		}), function errorCall(response) {
+			$scope.addAssgnForm = false;
+			$scope.addedAssgn = true;
 			$scope.addAssgnFeedback = "Error! Something went wrong :( Try again later.";
-		}
+		};
 	};
 
 	// Reset add new assignment form
@@ -142,43 +137,100 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 		$scope.newAssignmentDueDate2 = "";
 	};
 
+	$scope.openModifyAssgn = function(index) {
+		dueDate = $scope.assignmentdata[index].DueDate
+		var date = dueDate.substr(0, dueDate.indexOf('T'));
+		var time = dueDate.substr(dueDate.indexOf('T')+1);
+
+		$scope.modifyAssignmentID = $scope.assignmentdata[index].ID;
+		$scope.modifyAssignmentName = $scope.assignmentdata[index].Name;
+		$scope.modifyAssignmentOverview = $scope.assignmentdata[index].Overview;
+		$scope.modifyAssignmentCourseID = $scope.assignmentdata[index].CourseID;
+		$scope.modifyAssignmentDueDate1 = date;
+		$scope.modifyAssignmentDueDate2 = time;
+	};
+
+	$scope.modifyAssgnForm = true;
+	$scope.addModifiedAssgn = function() {
+		var date = $filter('date')($scope.modifyAssignmentDueDate1,'yyyy-MM-dd');
+		var time = $filter('date')($scope.modifyAssignmentDueDate2,'hh:mm:ss');
+		var dueDate = date + "T" + time;
+
+		var assignment = JSON.stringify({
+			ID:$scope.modifyAssignmentID,
+			Name:$scope.modifyAssignmentName,
+			Overview:$scope.modifyAssignmentOverview,
+			CourseID:$scope.modifyAssignmentCourseID,
+			DueDate:dueDate,
+		});
+
+		$http.post("https://caab.sim.vuw.ac.nz/api/thompsjord/update.assignment_directory.json", assignment)
+		.then(function successCall(response) {
+			$scope.modifyAssgnForm = false;
+			$scope.modifiedAssgn = true;
+			$scope.addCourseFeedback = "Successfully modified assignment.";
+		}), function errorCall(response) {
+			$scope.modifyAssgnForm = false;
+			$scope.modifiedAssgn = true;
+			$scope.addCourseFeedback = "Error! Something went wrong :( Try again later.";
+		};
+	};
+
+	// $scope.deleteAssgnPopup = false;
+	// $scope.deleteAssgnFeedbackPopup = false;
+	// $scope.openDeleteAssgn = function($index) {
+	// 	$scope.deleteAssgnPopup = true;
+	// 	$scope.deleteAssignment = assignmentdata[index].Name;
+	// }
+
+	// $scope.deleteAssgn = function(index) {
+	// 	var assignment = JSON.stringify({
+	// 		ID:$scope.assignmentdata[index].ID,
+	// 		Name:$scope.assignmentdata[index].Name,
+	// 		Overview:$scope.assignmentdata[index].Overview,
+	// 		CourseID:$scope.assignmentdata[index].CourseID,
+	// 		DueDate:$scope.assignmentdata[index].DueDate,
+	// 	});
+
+	// 	$http.delete("https://caab.sim.vuw.ac.nz/api/thompsjord/delete.assignment." + $scope.assignmentdata[index].ID + ".json", assignment)
+	// 	.then(function successCall(response) {
+	// 		$scope.deleteCourseFeedback = "Successfully modified course.";
+	// 	}), function errorCall(response) {
+	// 		$scope.deleteCourseFeedback = "Error! Something went wrong :( Try again later.";
+	// 	};
+
+	// 	$scope.deleteAssgnPopup = false;
+	// 	$scope.deleteAssgnFeedbackPopup = true;
+	// }
+
+	// ----- COURSE ------
+
 	// Add new course
 	$scope.addCourseForm = true;
 	$scope.addNewCourse = function() {
-		$scope.addCourseForm = false;
-		$scope.addedCourse = true;
-			
 		var time = $filter('date')($scope.newCourseLectureTimes2,'h:mm a');
-		var newCourseLectureTimes = $scope.newCourseLectureTimes1 + " " + time;
+		var lectureTimes = $scope.newCourseLectureTimes1 + " " + time;
 
-		var newCourse = {
-			"ID":$scope.newCourseID,
-			"Name":$scope.newCourseName,
-			"Overview":$scope.newCourseOverview,
-			"Year":$scope.newCourseYear,
-			"Trimester":$scope.newCourseTrimester,
-			"LectureTimes":newCourseLectureTimes,
-			"LecturerID":$scope.newCourseLecturerID,
-		}
-		$scope.coursedata.push(newCourse);
-		// push to json server instead
+		var newCourse = JSON.stringify({
+			ID:$scope.newCourseID,
+			Name:$scope.newCourseName,
+			Overview:$scope.newCourseOverview,
+			Year:$scope.newCourseYear,
+			Trimester:$scope.newCourseTrimester,
+			LectureTimes:lectureTimes,
+			LecturerID:$scope.newCourseLecturerID,
+		});
 
-		for (var i = 0; i < $scope.coursedata.length; i++) {
-			if ($scope.coursedata[i].ID == $scope.newCourseID 
-				&& $scope.coursedata[i].Name == $scope.newCourseName 
-				&& $scope.coursedata[i].Overview == $scope.newCourseOverview
-				&& $scope.coursedata[i].Year == $scope.newCourseYear
-				&& $scope.coursedata[i].Trimester == $scope.newCourseTrimester
-				&& $scope.coursedata[i].LectureTimes == newCourseLectureTimes
-				&& $scope.coursedata[i].LecturerID == $scope.newCourseLecturerID) {
-				$scope.addCourseFeedback = "Successfully added new course.";
-			}
-		}
-
-		// change this with http error
-		if ($scope.addCourseFeedback != "Successfully added new course.") {
-			$scope.addCourseFeedback = "Error! Something went wrong :( Try again later.";
-		}
+		$http.post("https://caab.sim.vuw.ac.nz/api/thompsjord/update.course_directory.json", newCourse)
+		.then(function successCall(response) {
+			$scope.addCourseForm = false;
+			$scope.addedCourse = true;
+			$scope.modifyAssgnFeedback = "Successfully added new course.";
+		}), function errorCall(response) {
+			$scope.addCourseForm = false;
+			$scope.addedCourse = true;
+			$scope.modifyAssgnFeedback = "Error! Something went wrong :( Try again later.";
+		};
 	};
 
 	// Reset add new course form
@@ -214,58 +266,28 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 
 	$scope.modifyCourseForm = true;
 	$scope.addModifiedCourse = function() {
-		$scope.modifyCourseForm = false;
-		$scope.modifiedCourse = true;
+		var time = $filter('date')($scope.modifyCourseLectureTimes2,'h:mm a');
+		var lectureTimes = $scope.modifyCourseLectureTimes1 + " " + time;
 
-		// find any changes
-		// var course = {
-		// 	"ID":$scope.modifyCourseID,
-		// 	"Name":$scope.modifyCourseName,
-		// 	"Overview":$scope.modifyCourseOverview,
-		// 	"Year":$scope.modifyCourseYear,
-		// 	"Trimester":$scope.modifyCourseTrimester,
-		// 	"LectureTimes":modifyCourseLectureTimes,
-		// 	"LecturerID":$scope.modifyCourseLecturerID,
-		// }
+		var course = JSON.stringify({
+			ID:$scope.modifyCourseID,
+			Name:$scope.modifyCourseName,
+			Overview:$scope.modifyCourseOverview,
+			Year:$scope.modifyCourseYear,
+			Trimester:$scope.modifyCourseTrimester,
+			LectureTimes:lectureTimes,
+			LecturerID:$scope.modifyCourseLecturerID,
+		});
 
-		// update json server
-		// "https://caab.sim.vuw.ac.nz/api/thompsjord/update.course_directory.json";
-
-		// if ($scope.modifyCourseID == $scope.coursedata[index].ID,
-		// 	$scope.modifyCourseName == $scope.coursedata[index].Name,
-		// 	$scope.modifyCourseOverview == $scope.coursedata[index].Overview,
-		// 	$scope.modifyCourseYear == $scope.coursedata[index].Year,
-		// 	$scope.modifyCourseTrimester == $scope.coursedata[index].Trimester,
-		// 	$scope.modifyCourseLectureTimes == $scope.coursedata[index].LectureTimes,
-		// 	$scope.modifyCourseLecturerID == $scope.coursedata[index].LecturerID){
-			// $scope.modifyCourseFeedback = "Successfully modified course.";
-		// }
-
-		// // change this with http error
-		// if ($scope.addAssgnFeedback != "Successfully modified course.") {
-		// 	$scope.addAssgnFeedback = "Error! Something went wrong :( Try again later.";
-		// }
-		$scope.modifyCourseFeedback = "Successfully modified course.";
-	};
-	
-	$scope.openModifyAssgn = function(index) {
-		dueDate = $scope.assignmentdata[index].DueDate
-		var date = dueDate.substr(0, dueDate.indexOf('T'));
-		var time = dueDate.substr(dueDate.indexOf('T')+1);
-
-		$scope.modifyAssignmentID = $scope.assignmentdata[index].ID;
-		$scope.modifyAssignmentName = $scope.assignmentdata[index].Name;
-		$scope.modifyAssignmentCourseID = $scope.assignmentdata[index].CourseID;
-		$scope.modifyAssignmentOverview = $scope.assignmentdata[index].Overview;
-		$scope.modifyAssignmentDueDate1 = date;
-		$scope.modifyAssignmentDueDate2 = time;
-	};
-
-	$scope.modifyAssgnForm = true;
-	$scope.addModifiedAssgn = function() {
-		$scope.modifyAssgnForm = false;
-		$scope.modifiedAssgn = true;
-
-		$scope.modifyAssgnFeedback = "Successfully modified assignment.";
+		$http.post("https://caab.sim.vuw.ac.nz/api/thompsjord/update.course_directory.json", course)
+		.then(function successCall(response) {
+			$scope.modifyCourseForm = false;
+			$scope.modifiedCourse = true;
+			$scope.modifyCourseFeedback = "Successfully modified course.";
+		}), function errorCall(response) {
+			$scope.modifyCourseForm = false;
+			$scope.modifiedCourse = true;
+			$scope.modifyCourseFeedback = "Error! Something went wrong :( Try again later.";
+		};
 	};
 }]);
