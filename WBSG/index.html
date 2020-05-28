@@ -110,7 +110,7 @@
                   <div id="grid-container-courses-assignments" ng-repeat="assignment in assignmentdata">
                     <div class="grid-item1 grid-item clr-grey grid-item-header">
                       <li>{{assignment.CourseID}}</li>
-                      <li style="font-weight: bold;">Assignment {{assignment.ID}}</li>
+                      <li style="font-weight: bold;">Assignment {{assignment.Name}}</li>
                       <li class="line" style="list-style: none; border-bottom: 4px solid #faa21b; width: 180px;"></li>
                     </div>
                     <div class="grid-item2-assgn grid-item clr-grey">
@@ -129,7 +129,7 @@
                       <button ng-show="type == 'lecturer'" class="button-size hover-button fa fa-minus-circle fa-2x trans-button"></i>
 						        </div>
                     <div class="grid-item4 grid-item clr-grey">
-                      <li>{{assignment.Name}}</li>
+                      <li>Assignment ID: {{assignment.ID}}</li>
                       <li>{{assignment.Overview}}</li>
                     </div>
                   </div>
@@ -154,7 +154,7 @@
               <div id="grid-container-assignments" ng-repeat="assignment in assignmentdata">
                 <div class="grid-item1 grid-item clr-grey grid-item-header">
                   <li>{{assignment.CourseID}}</li>
-                  <li style="font-weight: bold;">Assignment {{assignment.ID}}</li>
+                  <li style="font-weight: bold;">{{assignment.Name}}</li>
                   <li class="line" style="list-style: none; border-bottom: 4px solid #faa21b; width: 180px;"></li>
                 </div>
                 <div class="grid-item2-assgn grid-item clr-grey">
@@ -184,7 +184,7 @@
                   </div> -->
                 </div>
                 <div class="grid-item4 grid-item clr-grey">
-                  <li>{{assignment.Name}}</li>
+                  <li>Assignment ID: {{assignment.ID}}</li>
                   <li>{{assignment.Overview}}</li>
                 </div>
               </div>
