@@ -81,7 +81,7 @@
           </div>
           <div class="main-cards">
             <div class="card">
-              <div id="grid-container-courses" ng-repeat="course in coursedata | limitTo:4">
+              <div id="grid-container-courses" ng-repeat="course in userCourseAssociations">
                 <button class="grid-item1 grid-item clr-grey grid-item-header trans-button" ng-click="accordionFunction($index)">
 					        <li>{{course.ID}}</li>
 					        <li class="line" style="list-style: none; border-bottom: 4px solid #faa21b; width: 180px;"></li>
@@ -90,12 +90,14 @@
                   	<li>{{course.Year}}</li>
                 </button>
                 <div class="grid-icons grid-item clr-grey">
+                  <a href="#deleteCourseAssociation" ng-click="openDeleteCourseAssociation($index)">
+                    <button class="hover-button fa fa-minus-circle fa-2x trans-button"></button>
+                  </a>
 					        <!--LECTURER VIEW ONLY-->
                   <a href="#modifyCourse" ng-click="openModifyCourse($index)" class="fa-stack" ng-show="type == 'lecturer'">
                     <button class="button-size hover-button fa fa-circle fa-2x trans-button orange-btn"></button>
                     <i class="hover-button fa fa-pen fa-stack-1x fa-inverse" style="padding-right: 6px"></i>
                   </a>
-					        <button class="hover-button fa fa-minus-circle fa-2x trans-button"></i>
                 </div>
                 <button class="grid-item4 grid-item clr-grey trans-button" ng-click="accordionFunction($index)">
                   <li>{{course.Name}}</li>
@@ -107,10 +109,10 @@
                   <li>Lecture ID: {{course.LecturerID}}</li>
                 </button>
                 <div class="grid-item6" ng-show="accordion{{$index}}">
-                  <div id="grid-container-courses-assignments" ng-repeat="assignment in assignmentdata">
+                  <div id="grid-container-courses-assignments" ng-repeat="assignment in userCourseAssociationsAssignments | filter: {CourseID:course.ID}">
                     <div class="grid-item1 grid-item clr-grey grid-item-header">
                       <li>{{assignment.CourseID}}</li>
-                      <li style="font-weight: bold;">Assignment {{assignment.Name}}</li>
+                      <li style="font-weight: bold;">{{assignment.Name}}</li>
                       <li class="line" style="list-style: none; border-bottom: 4px solid #faa21b; width: 180px;"></li>
                     </div>
                     <div class="grid-item2-assgn grid-item clr-grey">
@@ -151,7 +153,7 @@
           </div>
           <div class="main-cards">
             <div class="card">
-              <div id="grid-container-assignments" ng-repeat="assignment in assignmentdata">
+              <div id="grid-container-assignments" ng-repeat="assignment in userCourseAssociationsAssignments">
                 <div class="grid-item1 grid-item clr-grey grid-item-header">
                   <li>{{assignment.CourseID}}</li>
                   <li style="font-weight: bold;">{{assignment.Name}}</li>
@@ -170,18 +172,9 @@
                     <button class="hover-button fa fa-circle fa-2x trans-button" style="width: 28px; height: 28px; color: #faa21b"></button>
                     <i class="hover-button fa fa-pen fa-stack-1x fa-inverse" style="padding-right: 6px"></i>
                   </a>
-                  <button ng-show="type == 'lecturer'" ng-click="openDeleteAssgn($index)" class="hover-button fa fa-minus-circle fa-2x trans-button"></i>
-                  <!-- <div class="popup-content center new-confirm" ng-show="deleteAssgnPopup">
-                    <a href="#"><i class="fa fa-times-circle clr-grey fa-2x popup-close"></i></a>
-                    <p class="new-confirm-text" ng-model="deleteAssignment"></p>
-                    <p class="new-confirm-text">Are you sure?</p>
-                    <button ng-click="deleteAssgn($index)" class="bkgclr-blue" value="Delete"></a>
-                    <a href="#"><button class="bkgclr-darkgrey" value="Cancel"></a>
-                  </div>
-                  <div class="popup-content center new-confirm" ng-show="deleteAssgnFeedbackPopup">
-                    <a href="#"><i class="fa fa-times-circle clr-grey fa-2x popup-close"></i></a>
-                    <p class="new-confirm-text" ng-bind="deleteCourseFeedback"></p>
-                  </div> -->
+                  <a href="#deleteAssignment" ng-click="openDeleteAssignment($index)" ng-show="type == 'lecturer'">
+                    <button class="hover-button fa fa-minus-circle fa-2x trans-button"></button>
+                  </a>
                 </div>
                 <div class="grid-item4 grid-item clr-grey">
                   <li>Assignment ID: {{assignment.ID}}</li>
@@ -253,13 +246,15 @@
                   <li>{{course.Year}}</li>
                 </div>
                 <div class="grid-icons grid-item clr-grey">
-                  <button ng-click="addToSavedCourses($index)" class="fa fa-plus-circle fa-2x trans-button {{saveCourse}}" style="width: 28px; height: 28px; color:#47BDFF"></button>
+                  <button ng-click="addToSavedCourses($index)" class="hover-button fa fa-plus-circle fa-2x trans-button" style="width: 28px; height: 28px; color:#47BDFF"></button>
                   <!--LECTURER VIEW ONLY-->
                   <a href="#modifyCourse" ng-click="openModifyCourse($index)" class="fa-stack" ng-show="type == 'lecturer'">
                     <button class="hover-button fa fa-circle fa-2x trans-button" style="width: 28px; height: 28px; color: #faa21b"></button>
                     <i class="hover-button fa fa-pen fa-stack-1x fa-inverse" style="padding-right: 6px"></i>
                   </a>
-                  <button ng-show="type == 'lecturer'" class="hover-button fa fa-minus-circle fa-2x trans-button" style="color:#40433f"></i>
+                  <a href="#deleteCourse" ng-click="openDeleteCourse($index)" ng-show="type == 'lecturer'">
+                    <button class="hover-button fa fa-minus-circle fa-2x trans-button"></button>
+                  </a>
                 </div>
                 <div class="grid-item4 grid-item clr-grey">
                   <li>{{course.Name}}</li>
@@ -424,7 +419,91 @@
           <p class="new-confirm-text" ng-bind="modifyAssgnFeedback"></p>
         </div>
       </div>
-      
+
+      <!-- Delete Course Association opup -->
+      <div class="popup-transition overlay" id="deleteCourseAssociation">
+        <form class="popup-content center" style="max-width: 450px; max-height: 300px; height: 300px;" ng-show="deleteCourseAssociationForm">
+          <a href="#"><i class="fa fa-times-circle clr-grey fa-2x popup-close"></i></a>
+        
+          <div id="delete-grid">
+            <div class="delete-input1">
+              <p class="delete-confirm-header">Deleting <span ng-bind="deleteCourseNameID" style="color: #47BDFF;"></span></p>
+            </div>
+            <div class="delete-input2">
+              <p class="delete-confirm-text">Are you sure you want to delete this course from your saved courses?</p>
+              <br>
+              <p class="delete-confirm-text" ng-bind="deleteCourseYear"></p>
+              <p class="delete-confirm-text" ng-bind="deleteCourseTrimester"></p>
+              <p class="delete-confirm-text" ng-bind="deleteCourseLectureTimes"></p>
+              <p class="delete-confirm-text" ng-bind="deleteCourseLecturerID"></p>
+            </div>
+            <div class="delete-input3">
+              <li><input type="submit" class="popup-submit bkgclr-darkgrey center" value="Submit" style="position: relative; margin-top: 10px;" ng-click="addDeletedCourseAssociation()"></li>
+            </div>
+          </div>
+        </form>
+        <div class="popup-content center new-confirm" ng-show="deletedCourseAssociation">
+          <a href="#"><i class="fa fa-times-circle clr-grey fa-2x popup-close"></i></a>
+          <p class="new-confirm-text" ng-bind="deleteCourseAssociationFeedback"></p>
+        </div>
+      </div>
+
+      <!-- Delete Assignment Popup -->
+      <div class="popup-transition overlay" id="deleteAssignment">
+        <form class="popup-content center" style="max-width: 450px; max-height: 300px; height: 300px;" ng-show="deleteAssignmentForm">
+          <a href="#"><i class="fa fa-times-circle clr-grey fa-2x popup-close"></i></a>
+        
+          <div id="delete-grid">
+            <div class="delete-input1">
+              <p class="delete-confirm-header">Deleting <span ng-bind="deleteAssgnNameID" style="color: #47BDFF;"></span></p>
+            </div>
+            <div class="delete-input2">
+              <p class="delete-confirm-text">Are you sure you want to delete this assignment?</p>
+              <p class="delete-confirm-text">You will not be able to reverse this actions</p>
+              <br>
+              <p class="delete-confirm-text" ng-bind="deleteAssgnCourseID"></p>
+              <p class="delete-confirm-text" ng-bind="deleteAssgnDueDate"></p>
+            </div>
+            <div class="delete-input3">
+              <li><input type="submit" class="popup-submit bkgclr-darkgrey center" value="Submit" style="position: relative; margin-top: 10px;" ng-click="addDeletedAssignment()"></li>
+            </div>
+          </div>
+        </form>
+        <div class="popup-content center new-confirm" ng-show="deletedAssignment">
+          <a href="#"><i class="fa fa-times-circle clr-grey fa-2x popup-close"></i></a>
+          <p class="new-confirm-text" ng-bind="deleteAssignmentFeedback"></p>
+        </div>
+      </div>
+
+      <!-- Delete Course Popup -->
+      <div class="popup-transition overlay" id="deleteCourse">
+        <form class="popup-content center" style="max-width: 450px; max-height: 300px; height: 300px;" ng-show="deleteCourseForm">
+          <a href="#"><i class="fa fa-times-circle clr-grey fa-2x popup-close"></i></a>
+        
+          <div id="delete-grid">
+            <div class="delete-input1">
+              <p class="delete-confirm-header">Deleting <span ng-bind="deleteCourseNameID" style="color: #47BDFF;"></span></p>
+            </div>
+            <div class="delete-input2">
+              <p class="delete-confirm-text">Are you sure you want to delete this course?</p>
+              <p class="delete-confirm-text">You will not be able to reverse this actions</p>
+              <br>
+              <p class="delete-confirm-text" ng-bind="deleteCourseYear"></p>
+              <p class="delete-confirm-text" ng-bind="deleteCourseTrimester"></p>
+              <p class="delete-confirm-text" ng-bind="deleteCourseLectureTimes"></p>
+              <p class="delete-confirm-text" ng-bind="deleteCourseLecturerID"></p>
+            </div>
+            <div class="delete-input3">
+              <li><input type="submit" class="popup-submit bkgclr-darkgrey center" value="Submit" style="position: relative; margin-top: 10px;" ng-click="addDeletedCourse()"></li>
+            </div>
+          </div>
+        </form>
+        <div class="popup-content center new-confirm" ng-show="deletedCourse">
+          <a href="#"><i class="fa fa-times-circle clr-grey fa-2x popup-close"></i></a>
+          <p class="new-confirm-text" ng-bind="deleteCourseFeedback"></p>
+        </div>
+      </div>
+
       <footer class="footer">
         <div class="clr-grey">&copy; 2020 Jordyn Thompson and Jake Mai</div>
       </footer>
