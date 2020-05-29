@@ -763,6 +763,21 @@ transform: rotate(0);
   grid-column: 1 / span 2;
 }
 
+#delete-grid {
+  display: grid;
+  grid-gap: 10px;
+  width: 100%;
+  grid-template-columns: auto auto;
+  grid-template-rows: 1fr 150px 60px;
+  padding: 10px;
+  list-style: none;
+  align-items: center;
+}
+
+.delete-input1, .delete-input2, .delete-input3  {
+  grid-column: 1 / span 2;
+}
+
 .new-input-header-text {
   font-family: Montserrat-Bold !important;
   font-size: 16px;
@@ -812,6 +827,26 @@ transform: rotate(0);
   color: #40433f;
   text-align: center;
   margin: auto;
+}
+
+.delete-confirm-header {
+  font-family: Montserrat-Bold !important;
+  font-size: 16px;
+  color: #40433f;
+  text-align: center;
+  margin: auto;
+  width: 80%;
+  word-wrap: break-word;
+}
+
+.delete-confirm-text {
+  font-family: Montserrat-Regular !important;
+  font-size: 14px;
+  color: #575756;
+  text-align: center;
+  margin: auto;
+  width: 90%;
+  word-wrap: break-word;
 }
 
 /*----- Footer -----*/
