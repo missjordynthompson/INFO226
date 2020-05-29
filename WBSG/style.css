@@ -263,6 +263,8 @@ transform: rotate(0);
   color: white;
   text-align: center;
   letter-spacing: 1px;
+  border: none;
+  padding: 0;
 }
 
 .popup-submit:hover {
@@ -484,11 +486,13 @@ transform: rotate(0);
   position: absolute;
   z-index: 1;
   right: 0;
-  padding: 5px;
-  margin-top: 6px;
+  margin-top: 10px;
   text-align: center;
-  width: 85%;
+  width: 100%;
   padding-right: calc((100% - 85%) / 2);
+  border-radius: 25px;
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.18);
 }
 
 .header-dropdown-userlogout span {
@@ -506,6 +510,9 @@ transform: rotate(0);
   color: #575756;
   text-decoration: none;
   display: block;
+}
+
+.header-dropdown-userlogout:hover {
   background-color: #999999;
 }
 
@@ -599,7 +606,7 @@ transform: rotate(0);
   display: grid;
   column-gap: 20px;
   margin: 20px;
-  /* height: 504px; */
+  min-height: 262px;
   width: 600px;
   margin-left: auto;
   margin-right: auto;

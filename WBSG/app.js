@@ -6,6 +6,11 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 	$scope.studentUser = false;
 	$scope.lecturerUser = false;
 
+	$scope.userCourseAssociations = [];
+	$scope.userCourseAssociationsAssignments = [];
+	var userID = '';
+	var filteredCourses = [];
+
 	// Get all users
 	$scope.getusers = "https://caab.sim.vuw.ac.nz/api/thompsjord/user_list.json";
   	$http.get($scope.getusers)
@@ -27,13 +32,20 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
       $scope.assignmentdata = response.data.assignments;
 	});
 	
+	// Get all course associations
+	$scope.getcourseassc = "https://caab.sim.vuw.ac.nz/api/thompsjord/course_association_directory.json";
+  	$http.get($scope.getcourseassc)
+    .then(function successCall(response) {
+		$scope.courseassociationdata = response.data.courseAssociations;
+	});
+	
 	// Login Function
 	$scope.checkCred = function () {
 		if ($scope.username != null && $scope.password != null) {
 			for (var i = 0; i < $scope.userdata.length; i++) {
 				if ($scope.username == $scope.userdata[i].LoginName && $scope.password == $scope.userdata[i].Password) {
 					$scope.invalidCredentials = false;
-					$scope.ID = $scope.userdata[i].ID;
+					userID = $scope.userdata[i].ID;
 					
 					$scope.showLogin = false;
 					$scope.showDashboard = true;
@@ -43,6 +55,27 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 					} else if ($scope.userdata[i].UserType == 'lecturer') {
 						$scope.type = 'lecturer';		
 				}
+
+					// Filters through the course association data and retrieves the courses the user is involved in
+					for (var i = 0; i < $scope.courseassociationdata.length; i++) {
+						if (userID == $scope.courseassociationdata[i].StudentID) {
+							filteredCourses.push($scope.courseassociationdata[i].CourseID);
+						}
+					}
+
+					// Retrieves all course data of all courses the user is involved in
+					for (crs of $scope.coursedata) {
+						if (filteredCourses.includes(crs.ID)) {
+							$scope.userCourseAssociations.push(crs);
+						}
+					}
+
+					// Retrieves all assignments from all courses the user is involved in
+					for (asn of $scope.assignmentdata) {
+						if (filteredCourses.includes(asn.CourseID)) {
+							$scope.userCourseAssociationsAssignments.push(asn);
+						}
+					}
 			} else {
 					$scope.invalidCredentials = true;
 			}
@@ -71,6 +104,11 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 		$scope.showLogin = true;
 		$scope.showDashboard = false;
 		$scope.invalidCredentials = false;
+
+		$scope.userCourseAssociations = [];
+		$scope.userCourseAssociationsAssignments = [];
+		userID = '';
+		filteredCourses = [];
 	}
 
 	// Accordion in My Courses Section
@@ -290,4 +328,29 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 			$scope.modifyCourseFeedback = "Error! Something went wrong :( Try again later.";
 		};
 	};
+
+	// Add course from course directory to course associations (saved courses)
+	$scope.addToSavedCourses = function(index) {
+		var course = JSON.stringify({
+			ID:$scope.userCourseAssociations[index].ID,
+			Name:$scope.userCourseAssociations[index].Name,
+			Overview:$scope.userCourseAssociations[index].Overview,
+			Year:$scope.userCourseAssociations[index].Year,
+			Trimester:$scope.userCourseAssociations[index].Trimester,
+			LectureTimes:$scope.userCourseAssociations[index].LectureTimes,
+			LecturerID:$scope.userCourseAssociations[index].LecturerID,
+		});
+
+		var courseAssociation = JSON.stringify({
+			ID: $scope.courseassociationdata.length+1,
+			StudentID: userID,
+			CourseID:$scope.userCourseAssociations[index].ID
+		});
+
+		$http.post("https://caab.sim.vuw.ac.nz/api/thompsjord/update.course_association_directory.json", courseAssociation)
+		.then(function successCall(response) {
+			$scope.userCourseAssociations.push(course);
+		});
+	};
+
 }]);

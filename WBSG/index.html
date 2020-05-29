@@ -81,7 +81,7 @@
           </div>
           <div class="main-cards">
             <div class="card">
-              <div id="grid-container-courses" ng-repeat="course in coursedata | limitTo:4">
+              <div id="grid-container-courses" ng-repeat="course in userCourseAssociations">
                 <button class="grid-item1 grid-item clr-grey grid-item-header trans-button" ng-click="accordionFunction($index)">
 					        <li>{{course.ID}}</li>
 					        <li class="line" style="list-style: none; border-bottom: 4px solid #faa21b; width: 180px;"></li>
@@ -107,10 +107,10 @@
                   <li>Lecture ID: {{course.LecturerID}}</li>
                 </button>
                 <div class="grid-item6" ng-show="accordion{{$index}}">
-                  <div id="grid-container-courses-assignments" ng-repeat="assignment in assignmentdata">
+                  <div id="grid-container-courses-assignments" ng-repeat="assignment in userCourseAssociationsAssignments | filter: {CourseID:course.ID}">
                     <div class="grid-item1 grid-item clr-grey grid-item-header">
                       <li>{{assignment.CourseID}}</li>
-                      <li style="font-weight: bold;">Assignment {{assignment.Name}}</li>
+                      <li style="font-weight: bold;">{{assignment.Name}}</li>
                       <li class="line" style="list-style: none; border-bottom: 4px solid #faa21b; width: 180px;"></li>
                     </div>
                     <div class="grid-item2-assgn grid-item clr-grey">
@@ -151,7 +151,7 @@
           </div>
           <div class="main-cards">
             <div class="card">
-              <div id="grid-container-assignments" ng-repeat="assignment in assignmentdata">
+              <div id="grid-container-assignments" ng-repeat="assignment in userCourseAssociationsAssignments">
                 <div class="grid-item1 grid-item clr-grey grid-item-header">
                   <li>{{assignment.CourseID}}</li>
                   <li style="font-weight: bold;">{{assignment.Name}}</li>
@@ -253,7 +253,7 @@
                   <li>{{course.Year}}</li>
                 </div>
                 <div class="grid-icons grid-item clr-grey">
-                  <button ng-click="addToSavedCourses($index)" class="fa fa-plus-circle fa-2x trans-button {{saveCourse}}" style="width: 28px; height: 28px; color:#47BDFF"></button>
+                  <button ng-click="addToSavedCourses($index)" class="hover-button fa fa-plus-circle fa-2x trans-button" style="width: 28px; height: 28px; color:#47BDFF"></button>
                   <!--LECTURER VIEW ONLY-->
                   <a href="#modifyCourse" ng-click="openModifyCourse($index)" class="fa-stack" ng-show="type == 'lecturer'">
                     <button class="hover-button fa fa-circle fa-2x trans-button" style="width: 28px; height: 28px; color: #faa21b"></button>
