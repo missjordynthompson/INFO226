@@ -606,7 +606,6 @@ transform: rotate(0);
   display: grid;
   column-gap: 20px;
   margin: 20px;
-  min-height: 262px;
   width: 600px;
   margin-left: auto;
   margin-right: auto;

@@ -6,8 +6,11 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 	$scope.studentUser = false;
 	$scope.lecturerUser = false;
 
-	$scope.userCourseAssociations = [];
-	$scope.userCourseAssociationsAssignments = [];
+	$scope.studentCourseAssociations = [];
+	$scope.studentCourseAssociationsAssignments = [];
+	$scope.lecturerCourseAssociations = [];
+	$scope.lecturerCourseAssociationsAssignments = [];
+
 	var userID = '';
 	var filteredCourses = [];
 
@@ -52,32 +55,48 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 
 					if ($scope.userdata[i].UserType == 'student') {
 						$scope.type = 'student';
+
+						// Filters through the course association data and retrieves the courses the student is involved in
+						for (var i = 0; i < $scope.courseassociationdata.length; i++) {
+							if (userID == $scope.courseassociationdata[i].StudentID) {
+								filteredCourses.push($scope.courseassociationdata[i].CourseID);
+							}
+						}
+
+						// Retrieves all course data of all courses the student is involved in
+						for (crs of $scope.coursedata) {
+							if (filteredCourses.includes(crs.ID)) {
+								$scope.studentCourseAssociations.push(crs);
+							}
+						}
+
+						// Retrieves all assignments from all courses the student is involved in
+						for (asn of $scope.assignmentdata) {
+							if (filteredCourses.includes(asn.CourseID)) {
+								$scope.studentCourseAssociationsAssignments.push(asn);
+							}
+						}
 					} else if ($scope.userdata[i].UserType == 'lecturer') {
-						$scope.type = 'lecturer';		
-					}
-
-					// Filters through the course association data and retrieves the courses the user is involved in
-					for (var i = 0; i < $scope.courseassociationdata.length; i++) {
-						if (userID == $scope.courseassociationdata[i].StudentID) {
-							filteredCourses.push($scope.courseassociationdata[i].CourseID);
+						$scope.type = 'lecturer';	
+						
+						// filter through all courses and retrieves data of courses that the lecturer teaches
+						for (var i = 0; i < $scope.coursedata.length; i++) {
+							if (userID == $scope.coursedata[i].LecturerID) {
+								$scope.lecturerCourseAssociations.push($scope.coursedata[i]);
+							}
 						}
-					}
 
-					// Retrieves all course data of all courses the user is involved in
-					for (crs of $scope.coursedata) {
-						if (filteredCourses.includes(crs.ID)) {
-							$scope.userCourseAssociations.push(crs);
-						}
-					}
-
-					// Retrieves all assignments from all courses the user is involved in
-					for (asn of $scope.assignmentdata) {
-						if (filteredCourses.includes(asn.CourseID)) {
-							$scope.userCourseAssociationsAssignments.push(asn);
+						// Retrieves all assignments from all courses the lecturer teaches
+						for (asn of $scope.assignmentdata) {
+							for (crs of $scope.lecturerCourseAssociations) {
+								if (crs.ID == asn.CourseID) {
+									$scope.lecturerCourseAssociationsAssignments.push(asn);
+								}
+							}
 						}
 					}
 				} else {
-						$scope.invalidCredentials = true;
+					$scope.invalidCredentials = true;
 				}
 			}
 		} else {
@@ -105,8 +124,11 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 		$scope.showDashboard = false;
 		$scope.invalidCredentials = false;
 
-		$scope.userCourseAssociations = [];
-		$scope.userCourseAssociationsAssignments = [];
+		$scope.studentCourseAssociations = [];
+		$scope.studentCourseAssociationsAssignments = [];
+		$scope.lecturerCourseAssociations = [];
+		$scope.lecturerCourseAssociationsAssignments = [];
+
 		userID = '';
 		filteredCourses = [];
 	}
@@ -152,6 +174,8 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 			$scope.addAssgnForm = false;
 			$scope.addedAssgn = true;
 			$scope.addAssgnFeedback = "Successfully added new assignment.";
+
+			lecturerCourseAssociationsAssignments.push(newAssignment);
 		}), function errorCall(response) {
 			$scope.addAssgnForm = false;
 			$scope.addedAssgn = true;
@@ -241,8 +265,30 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 		assgnIndex = index;
 	};
 
-	$scope.addDeletedAssgn = function(index) {
-		// need to get database for lecturers saved courses
+	$scope.addDeletedAssgn = function() {
+		var assignment = JSON.stringify({
+			ID:$scope.assignmentdata[assgnIndex].ID,
+			Name:$scope.coursedata[assgnIndex].Name,
+			Overview:$scope.coursedata[assgnIndex].Overview,
+			Year:$scope.coursedata[assgnIndex].Year,
+			Trimester:$scope.coursedata[assgnIndex].Trimester,
+			LectureTimes:$scope.coursedata[assgnIndex].LectureTimes,
+			LecturerID:$scope.coursedata[assgnIndex].LecturerID,
+		});
+
+		$http.delete("https://caab.sim.vuw.ac.nz/api/thompsjord/delete.assignment."+ $scope.assignmentdata[assgnIndex].ID + ".json", assignment)
+		.then(function successCall(response) {
+			$scope.deleteAssgnForm = false;
+			$scope.deletedAssgn = true;
+			$scope.deleteAssgnFeedback = "Successfully deleted assignment.";
+
+			// remove from lecturerCourseAssociationsAssignments 
+			$scope.lecturerCourseAssociationsAssignments.splice(assgnIndex, 1);
+		}), function errorCall(response) {
+			$scope.deleteAssgnForm = false;
+			$scope.deletedAssgn = true;
+			$scope.deleteAssgnFeedback = "Error! Something went wrong :( Try again later.";
+		};
 	};
 
 	// ----- COURSE ------
@@ -347,28 +393,32 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 		};
 	};
 
-	// Add course from course directory to course associations (saved courses) - DOESN'T WORK
+	// Add course from course directory to course associations (saved courses) - adds course but doesn't add data of course
 	$scope.addToSavedCourses = function(index) {
 		var course = JSON.stringify({
-			ID:$scope.userCourseAssociations[index].ID,
-			Name:$scope.userCourseAssociations[index].Name,
-			Overview:$scope.userCourseAssociations[index].Overview,
-			Year:$scope.userCourseAssociations[index].Year,
-			Trimester:$scope.userCourseAssociations[index].Trimester,
-			LectureTimes:$scope.userCourseAssociations[index].LectureTimes,
-			LecturerID:$scope.userCourseAssociations[index].LecturerID,
+			ID:$scope.studentCourseAssociations[index].ID,
+			Name:$scope.studentCourseAssociations[index].Name,
+			Overview:$scope.studentCourseAssociations[index].Overview,
+			Year:$scope.studentCourseAssociations[index].Year,
+			Trimester:$scope.studentCourseAssociations[index].Trimester,
+			LectureTimes:$scope.studentCourseAssociations[index].LectureTimes,
+			LecturerID:$scope.studentCourseAssociations[index].LecturerID,
 		});
 
 		var courseAssociation = JSON.stringify({
 			ID: $scope.courseassociationdata.length+1,
 			StudentID: userID,
-			CourseID:$scope.userCourseAssociations[index].ID
+			CourseID:$scope.studentCourseAssociations[index].ID
 		});
 
-		$http.post("https://caab.sim.vuw.ac.nz/api/thompsjord/update.course_association_directory.json", courseAssociation)
-		.then(function successCall(response) {
-			$scope.userCourseAssociations.push(course);
-		});
+		if ($scope.type == 'lecturer') {
+			$scope.lecturerCourseAssociations.push(course);
+		} else if ($scope.type == 'student') {
+			$http.post("https://caab.sim.vuw.ac.nz/api/thompsjord/update.course_association_directory.json", courseAssociation)
+			.then(function successCall(response) {
+				$scope.studentCourseAssociations.push(course);
+			});
+		}
 	};
 
 	// Delete course
@@ -404,6 +454,9 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 			$scope.deleteCourseForm = false;
 			$scope.deletedCourse = true;
 			$scope.deleteCourseFeedback = "Successfully deleted course.";
+
+			// remove from coursedata
+			$scope.coursedata.splice(courseIndex, 1);
 		}), function errorCall(response) {
 			$scope.deleteCourseForm = false;
 			$scope.deletedCourse = true;
@@ -437,16 +490,24 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 			CourseID:$scope.userCourseAssociations[courseAsscIndex].ID
 		});
 
-		$http.delete("https://caab.sim.vuw.ac.nz/api/thompsjord/delete.course."+ $scope.courseassociationdata[courseAsscIndex].ID + ".json", courseAssociation)
-		.then(function successCall(response) {
-			$scope.deleteCourseAssociationForm = false;
-			$scope.deletedCourseAssociation = true;
-			$scope.deleteCourseAssociationFeedback = "Successfully deleted course.";
-		}), function errorCall(response) {
-			$scope.deleteCourseAssociationForm = false;
-			$scope.deletedCourseAssociation = true;
-			$scope.deleteCourseAssociationFeedback = "Error! Something went wrong :( Try again later.";
-		};
+		if ($scope.type == 'lecturer') {
+			// remove course from lecturerCourseAssociations
+			$scope.lecturerCourseAssociations.splice(courseAsscIndex, 1);
+		} else if ($scope.type == 'student') {
+			$http.delete("https://caab.sim.vuw.ac.nz/api/thompsjord/delete.course."+ $scope.courseassociationdata[courseAsscIndex].ID + ".json", courseAssociation)
+			.then(function successCall(response) {
+				$scope.deleteCourseAssociationForm = false;
+				$scope.deletedCourseAssociation = true;
+				$scope.deleteCourseAssociationFeedback = "Successfully deleted course.";
+
+				// remove course from studentCourseAssociations
+				$scope.studentCourseAssociations.splice(courseAsscIndex, 1);
+			}), function errorCall(response) {
+				$scope.deleteCourseAssociationForm = false;
+				$scope.deletedCourseAssociation = true;
+				$scope.deleteCourseAssociationFeedback = "Error! Something went wrong :( Try again later.";
+			};
+		}
 
 		courseAsscIndex = '';
 	};

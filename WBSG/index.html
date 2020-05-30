@@ -80,8 +80,8 @@
             </div>
           </div>
           <div class="main-cards">
-            <div class="card">
-              <div id="grid-container-courses" ng-repeat="course in userCourseAssociations">
+            <div class="card" ng-show="type == 'student'">
+              <div id="grid-container-courses" ng-repeat="course in studentCourseAssociations">
                 <button class="grid-item1 grid-item clr-grey grid-item-header trans-button" ng-click="accordionFunction($index)">
 					        <li>{{course.ID}}</li>
 					        <li class="line" style="list-style: none; border-bottom: 4px solid #faa21b; width: 180px;"></li>
@@ -93,8 +93,53 @@
                   <a href="#deleteCourseAssociation" ng-click="openDeleteCourseAssociation($index)">
                     <button class="hover-button fa fa-minus-circle fa-2x trans-button"></button>
                   </a>
-					        <!--LECTURER VIEW ONLY-->
-                  <a href="#modifyCourse" ng-click="openModifyCourse($index)" class="fa-stack" ng-show="type == 'lecturer'">
+                </div>
+                <button class="grid-item4 grid-item clr-grey trans-button" ng-click="accordionFunction($index)">
+                  <li>{{course.Name}}</li>
+                  <li>{{course.Overview}}</li>
+                </button>
+                <button class="grid-item5 grid-item clr-grey trans-button" ng-click="accordionFunction($index)">
+                  <li>Trimester {{course.Trimester}}</li>
+                  <li>Lecture Times: {{course.LectureTimes}}</li>
+                  <li>Lecture ID: {{course.LecturerID}}</li>
+                </button>
+                <div class="grid-item6" ng-show="accordion{{$index}}">
+                  <div id="grid-container-courses-assignments" ng-repeat="assignment in studentCourseAssociationsAssignments | filter: {CourseID:course.ID}">
+                    <div class="grid-item1 grid-item clr-grey grid-item-header">
+                      <li>{{assignment.CourseID}}</li>
+                      <li style="font-weight: bold;">{{assignment.Name}}</li>
+                      <li class="line" style="list-style: none; border-bottom: 4px solid #faa21b; width: 180px;"></li>
+                    </div>
+                    <div class="grid-item2-assgn grid-item clr-grey">
+                      	<li>{{assignment.DueDate}}</li>
+                    </div>
+                    <div class="grid-icons grid-item clr-grey">
+                      <span class="hover-button fa-stack tooltip" ng-show="type == 'student'">
+                        <button class="hover-button far fa-check-circle fa-2x trans-button" ng-click="markAssignment($index)" ng-class="{'assgn-complete': markedAssgn{{$index}}, 'mark-assgn' : !markedAssgn{{$index}}}"></button>
+                      </span>
+						        </div>
+                    <div class="grid-item4 grid-item clr-grey">
+                      <li>Assignment ID: {{assignment.ID}}</li>
+                      <li>{{assignment.Overview}}</li>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card" ng-show="type == 'lecturer'">
+              <div id="grid-container-courses" ng-repeat="course in lecturerCourseAssociations">
+                <button class="grid-item1 grid-item clr-grey grid-item-header trans-button" ng-click="accordionFunction($index)">
+					        <li>{{course.ID}}</li>
+					        <li class="line" style="list-style: none; border-bottom: 4px solid #faa21b; width: 180px;"></li>
+                </button>
+                <button class="grid-item2 grid-item clr-grey trans-button" ng-click="accordionFunction($index)">
+                  	<li>{{course.Year}}</li>
+                </button>
+                <div class="grid-icons grid-item clr-grey">
+                  <a href="#deleteCourseAssociation" ng-click="openDeleteCourseAssociation($index)">
+                    <button class="hover-button fa fa-minus-circle fa-2x trans-button"></button>
+                  </a>
+                  <a href="#modifyCourse" ng-click="openModifyCourse($index)" class="fa-stack">
                     <button class="button-size hover-button fa fa-circle fa-2x trans-button orange-btn"></button>
                     <i class="hover-button fa fa-pen fa-stack-1x fa-inverse" style="padding-right: 6px"></i>
                   </a>
@@ -109,7 +154,7 @@
                   <li>Lecture ID: {{course.LecturerID}}</li>
                 </button>
                 <div class="grid-item6" ng-show="accordion{{$index}}">
-                  <div id="grid-container-courses-assignments" ng-repeat="assignment in userCourseAssociationsAssignments | filter: {CourseID:course.ID}">
+                  <div id="grid-container-courses-assignments" ng-repeat="assignment in lecturerCourseAssociationsAssignments | filter: {CourseID:course.ID}">
                     <div class="grid-item1 grid-item clr-grey grid-item-header">
                       <li>{{assignment.CourseID}}</li>
                       <li style="font-weight: bold;">{{assignment.Name}}</li>
@@ -119,11 +164,6 @@
                       	<li>{{assignment.DueDate}}</li>
                     </div>
                     <div class="grid-icons grid-item clr-grey">
-                      <!--STUDENT VIEW ONLY-->
-                      <span class="hover-button fa-stack tooltip" ng-show="type == 'student'">
-                        <button class="hover-button far fa-check-circle fa-2x trans-button" ng-click="markAssignment($index)" ng-class="{'assgn-complete': markedAssgn{{$index}}, 'mark-assgn' : !markedAssgn{{$index}}}"></button>
-                      </span>
-                      <!--LECTURER VIEW ONLY-->
                       <a href="#modifyAssgn" ng-click="openModifyAssgn($index)" class="fa-stack" ng-show="type == 'lecturer'">
                         <button class="hover-button fa fa-circle fa-2x trans-button" style="width: 28px; height: 28px; color: #faa21b"></button>
                         <i class="hover-button fa fa-pen fa-stack-1x fa-inverse" style="padding-right: 6px"></i>
@@ -153,7 +193,7 @@
           </div>
           <div class="main-cards">
             <div class="card">
-              <div id="grid-container-assignments" ng-repeat="assignment in userCourseAssociationsAssignments">
+              <div id="grid-container-assignments" ng-repeat="assignment in studentCourseAssociationsAssignments">
                 <div class="grid-item1 grid-item clr-grey grid-item-header">
                   <li>{{assignment.CourseID}}</li>
                   <li style="font-weight: bold;">{{assignment.Name}}</li>
@@ -163,11 +203,25 @@
                   <li>{{assignment.DueDate | date:"EEEE, MMMM d, y 'at' h:mm a"}}</li>
                 </div>
                 <div class="grid-icons grid-item clr-grey">
-                  <!--STUDENT VIEW ONLY-->
                   <span class="fa-stack tooltip" ng-show="type == 'student'">
                     <button class="button-size hover-button far fa-check-circle fa-2x trans-button" ng-click="markAssignment($index)" ng-class="{'assgn-complete': markedAssgn{{$index}}, 'mark-assgn' : !markedAssgn{{$index}}}"></button>
                   </span>
-                  <!--LECTURER VIEW ONLY-->
+                </div>
+                <div class="grid-item4 grid-item clr-grey">
+                  <li>Assignment ID: {{assignment.ID}}</li>
+                  <li>{{assignment.Overview}}</li>
+                </div>
+              </div>
+              <div id="grid-container-assignments" ng-repeat="assignment in lecturerCourseAssociationsAssignments">
+                <div class="grid-item1 grid-item clr-grey grid-item-header">
+                  <li>{{assignment.CourseID}}</li>
+                  <li style="font-weight: bold;">{{assignment.Name}}</li>
+                  <li class="line" style="list-style: none; border-bottom: 4px solid #faa21b; width: 180px;"></li>
+                </div>
+                <div class="grid-item2-assgn grid-item clr-grey">
+                  <li>{{assignment.DueDate | date:"EEEE, MMMM d, y 'at' h:mm a"}}</li>
+                </div>
+                <div class="grid-icons grid-item clr-grey">
                   <a href="#modifyAssgn" ng-click="openModifyAssgn($index)" class="fa-stack" ng-show="type == 'lecturer'">
                     <button class="hover-button fa fa-circle fa-2x trans-button" style="width: 28px; height: 28px; color: #faa21b"></button>
                     <i class="hover-button fa fa-pen fa-stack-1x fa-inverse" style="padding-right: 6px"></i>
