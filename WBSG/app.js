@@ -15,28 +15,28 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 	var filteredCourses = [];
 
 	// Get all users
-	$scope.getusers = "https://caab.sim.vuw.ac.nz/api/thompsjord/user_list.json";
+	$scope.getusers = "https://caab.sim.vuw.ac.nz/api/maijake/user_list.json";
   	$http.get($scope.getusers)
     .then(function successCall(response) {
       $scope.userdata = response.data.users;
 	});
 
 	// Get all courses
-	$scope.getcourses = "https://caab.sim.vuw.ac.nz/api/thompsjord/course_directory.json";
+	$scope.getcourses = "https://caab.sim.vuw.ac.nz/api/maijake/course_directory.json";
   	$http.get($scope.getcourses)
     .then(function successCall(response) {
       $scope.coursedata = response.data.courses;
 	});
 
 	// Get all assignments
-	$scope.getassignments = "https://caab.sim.vuw.ac.nz/api/thompsjord/assignment_directory.json";
+	$scope.getassignments = "https://caab.sim.vuw.ac.nz/api/maijake/assignment_directory.json";
   	$http.get($scope.getassignments)
     .then(function successCall(response) {
       $scope.assignmentdata = response.data.assignments;
 	});
 
 	// Get all course associations
-	$scope.getcourseassc = "https://caab.sim.vuw.ac.nz/api/thompsjord/course_association_directory.json";
+	$scope.getcourseassc = "https://caab.sim.vuw.ac.nz/api/maijake/course_association_directory.json";
   	$http.get($scope.getcourseassc)
     .then(function successCall(response) {
 		$scope.courseassociationdata = response.data.courseAssociations;
@@ -169,7 +169,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 			DueDate:newAssignmentDueDate,
 		});
 
-		$http.post("https://caab.sim.vuw.ac.nz/api/thompsjord/update.assignment_directory.json", newAssignment)
+		$http.post("https://caab.sim.vuw.ac.nz/api/maijake/update.assignment_directory.json", newAssignment)
 		.then(function successCall(response) {
 			$scope.addAssgnForm = false;
 			$scope.addedAssgn = true;
@@ -238,7 +238,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 			DueDate:dueDate,
 		});
 
-		$http.post("https://caab.sim.vuw.ac.nz/api/thompsjord/update.assignment_directory.json", assignment)
+		$http.post("https://caab.sim.vuw.ac.nz/api/maijake/update.assignment_directory.json", assignment)
 		.then(function successCall(response) {
 			$scope.modifyAssgnForm = false;
 			$scope.modifiedAssgn = true;
@@ -276,7 +276,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 			LecturerID:$scope.coursedata[assgnIndex].LecturerID,
 		});
 
-		$http.delete("https://caab.sim.vuw.ac.nz/api/thompsjord/delete.assignment."+ $scope.assignmentdata[assgnIndex].ID + ".json", assignment)
+		$http.delete("https://caab.sim.vuw.ac.nz/api/maijake/delete.assignment."+ $scope.assignmentdata[assgnIndex].ID + ".json", assignment)
 		.then(function successCall(response) {
 			$scope.deleteAssgnForm = false;
 			$scope.deletedAssgn = true;
@@ -308,7 +308,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 			LecturerID:$scope.newCourseLecturerID,
 		});
 
-		$http.post("https://caab.sim.vuw.ac.nz/api/thompsjord/update.course_directory.json", newCourse)
+		$http.post("https://caab.sim.vuw.ac.nz/api/maijake/update.course_directory.json", newCourse)
 		.then(function successCall(response) {
 			$scope.addCourseForm = false;
 			$scope.addedCourse = true;
@@ -381,7 +381,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 			LecturerID:$scope.modifyCourseLecturerID,
 		});
 
-		$http.post("https://caab.sim.vuw.ac.nz/api/thompsjord/update.course_directory.json", course)
+		$http.post("https://caab.sim.vuw.ac.nz/api/maijake/update.course_directory.json", course)
 		.then(function successCall(response) {
 			$scope.modifyCourseForm = false;
 			$scope.modifiedCourse = true;
@@ -414,7 +414,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 		if ($scope.type == 'lecturer') {
 			$scope.lecturerCourseAssociations.push(course);
 		} else if ($scope.type == 'student') {
-			$http.post("https://caab.sim.vuw.ac.nz/api/thompsjord/update.course_association_directory.json", courseAssociation)
+			$http.post("https://caab.sim.vuw.ac.nz/api/maijake/update.course_association_directory.json", courseAssociation)
 			.then(function successCall(response) {
 				$scope.studentCourseAssociations.push(course);
 			});
@@ -449,7 +449,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 			LecturerID:$scope.coursedata[courseIndex].LecturerID,
 		});
 
-		$http.delete("https://caab.sim.vuw.ac.nz/api/thompsjord/delete.course."+ $scope.coursedata[courseIndex].ID + ".json", course)
+		$http.delete("https://caab.sim.vuw.ac.nz/api/maijake/delete.course."+ $scope.coursedata[courseIndex].ID + ".json", course)
 		.then(function successCall(response) {
 			$scope.deleteCourseForm = false;
 			$scope.deletedCourse = true;
@@ -494,7 +494,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 			// remove course from lecturerCourseAssociations
 			$scope.lecturerCourseAssociations.splice(courseAsscIndex, 1);
 		} else if ($scope.type == 'student') {
-			$http.delete("https://caab.sim.vuw.ac.nz/api/thompsjord/delete.course."+ $scope.courseassociationdata[courseAsscIndex].ID + ".json", courseAssociation)
+			$http.delete("https://caab.sim.vuw.ac.nz/api/maijake/delete.course."+ $scope.courseassociationdata[courseAsscIndex].ID + ".json", courseAssociation)
 			.then(function successCall(response) {
 				$scope.deleteCourseAssociationForm = false;
 				$scope.deletedCourseAssociation = true;
