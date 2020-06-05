@@ -162,14 +162,14 @@
                 <li>{{course.Year}}</li>
               </button>
               <div class="grid-icons grid-item clr-grey">
-                <a href="#deleteCourseAssociation" ng-click="openDeleteCourseAssociation($index)">
-                  <button class="hover-button fa fa-minus-circle fa-2x trans-button"
-                    title="Delete course from your saved courses"></button>
-                </a>
-                <a href="#modifyCourse" ng-click="openModifyCourse($index)" class="fa-stack"
+                <a href="#modifyCourse" ng-click="openModifyCourseAssocation($index)" class="fa-stack"
                   title="Modify course">
                   <button class="button-size hover-button fa fa-circle fa-2x trans-button orange-btn"></button>
                   <i class="hover-button fa fa-pen fa-stack-1x fa-inverse" style="padding-right: 6px"></i>
+                </a>
+                <a href="#deleteCourseAssociation" ng-click="openDeleteCourseAssociation($index)">
+                  <button class="hover-button fa fa-minus-circle fa-2x trans-button"
+                    title="Delete course from your saved courses"></button>
                 </a>
               </div>
               <button class="grid-item4 grid-item clr-grey trans-button" ng-click="accordionFunction($index)">
