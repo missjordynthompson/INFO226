@@ -634,6 +634,7 @@ transform: rotate(0);
   border-bottom: 1px solid black;
   padding: 10px;
   list-style: none;
+  align-items: flex-start;
 }
 
 #grid-container-assignments, #grid-container-courses-assignments {
@@ -653,6 +654,7 @@ transform: rotate(0);
 }
 
 #grid-container-courses-assignments {
+  padding-top: 10px;
   border-top: 1px solid black;
 }
 
@@ -693,7 +695,6 @@ transform: rotate(0);
 .grid-item6 {
   margin: 10px -10px -10px -10px;
   grid-column: 1 / span 3;
-  border-top: 1px solid black;
   width: calc(100% + 20px);
   background-color: #ebebeb;
 }
