@@ -614,7 +614,8 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 			.then(function successCall(response) {
 				// remove course from studentCourseAssociations
 				$scope.studentCourseAssociations.splice(courseAsscIdx, 1);
-
+				
+				$scope.addDeletedAssignment;
 				$scope.deleteCourseAssociationForm = false;
 				$scope.deletedCourseAssociation = true;
 				$scope.deleteCourseAssociationFeedback = "Successfully deleted course.";
