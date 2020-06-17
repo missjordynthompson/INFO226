@@ -446,6 +446,12 @@ transform: rotate(0);
   text-align: center;
 }
 
+.header-search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .search-close {
   border: none;
   background: none;
@@ -468,7 +474,7 @@ transform: rotate(0);
 }
 
 .header-search:hover > .search-input {
-  width: 120px;
+  width: calc(10vw);
 }
 
 .header-search:hover > .search-close {
