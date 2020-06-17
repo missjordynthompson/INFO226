@@ -59,6 +59,13 @@
     <header class="header" id="myHeader">
       <div class="header-title" href="#home">WBSG</div>
       <div class="header-right">
+        <div class="header-search">
+          <i ng-click="searchClear()" class="search-close fa fa-times hover-button"></i>
+          <input id="searchInput" class="search-input user-input" type="text" placeholder="Search" ng-model="userSearch">
+          <a href="" class="search-button">
+            <i class="hover-button fas fa-search"></i>
+          </a>
+        </div>
         <div class="header-menu">
           <a href="#home">Home</a>
           <a href="#assgn">Assignments</a>
@@ -88,14 +95,13 @@
         </div>
 
         <div class="main-cards">
-
           <!-- STUDENT'S "SAVED COURSES AND ASSIGNMENTS" CARD.
           CARD FOR "STUDENT" TYPE USERS.
           SHOWS CURRENT COURSES THE STUDENT IS CURRENTLY TAKING, STUDENT CAN CHOOSE TO ADD EXTRA COURSES.
           SHOWS ASSIGNMENTS ASSOCIATED WITH THE COURSES WHEN A COURSE IS CLICKED ON.
           STUDENTS ARE ALLOWED TO DELETE COURSES (WITHDRAWN COURSES) BY CLICK ON THE DELETE BUTTON. -->
           <div class="card" ng-show="type == 'student'">
-            <div id="grid-container-courses" ng-repeat="course in studentCourseAssociations">
+            <div id="grid-container-courses" ng-repeat="course in studCrs = (studentCourseAssociations | filter:userSearch)">
               <button class="grid-item1 grid-item clr-grey grid-item-header trans-button"
                 ng-click="accordionFunction($index)">
                 <li>{{course.ID}}</li>
@@ -121,7 +127,7 @@
               </button>
               <div class="grid-item6" ng-show="accordion{{$index}}">
                 <div id="grid-container-courses-assignments"
-                  ng-repeat="assignment in studentCourseAssociationsAssignments | filter: {CourseID:course.ID}">
+                  ng-repeat="assignment in studCrsAssgn = (studentCourseAssociationsAssignments | filter: {CourseID:course.ID)}">
                   <div class="grid-item1 grid-item clr-grey grid-item-header">
                     <li>{{assignment.CourseID}}</li>
                     <li style="font-weight: bold;">{{assignment.Name}}</li>
@@ -142,8 +148,11 @@
                     <li>{{assignment.Overview}}</li>
                   </div>
                 </div>
+                <div class="noResultsMessage" ng-show="!studCrsAssgn.length">No assignments avaliable</div>
               </div>
             </div>
+
+            <div class="noResultsMessage" ng-show="type == 'student' && !studCrs.length">No courses avaliable</div>
           </div>
 
           <!-- LECTURER'S "SAVED COURSES AND ASSIGNMENTS" CARD. -->
@@ -152,7 +161,7 @@
           <!-- SHOWS ASSIGNMENTS ASSOCIATED WITH THE COURSES WHEN A COURSE IS CLICKED ON. -->
           <!-- LECTURERS ARE ALLOWED TO MODIFY OR DELETE COURSE (NOT CURRENTLY TEACHING) BY CLICK ON THE EDIT OR DELETE BUTTON. -->
           <div class="card" ng-show="type == 'lecturer'">
-            <div id="grid-container-courses" ng-repeat="course in lecturerCourseAssociations">
+            <div id="grid-container-courses" ng-repeat="course in lecCrs = (lecturerCourseAssociations | filter:userSearch)">
               <button class="grid-item1 grid-item clr-grey grid-item-header trans-button"
                 ng-click="accordionFunction($index)">
                 <li>{{course.ID}}</li>
@@ -183,7 +192,7 @@
               </button>
               <div class="grid-item6" ng-show="accordion{{$index}}">
                 <div id="grid-container-courses-assignments"
-                  ng-repeat="assignment in lecturerCourseAssociationsAssignments | filter: {CourseID:course.ID}">
+                  ng-repeat="assignment in lecCrsAssgn = (lecturerCourseAssociationsAssignments | filter: {CourseID:course.ID})">
                   <div class="grid-item1 grid-item clr-grey grid-item-header">
                     <li>{{assignment.CourseID}}</li>
                     <li style="font-weight: bold;">{{assignment.Name}}</li>
@@ -207,16 +216,18 @@
                     <li>{{assignment.Overview}}</li>
                   </div>
                 </div>
+                <div class="noResultsMessage" ng-show="!lecCrsAssgn.length">No courses avaliable</div>
               </div>
             </div>
+            <div class="noResultsMessage" ng-show="type == 'lecturer' && !lecCrs.length">No courses avaliable</div>
           </div>
         </div>
 
         <!-- TO ADD ANOTHER COURSE
            USER CLICKS ON THE (+) BUTTON AND WILL BE DIRECTED TO THE "COURSE DIRECTORY" TO ADD EXTRA COURSES
            AVAILABLE FOR BOTH STUDENT AND LECTURE TYPE USERS -->
-        <a href="#coursedir" class="plus-icon fa fa-plus-circle fa-4x" style="color: #47BDFF; text-decoration: none;"
-          title="Add course to saved courses"></a>
+        <a href="#coursedir" ng-show="type == 'student'" ng-class="(!studCrs.length) ? 'plus-icon-noResults' : 'plus-icon' " class="fa fa-plus-circle fa-4x" title="Add course to saved courses"></a>
+        <a href="#coursedir" ng-show="type == 'lecturer'" ng-class="(!lecCrs.length) ? 'plus-icon-noResults' : 'plus-icon' " class="fa fa-plus-circle fa-4x" title="Add course to saved courses"></a>
       </div>
 
       <!-- ASSIGNMENT SECTION
@@ -229,7 +240,8 @@
         </div>
         <div class="main-cards">
           <div class="card">
-            <div id="grid-container-assignments" ng-repeat="assignment in studentCourseAssociationsAssignments">
+            <!-- STUDENT'S ASSIGNMENTS FOR ALL COURSES THEY ARE TAKING -->
+            <div id="grid-container-assignments" ng-repeat="assignment in studAssgn = (studentCourseAssociationsAssignments | filter:userSearch)">
               <div class="grid-item1 grid-item clr-grey grid-item-header">
                 <li>{{assignment.CourseID}}</li>
                 <li style="font-weight: bold;">{{assignment.Name}}</li>
@@ -251,7 +263,10 @@
                 <li>{{assignment.Overview}}</li>
               </div>
             </div>
-            <div id="grid-container-assignments" ng-repeat="assignment in lecturerCourseAssociationsAssignments">
+            <div class="noResultsMessage" ng-show="type == 'student' && !studAssgn.length">No courses avaliable</div>
+
+            <!-- LECTURER'S ASSIGNMENTS FOR ALL COURSES THEY ARE TEACHING -->
+            <div id="grid-container-assignments" ng-repeat="assignment in lecAssgn = (lecturerCourseAssociationsAssignments | filter:userSearch)">
               <div class="grid-item1 grid-item clr-grey grid-item-header">
                 <li>{{assignment.CourseID}}</li>
                 <li style="font-weight: bold;">{{assignment.Name}}</li>
@@ -279,13 +294,12 @@
                 <li>{{assignment.Overview}}</li>
               </div>
             </div>
+            <div class="noResultsMessage" ng-show="type == 'lecturer' && !lecAssgn.length">No assignments avaliable</div>
           </div>
         </div>
 
         <!-- TO ADD ANOTHER ASSIGNMENT -- ONLY LECTURER TYPE USER CAN ADD ASSIGNMENT -->
-        <a href="#addAssgn" ng-show="type == 'lecturer'" ng-click="resetAssgnForm()"
-          class="plus-icon trans-button fa fa-plus-circle fa-4x" style="color: #47BDFF; text-decoration: none;"
-          title="Add assignment"></a>
+        <a href="#addAssgn" ng-show="type == 'lecturer'" ng-class="(!lecAssgn.length) ? 'plus-icon-noResults' : 'plus-icon' " ng-click="resetAssgnForm()" class="plus-icon trans-button fa fa-plus-circle fa-4x" title="Add assignment"></a>
         <div class="popup-transition overlay" id="addAssgn">
           <form class="popup-content center" style="max-width: 600px; max-height: 535px; height: 535px;"
             ng-show="addAssgnForm">
@@ -349,9 +363,9 @@
             <div class="overviewcard-info">Course Directory</div>
           </div>
         </div>
-        <div class="main-cards">
+        <div class="main-cards" id="mainCards">
           <div class="card">
-            <div id="grid-container-coursedir" ng-repeat="course in coursedata">
+            <div id="grid-container-coursedir" ng-repeat="course in crsdata = (coursedata | filter:userSearch)">
               <div class="grid-item1 grid-item clr-grey grid-item-header">
                 <li>{{course.ID}}</li>
                 <li class="line" style="list-style: none; border-bottom: 4px solid #faa21b; width: 180px;"></li>
@@ -385,13 +399,13 @@
                 <li>Lecture ID: {{course.LecturerID}}</li>
               </div>
             </div>
+            <div class="noResultsMessage" ng-show="type == 'lecturer' && !crsdata.length">No courses avaliable</div>
           </div>
         </div>
 
         <!-- TO ADD ANOTHER COURSE TO COURSE DIRECTORY-->
-        <a href="#addCourse" ng-show="type == 'lecturer'" ng-click="resetCourseForm()"
-          class="plus-icon trans-button fa fa-plus-circle fa-4x" style="color: #47BDFF; text-decoration: none;"
-          title="Add new course"></a>
+        <a href="#addCourse" ng-show="type == 'lecturer'" ng-class="(!crsdata.length) ? 'plus-icon-noResults' : 'plus-icon' " ng-click="resetCourseForm()"
+          class="plus-icon trans-button fa fa-plus-circle fa-4x" title="Add new course"></a>
         <div class="popup-transition overlay" id="addCourse">
           <form class="popup-content center" style="max-width: 600px; max-height: 675px; height: 675px;"
             ng-show="addCourseForm">

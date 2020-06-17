@@ -53,17 +53,6 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 					$scope.showLogin = false;
 					$scope.showDashboard = true;
 
-					// var assign = {
-					// 	ID:"2",
-					// 	Name:"Assignment 1",
-					// 	Overview:"Create a ",
-					// 	CourseID:"INFO234",
-					// 	DueDate:"2018-08-01T00:00:00"
-					// }
-					// $http.post("https://caab.sim.vuw.ac.nz/api/thompsjord/update.assignment_directory.json", JSON.stringify(assign));
-
-					// $http.delete("https://caab.sim.vuw.ac.nz/api/thompsjord/delete.assignment." + 3 + ".json", JSON.stringify({"ID":"3","Name":"Make a website","Overview":"Create a website with outdated software","CourseID":"INFO226","DueDate":"0001-01-01T00:00:00"}));
-
 					if ($scope.userdata[i].UserType == 'student') {
 						$scope.type = 'student';
 
@@ -140,6 +129,9 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 		$scope.lecturerCourseAssociations = [];
 		$scope.lecturerCourseAssociationsAssignments = [];
 
+		document.getElementById('searchInput').value = "";
+		$scope.userSearch = "";
+
 		userID = '';
 		filteredCourses = [];
 	};
@@ -151,6 +143,12 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 	$scope.accordionFunction = function (index) {
 		$scope["accordion" + index] = !$scope["accordion" + index];
 	};
+
+	// clear search when cross button is clicked
+	$scope.searchClear = function() {
+		document.getElementById('searchInput').value = "";
+		$scope.userSearch = "";
+	}
 
 	// ----- ASSIGNMENT ------
 	// Mark assignment as complete
@@ -183,7 +181,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 		$http.post("https://caab.sim.vuw.ac.nz/api/thompsjord/update.assignment_directory.json", JSON.stringify(assignment))
 		.then(function successCall(response) {
 			$scope.assignmentdata.push(assignment);
-			$scope.lecturerCourseAssociationsAssignments.push(assignment);
+			$scope.lecAssgn.push(assignment);
 			
 			$scope.addAssgnForm = false;
 			$scope.addedAssgn = true;
@@ -226,16 +224,16 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 		$scope.modifyAssignmentDueDate1 = '';
 		$scope.modifyAssignmentDueDate2 = '';
 
-		dueDate = $scope.lecturerCourseAssociationsAssignments[index].DueDate;
+		dueDate = $scope.lecAssgn[index].DueDate;
 		var modifyAssgnUIDate = dueDate.substr(0, dueDate.indexOf('T'));
 		var modifyAssgnUITime = dueDate.substr(dueDate.indexOf('T') + 1);
 		modifyAssgnUIDate = $filter('date')(modifyAssgnUIDate, 'dd/MM/yyyy');
 		modifyAssgnUITime = $filter('date')(modifyAssgnUITime, 'h:mm a');
 
-		$scope.modifyAssignmentID = $scope.lecturerCourseAssociationsAssignments[index].ID;
-		$scope.modifyAssignmentName = $scope.lecturerCourseAssociationsAssignments[index].Name;
-		$scope.modifyAssignmentOverview = $scope.lecturerCourseAssociationsAssignments[index].Overview;
-		$scope.modifyAssignmentCourseID = $scope.lecturerCourseAssociationsAssignments[index].CourseID;
+		$scope.modifyAssignmentID = $scope.lecAssgn[index].ID;
+		$scope.modifyAssignmentName = $scope.lecAssgn[index].Name;
+		$scope.modifyAssignmentOverview = $scope.lecAssgn[index].Overview;
+		$scope.modifyAssignmentCourseID = $scope.lecAssgn[index].CourseID;
 		$scope.modifyAssignmentDueDate1 = modifyAssgnUIDate;
 		$scope.modifyAssignmentDueDate2 = modifyAssgnUITime;
 
@@ -257,8 +255,8 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 
 		$http.post("https://caab.sim.vuw.ac.nz/api/thompsjord/update.assignment_directory.json", JSON.stringify(assignment))
 		.then(function successCall(response) {
-			$scope.lecturerCourseAssociationsAssignments.splice(modifyAssgnIdx, 1);
-			$scope.lecturerCourseAssociationsAssignments.push(assignment);
+			$scope.lecAssgn.splice(modifyAssgnIdx, 1);
+			$scope.lecAssgn.push(assignment);
 			
 			$scope.modifyAssgnForm = false;
 			$scope.modifiedAssgn = true;
@@ -280,9 +278,9 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 		$scope.deleteAssignmentForm = true;
 		$scope.deleteAssignment = false;
 
-		$scope.deleteAssgnNameID = "ID: " + $scope.lecturerCourseAssociationsAssignments[index].ID + " - " + $scope.lecturerCourseAssociationsAssignments[index].Name;
+		$scope.deleteAssgnNameID = "ID: " + $scope.lecAssgn[index].ID + " - " + $scope.lecAssgn[index].Name;
 
-		dueDate = $scope.lecturerCourseAssociationsAssignments[index].DueDate;
+		dueDate = $scope.lecAssgn[index].DueDate;
 		var deleteAssgnUIDate = dueDate.substr(0, dueDate.indexOf('T'));
 		var deleteAssgnUITime = dueDate.substr(dueDate.indexOf('T') + 1);
 		deleteAssgnUIDate = $filter('date')(deleteAssgnUIDate, 'EEEE, MMMM d, y');
@@ -295,7 +293,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 	$scope.addDeletedAssignment = function () {
 		var index;
 			for (assgndata of $scope.assignmentdata) {
-				if ($scope.lecturerCourseAssociationsAssignments[assgnIndex].ID == assgndata.ID) {
+				if ($scope.lecAssgn[assgnIndex].ID == assgndata.ID) {
 					index = $scope.assignmentdata.indexOf(assgndata);
 				}
 			}
@@ -303,7 +301,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 		$http.delete("https://caab.sim.vuw.ac.nz/api/thompsjord/delete.assignment." + $scope.assignmentdata[index].ID + ".json")
 		.then(function successCall(response) {
 			// remove from lecturerCourseAssociationsAssignments 
-			$scope.lecturerCourseAssociationsAssignments.splice(assgnIndex, 1);
+			$scope.lecAssgn.splice(assgnIndex, 1);
 
 			$scope.deleteAssignmentForm = false;
 			$scope.deleteAssignment = true;
@@ -334,7 +332,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 
 		// if course already exists
 		var crsExists = false;
-		for (crs of $scope.coursedata) {
+		for (crs of $scope.crsdata) {
 			if (crs.ID == $scope.newCourseID && crs.Year == $scope.newCourseYear) {
 				$scope.addCourseForm = false;
 				$scope.addedCourse = true;
@@ -349,8 +347,8 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 				url: "https://caab.sim.vuw.ac.nz/api/thompsjord/update.course_directory.json",
 				data: JSON.stringify(course)
 			}).then(function successCall(response) {
-				$scope.lecturerCourseAssociations.push(course);
-				$scope.coursedata.push(course);
+				$scope.lecCrs.push(course);
+				$scope.crsdata.push(course);
 				
 				$scope.addCourseForm = false;
 				$scope.addedCourse = true;
@@ -385,7 +383,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 			var newCourseAssociation = {
 				ID: $scope.courseassociationdata.length + 1,
 				StudentID: userID,
-				CourseID: $scope.coursedata[index].ID
+				CourseID: $scope.crsdata[index].ID
 			};
 			$http({
 				method: 'POST',
@@ -393,18 +391,18 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 				data: JSON.stringify(newCourseAssociation)
 			});
 
-			$scope.studentCourseAssociations.push($scope.coursedata[index]);
+			$scope.studCrsiations.push($scope.crsdata[index]);
 		} else if ($scope.type == 'lecturer') {
 			// check if course isn't already in saved courses
 			var crsExists = false;
-			for (crs of $scope.lecturerCourseAssociations) {
-				if ($scope.coursedata[index].ID == crs.ID) {
+			for (crs of $scope.lecCrs) {
+				if ($scope.crsdata[index].ID == crs.ID) {
 					crsExists = true;
 				}
 			}
 
 			if (crsExists == false) {
-				$scope.lecturerCourseAssociations.push($scope.coursedata[index]);
+				$scope.lecCrs.push($scope.crsdata[index]);
 			}
 		}
 	};
@@ -413,9 +411,9 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 	var modifyCourseAssIdx;
 	var modifyCourseIdx;
 	$scope.openModifyCourseAssocation = function (courseAsscIndex) {
-		for (crs of $scope.coursedata) {
-			if ($scope.lecturerCourseAssociations[courseAsscIndex].ID == crs.ID) {
-				var index = $scope.coursedata.indexOf(crs);
+		for (crs of $scope.crsdata) {
+			if ($scope.lecCrs[courseAsscIndex].ID == crs.ID) {
+				var index = $scope.crsdata.indexOf(crs);
 			}
 		}
 
@@ -433,18 +431,18 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 		$scope.modifyCourseLectureTimes2 = '';
 		$scope.modifyCourseLecturerID = '';
 
-		lectureTimes = $scope.coursedata[index].LectureTimes;
+		lectureTimes = $scope.crsdata[index].LectureTimes;
 		var date = lectureTimes.substr(0, lectureTimes.indexOf(' '));
 		var time = lectureTimes.substr(lectureTimes.indexOf(' ') + 1);
 
-		$scope.modifyCourseID = $scope.coursedata[index].ID;
-		$scope.modifyCourseName = $scope.coursedata[index].Name;
-		$scope.modifyCourseOverview = $scope.coursedata[index].Overview;
-		$scope.modifyCourseYear = $scope.coursedata[index].Year;
-		$scope.modifyCourseTrimester = $scope.coursedata[index].Trimester;
+		$scope.modifyCourseID = $scope.crsdata[index].ID;
+		$scope.modifyCourseName = $scope.crsdata[index].Name;
+		$scope.modifyCourseOverview = $scope.crsdata[index].Overview;
+		$scope.modifyCourseYear = $scope.crsdata[index].Year;
+		$scope.modifyCourseTrimester = $scope.crsdata[index].Trimester;
 		$scope.modifyCourseLectureTimes1 = date;
 		$scope.modifyCourseLectureTimes2 = time;
-		$scope.modifyCourseLecturerID = $scope.coursedata[index].LecturerID;
+		$scope.modifyCourseLecturerID = $scope.crsdata[index].LecturerID;
 
 		modifyCourseAssIdx = courseAsscIndex; // for lec course assc
 		modifyCourseIdx = index; // for course data
@@ -452,9 +450,9 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 
 	// Modify course
 	$scope.openModifyCourse = function (index) {
-		for (crs of $scope.lecturerCourseAssociations) {
-			if ($scope.coursedata[index].ID == crs.ID) {
-				var idx = $scope.lecturerCourseAssociations.indexOf(crs);
+		for (crs of $scope.lecCrs) {
+			if ($scope.crsdata[index].ID == crs.ID) {
+				var idx = $scope.lecCrs.indexOf(crs);
 			}
 		}
 
@@ -472,18 +470,18 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 		$scope.modifyCourseLectureTimes2 = '';
 		$scope.modifyCourseLecturerID = '';
 
-		lectureTimes = $scope.coursedata[index].LectureTimes;
+		lectureTimes = $scope.crsdata[index].LectureTimes;
 		var date = lectureTimes.substr(0, lectureTimes.indexOf(' '));
 		var time = lectureTimes.substr(lectureTimes.indexOf(' ') + 1);
 
-		$scope.modifyCourseID = $scope.coursedata[index].ID;
-		$scope.modifyCourseName = $scope.coursedata[index].Name;
-		$scope.modifyCourseOverview = $scope.coursedata[index].Overview;
-		$scope.modifyCourseYear = $scope.coursedata[index].Year;
-		$scope.modifyCourseTrimester = $scope.coursedata[index].Trimester;
+		$scope.modifyCourseID = $scope.crsdata[index].ID;
+		$scope.modifyCourseName = $scope.crsdata[index].Name;
+		$scope.modifyCourseOverview = $scope.crsdata[index].Overview;
+		$scope.modifyCourseYear = $scope.crsdata[index].Year;
+		$scope.modifyCourseTrimester = $scope.crsdata[index].Trimester;
 		$scope.modifyCourseLectureTimes1 = date;
 		$scope.modifyCourseLectureTimes2 = time;
-		$scope.modifyCourseLecturerID = $scope.coursedata[index].LecturerID;
+		$scope.modifyCourseLecturerID = $scope.crsdata[index].LecturerID;
 
 		modifyCourseAssIdx = idx; // for lec course assc
 		modifyCourseIdx = index; // for course data
@@ -506,10 +504,10 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 
 		$http.post("https://caab.sim.vuw.ac.nz/api/thompsjord/update.course_directory.json", JSON.stringify(course))
 		.then(function successCall(response) {
-			$scope.coursedata.splice(modifyCourseIdx, 1);
-			$scope.coursedata.push(course);
-			$scope.lecturerCourseAssociations.splice(modifyCourseAssIdx, 1);
-			$scope.lecturerCourseAssociations.push(course);
+			$scope.crsdata.splice(modifyCourseIdx, 1);
+			$scope.crsdata.push(course);
+			$scope.lecCrs.splice(modifyCourseAssIdx, 1);
+			$scope.lecCrs.push(course);
 
 			$scope.modifyCourseForm = false;
 			$scope.modifiedCourse = true;
@@ -532,11 +530,11 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 		$scope.deleteCourseForm = true;
 		$scope.deletedCourse = false;
 
-		$scope.deleteCourseNameID = $scope.coursedata[index].ID + ": " + $scope.coursedata[index].Name;
-		$scope.deleteCourseYear = "Year: " + $scope.coursedata[index].Year;
-		$scope.deleteCourseTrimester = "Trimester: " + $scope.coursedata[index].Trimester;
-		$scope.deleteCourseLectureTimes = "Lecture Times: " + $scope.coursedata[index].LectureTimes;
-		$scope.deleteCourseLecturerID = "Lecturer ID: " + $scope.coursedata[index].LecturerID;
+		$scope.deleteCourseNameID = $scope.crsdata[index].ID + ": " + $scope.crsdata[index].Name;
+		$scope.deleteCourseYear = "Year: " + $scope.crsdata[index].Year;
+		$scope.deleteCourseTrimester = "Trimester: " + $scope.crsdata[index].Trimester;
+		$scope.deleteCourseLectureTimes = "Lecture Times: " + $scope.crsdata[index].LectureTimes;
+		$scope.deleteCourseLecturerID = "Lecturer ID: " + $scope.crsdata[index].LecturerID;
 
 		deleteCourseIdx = index;
 	};
@@ -544,19 +542,19 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 	$scope.addDeletedCourse = function () {
 		var deleteInx;
 		// if course exists in saved courses
-		for (crs of $scope.lecturerCourseAssociations) {
-			if ($scope.coursedata[deleteCourseIdx].ID == crs.ID) {
-				deleteInx = $scope.lecturerCourseAssociations.indexOf(crs);
+		for (crs of $scope.lecCrs) {
+			if ($scope.crsdata[deleteCourseIdx].ID == crs.ID) {
+				deleteInx = $scope.lecCrs.indexOf(crs);
 			}
 		}
 
-		$http.delete("https://caab.sim.vuw.ac.nz/api/thompsjord/delete.course." + $scope.coursedata[deleteCourseIdx].ID + ".json")
+		$http.delete("https://caab.sim.vuw.ac.nz/api/thompsjord/delete.course." + $scope.crsdata[deleteCourseIdx].ID + ".json")
 		.then(function successCall(response) {
 			// remove from coursedata
-			$scope.coursedata.splice(deleteCourseIdx, 1)
+			$scope.crsdata.splice(deleteCourseIdx, 1)
 
 			// if course exists in saved courses
-			$scope.lecturerCourseAssociations.splice(deleteInx, 1);
+			$scope.lecCrs.splice(deleteInx, 1);
 
 			$scope.deleteCourseForm = false;
 			$scope.deletedCourse = true;
@@ -580,23 +578,23 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 		$scope.deletedCourseAssociation = false;
 
 		if ($scope.type == 'student') {
-			$scope.deleteCourseNameID = $scope.studentCourseAssociations[crsAscIndex].ID + ": " + $scope.studentCourseAssociations[crsAscIndex].Name;
-			$scope.deleteCourseYear = "Year: " + $scope.studentCourseAssociations[crsAscIndex].Year;
-			$scope.deleteCourseTrimester = "Trimester: " + $scope.studentCourseAssociations[crsAscIndex].Trimester;
-			$scope.deleteCourseLectureTimes = "Lecture Times: " + $scope.studentCourseAssociations[crsAscIndex].LectureTimes;
-			$scope.deleteCourseLecturerID = "Lecturer ID: " + $scope.studentCourseAssociations[crsAscIndex].LecturerID;
+			$scope.deleteCourseNameID = $scope.studCrsiations[crsAscIndex].ID + ": " + $scope.studCrsiations[crsAscIndex].Name;
+			$scope.deleteCourseYear = "Year: " + $scope.studCrsiations[crsAscIndex].Year;
+			$scope.deleteCourseTrimester = "Trimester: " + $scope.studCrsiations[crsAscIndex].Trimester;
+			$scope.deleteCourseLectureTimes = "Lecture Times: " + $scope.studCrsiations[crsAscIndex].LectureTimes;
+			$scope.deleteCourseLecturerID = "Lecturer ID: " + $scope.studCrsiations[crsAscIndex].LecturerID;
 
 			for (crs of $scope.courseassociationdata) {
-				if ($scope.studentCourseAssociations[crsAscIndex].ID == crs.CourseID && userID == crs.StudentID) {
+				if ($scope.studCrsiations[crsAscIndex].ID == crs.CourseID && userID == crs.StudentID) {
 					studentIdx = $scope.courseassociationdata.indexOf(crs);
 				}
 			}
 		} else if ($scope.type == 'lecturer') {
-			$scope.deleteCourseNameID = $scope.lecturerCourseAssociations[crsAscIndex].ID + ": " + $scope.lecturerCourseAssociations[crsAscIndex].Name;
-			$scope.deleteCourseYear = "Year: " + $scope.lecturerCourseAssociations[crsAscIndex].Year;
-			$scope.deleteCourseTrimester = "Trimester: " + $scope.lecturerCourseAssociations[crsAscIndex].Trimester;
-			$scope.deleteCourseLectureTimes = "Lecture Times: " + $scope.lecturerCourseAssociations[crsAscIndex].LectureTimes;
-			$scope.deleteCourseLecturerID = "Lecturer ID: " + $scope.lecturerCourseAssociations[crsAscIndex].LecturerID;
+			$scope.deleteCourseNameID = $scope.lecCrs[crsAscIndex].ID + ": " + $scope.lecCrs[crsAscIndex].Name;
+			$scope.deleteCourseYear = "Year: " + $scope.lecCrs[crsAscIndex].Year;
+			$scope.deleteCourseTrimester = "Trimester: " + $scope.lecCrs[crsAscIndex].Trimester;
+			$scope.deleteCourseLectureTimes = "Lecture Times: " + $scope.lecCrs[crsAscIndex].LectureTimes;
+			$scope.deleteCourseLecturerID = "Lecturer ID: " + $scope.lecCrs[crsAscIndex].LecturerID;
 		}
 
 		courseAsscIdx = crsAscIndex;
@@ -604,7 +602,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 
 	$scope.addDeletedCourseAssociation = function () {
 		if ($scope.type == 'lecturer') {
-			$scope.lecturerCourseAssociations.splice(courseAsscIdx, 1);
+			$scope.lecCrs.splice(courseAsscIdx, 1);
 
 			$scope.deleteCourseAssociationForm = false;
 			$scope.deletedCourseAssociation = true;
@@ -613,7 +611,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 			$http.delete("https://caab.sim.vuw.ac.nz/api/thompsjord/delete.course_association." + $scope.courseassociationdata[studentIdx].ID + ".json")
 			.then(function successCall(response) {
 				// remove course from studentCourseAssociations
-				$scope.studentCourseAssociations.splice(courseAsscIdx, 1);
+				$scope.studCrsiations.splice(courseAsscIdx, 1);
 				
 				$scope.addDeletedAssignment;
 				$scope.deleteCourseAssociationForm = false;
