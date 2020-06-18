@@ -385,12 +385,22 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 				StudentID: userID,
 				CourseID: $scope.crsdata[index].ID
 			};
+
 			$http({
 				method: 'POST',
 				url: 'https://caab.sim.vuw.ac.nz/api/thompsjord/update.course_association_directory.json',
 				data: JSON.stringify(newCourseAssociation)
 			});
 
+			// add assignments
+			for (assgn of $scope.assignmentdata) {
+				if (assgn.CourseID == $scope.crsdata[index].ID) {
+					var idx = $scope.assignmentdata.indexOf(assgn);
+					$scope.studAssgn.push($scope.assignmentdata[idx]);
+				};
+			};
+
+			// add course
 			$scope.studCrs.push($scope.crsdata[index]);
 		} else if ($scope.type == 'lecturer') {
 			// check if course isn't already in saved courses
@@ -564,8 +574,6 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 			$scope.deletedCourse = true;
 			$scope.deleteCourseFeedback = "Error! Something went wrong :( Try again later.";
 		};
-
-		// deleteCourseIdx = '';
 	};
 
 	// Delete course association
@@ -608,10 +616,6 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 			$scope.deletedCourseAssociation = true;
 			$scope.deleteCourseAssociationFeedback = "Successfully deleted course.";
 		} else if ($scope.type == 'student') {
-			// remove course from studentCourseAssociations
-			$scope.studCrs.splice(courseAsscIdx, 1);
-			$scope.studCrsiations.splice(courseAsscIdx, 1);
-
 			$http.delete("https://caab.sim.vuw.ac.nz/api/thompsjord/delete.course_association." + $scope.courseassociationdata[studentIdx].ID + ".json")
 			.then(function successCall(response) {
 				$scope.addDeletedAssignment;
@@ -623,6 +627,17 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 				$scope.deletedCourseAssociation = true;
 				$scope.deleteCourseAssociationFeedback = "Error! Something went wrong :( Try again later.";
 			};
+
+			// remove assignments
+			for (assgn of $scope.studAssgn) {
+				if (assgn.CourseID == $scope.studCrs[courseAsscIdx].ID) {
+					var idx = $scope.studAssgn.indexOf(assgn)
+					$scope.studAssgn.splice(idx, 1);
+				}
+			}
+
+			// remove course
+			$scope.studCrs.splice(courseAsscIdx, 1);
 
 			studentIdx = '';
 		}
