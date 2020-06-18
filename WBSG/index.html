@@ -33,7 +33,7 @@
         <div class="popup-text">
           <h1 id="login-popup-header">Sign in</h1>
         </div>
-        <a href="#" class="fa fa-times-circle clr-grey fa-2x popup-close"></a>
+        <a href="" class="fa fa-times-circle clr-grey fa-2x popup-close"></a>
         <div id="login-input-error" ng-if="invalidCredentials">Incorrect login details</div>
 
         <input type="text" id="login-popup-userinput" class="login-input user-input clr-darkgrey" ng-model="username"
@@ -48,10 +48,6 @@
       </form>
     </div>
   </div>
-
-  <!-- <div id="overlay" onclick="transitionOff()">
-      <i class="fa fa-spinner fa-pulse"></i>
-    </div> -->
 
   <!-- DASHBOARD SCREEN -->
   <div class="grid-container" id="dashboard" ng-show=showDashboard>
@@ -127,7 +123,7 @@
               </button>
               <div class="grid-item6" ng-show="accordion{{$index}}">
                 <div id="grid-container-courses-assignments"
-                  ng-repeat="assignment in studCrsAssgn = (studentCourseAssociationsAssignments | filter: {CourseID:course.ID)}">
+                  ng-repeat="assignment in studCrsAssgn = (studentCourseAssociationsAssignments | filter: {CourseID:course.ID})">
                   <div class="grid-item1 grid-item clr-grey grid-item-header">
                     <li>{{assignment.CourseID}}</li>
                     <li style="font-weight: bold;">{{assignment.Name}}</li>
@@ -216,7 +212,7 @@
                     <li>{{assignment.Overview}}</li>
                   </div>
                 </div>
-                <div class="noResultsMessage" ng-show="!lecCrsAssgn.length">No courses avaliable</div>
+                <div class="noResultsMessage" ng-show="!lecCrsAssgn.length">No assignments avaliable</div>
               </div>
             </div>
             <div class="noResultsMessage" ng-show="type == 'lecturer' && !lecCrs.length">No courses avaliable</div>
@@ -262,8 +258,8 @@
                 <li>Assignment ID: {{assignment.ID}}</li>
                 <li>{{assignment.Overview}}</li>
               </div>
+              <div class="noResultsMessage" ng-show="type == 'student' && !studAssgn.length">No assignments avaliable</div>
             </div>
-            <div class="noResultsMessage" ng-show="type == 'student' && !studAssgn.length">No courses avaliable</div>
 
             <!-- LECTURER'S ASSIGNMENTS FOR ALL COURSES THEY ARE TEACHING -->
             <div id="grid-container-assignments" ng-repeat="assignment in lecAssgn = (lecturerCourseAssociationsAssignments | filter:userSearch)">
@@ -295,6 +291,7 @@
               </div>
             </div>
             <div class="noResultsMessage" ng-show="type == 'lecturer' && !lecAssgn.length">No assignments avaliable</div>
+          
           </div>
         </div>
 

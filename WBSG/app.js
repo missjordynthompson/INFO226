@@ -178,11 +178,11 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 			DueDate: newAssignmentDueDate,
 		};
 
+		$scope.assignmentdata.push(assignment);
+		$scope.lecAssgn.push(assignment);
+
 		$http.post("https://caab.sim.vuw.ac.nz/api/thompsjord/update.assignment_directory.json", JSON.stringify(assignment))
 		.then(function successCall(response) {
-			$scope.assignmentdata.push(assignment);
-			$scope.lecAssgn.push(assignment);
-			
 			$scope.addAssgnForm = false;
 			$scope.addedAssgn = true;
 			$scope.addAssgnFeedback = "Successfully added new assignment.";
@@ -209,7 +209,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 	};
 
 	// Modify assignment
-	var modifyAssgnIdx;
+	var modifyAssgnIdx = '';
 	$scope.modifyAssgnForm = true;
 	$scope.openModifyAssgn = function (index) {
 		// resets everything
@@ -253,11 +253,11 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 			DueDate: dueDate,
 		};
 
+		$scope.lecAssgn.splice(modifyAssgnIdx, 1);
+		$scope.lecAssgn.push(assignment);
+
 		$http.post("https://caab.sim.vuw.ac.nz/api/thompsjord/update.assignment_directory.json", JSON.stringify(assignment))
-		.then(function successCall(response) {
-			$scope.lecAssgn.splice(modifyAssgnIdx, 1);
-			$scope.lecAssgn.push(assignment);
-			
+		.then(function successCall(response) {		
 			$scope.modifyAssgnForm = false;
 			$scope.modifiedAssgn = true;
 			$scope.modifyAssgnFeedback = "Successfully modified assignment.";
@@ -287,7 +287,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 		deleteAssgnUITime = $filter('date')(deleteAssgnUITime, 'h:mm a');
 		$scope.deleteAssgnDueDate = "Due Date: " + deleteAssgnUIDate + " at " + deleteAssgnUITime;
 
-		assgnIndex = index - (index-1);
+		assgnIndex = index;
 	};
 
 	$scope.addDeletedAssignment = function () {
@@ -298,11 +298,11 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 				}
 			}
 
+		// remove from lecturerCourseAssociationsAssignments 
+		$scope.lecAssgn.splice(assgnIndex, 1);
+
 		$http.delete("https://caab.sim.vuw.ac.nz/api/thompsjord/delete.assignment." + $scope.assignmentdata[index].ID + ".json")
 		.then(function successCall(response) {
-			// remove from lecturerCourseAssociationsAssignments 
-			$scope.lecAssgn.splice(assgnIndex, 1);
-
 			$scope.deleteAssignmentForm = false;
 			$scope.deleteAssignment = true;
 			$scope.deleteAssignmentFeedback = "Successfully deleted assignment.";
@@ -502,13 +502,13 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 			LecturerID: $scope.modifyCourseLecturerID,
 		};
 
+		$scope.crsdata.splice(modifyCourseIdx, 1);
+		$scope.crsdata.push(course);
+		$scope.lecCrs.splice(modifyCourseAssIdx, 1);
+		$scope.lecCrs.push(course);
+
 		$http.post("https://caab.sim.vuw.ac.nz/api/thompsjord/update.course_directory.json", JSON.stringify(course))
 		.then(function successCall(response) {
-			$scope.crsdata.splice(modifyCourseIdx, 1);
-			$scope.crsdata.push(course);
-			$scope.lecCrs.splice(modifyCourseAssIdx, 1);
-			$scope.lecCrs.push(course);
-
 			$scope.modifyCourseForm = false;
 			$scope.modifiedCourse = true;
 			$scope.modifyCourseFeedback = "Successfully modified course.";
@@ -548,14 +548,14 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 			}
 		}
 
+		// remove from coursedata
+		$scope.crsdata.splice(deleteCourseIdx, 1)
+
+		// if course exists in saved courses
+		$scope.lecCrs.splice(deleteInx, 1);
+
 		$http.delete("https://caab.sim.vuw.ac.nz/api/thompsjord/delete.course." + $scope.crsdata[deleteCourseIdx].ID + ".json")
 		.then(function successCall(response) {
-			// remove from coursedata
-			$scope.crsdata.splice(deleteCourseIdx, 1)
-
-			// if course exists in saved courses
-			$scope.lecCrs.splice(deleteInx, 1);
-
 			$scope.deleteCourseForm = false;
 			$scope.deletedCourse = true;
 			$scope.deleteCourseFeedback = "Successfully deleted course.";
@@ -608,11 +608,11 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 			$scope.deletedCourseAssociation = true;
 			$scope.deleteCourseAssociationFeedback = "Successfully deleted course.";
 		} else if ($scope.type == 'student') {
+			// remove course from studentCourseAssociations
+			$scope.studCrsiations.splice(courseAsscIdx, 1);
+
 			$http.delete("https://caab.sim.vuw.ac.nz/api/thompsjord/delete.course_association." + $scope.courseassociationdata[studentIdx].ID + ".json")
 			.then(function successCall(response) {
-				// remove course from studentCourseAssociations
-				$scope.studCrsiations.splice(courseAsscIdx, 1);
-				
 				$scope.addDeletedAssignment;
 				$scope.deleteCourseAssociationForm = false;
 				$scope.deletedCourseAssociation = true;

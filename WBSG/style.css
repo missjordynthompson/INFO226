@@ -193,9 +193,9 @@ html, body {
 }
 
 .popup-transition:target .popup-content {
-bottom: 0;
-right: 0;
-transform: rotate(0);
+  bottom: 0;
+  right: 0;
+  transform: rotate(0);
 }
 
 .popup-text {
@@ -506,6 +506,7 @@ transform: rotate(0);
 
 .header-menu {
   padding: 30px;
+  float: right;
 }
 
 .header-menu a {
@@ -520,7 +521,7 @@ transform: rotate(0);
 
 .header-dropdown {
   position: relative;
-  display: inline-block;
+  display: flex;
   text-decoration: none;
   color: #575756;
   align-items: center;
@@ -531,7 +532,7 @@ transform: rotate(0);
   position: absolute;
   z-index: 1;
   right: 0;
-  margin-top: 10px;
+  margin-top: 44px;
   text-align: center;
   width: 100%;
   padding-right: calc((100% - 85%) / 2);
@@ -575,11 +576,13 @@ transform: rotate(0);
 }
 
 .header-user-image {
+  float: right;
   color: #47BDFF;
   vertical-align: middle;
 }
 
 .header-user-name {
+  float: right;
   padding-left: 10px;
 }
 
@@ -667,28 +670,27 @@ transform: rotate(0);
 }
 
 /*----- Grid for every card in each Section -----*/
-#grid-container-courses, #grid-container-coursedir {
+#grid-container-courses, #grid-container-coursedir, #grid-container-assignments, #grid-container-courses-assignments {
   display: grid;
   grid-gap: 10px;
   width: 100%;
+  padding: 10px;
+  list-style: none;
+  align-items: flex-start;
+  min-height: 131px;
+}
+
+#grid-container-courses, #grid-container-coursedir {
   grid-template-columns: auto minmax(110px, 200px) 40px;
   grid-template-rows: 18px 72px auto;
   border-top: 1px solid black;
   border-right: 1px solid black;
   border-left: 1px solid black;
-  padding: 10px;
-  list-style: none;
-  align-items: flex-start;
 }
 
 #grid-container-assignments, #grid-container-courses-assignments {
-  display: grid;
-  grid-gap: 10px;
-  width: 100%;
   grid-template-columns: auto 120px 40px;
   grid-template-rows: auto auto;
-  padding: 10px;
-  list-style: none;
 }
 
 #grid-container-assignments {
@@ -702,7 +704,9 @@ transform: rotate(0);
   border-top: 1px solid black;
 }
 
-#grid-container-courses:nth-last-of-type(2),  #grid-container-assignments:nth-last-of-type(2), #grid-container-coursedir:nth-last-of-type(2){
+#grid-container-courses:nth-last-of-type(2), 
+#grid-container-assignments:nth-last-of-type(2), 
+#grid-container-coursedir:nth-last-of-type(2){
   border-bottom: 1px solid black;
 }
 
