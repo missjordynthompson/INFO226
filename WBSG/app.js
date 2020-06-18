@@ -391,7 +391,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 				data: JSON.stringify(newCourseAssociation)
 			});
 
-			$scope.studCrsiations.push($scope.crsdata[index]);
+			$scope.studCrs.push($scope.crsdata[index]);
 		} else if ($scope.type == 'lecturer') {
 			// check if course isn't already in saved courses
 			var crsExists = false;
@@ -578,14 +578,14 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 		$scope.deletedCourseAssociation = false;
 
 		if ($scope.type == 'student') {
-			$scope.deleteCourseNameID = $scope.studCrsiations[crsAscIndex].ID + ": " + $scope.studCrsiations[crsAscIndex].Name;
-			$scope.deleteCourseYear = "Year: " + $scope.studCrsiations[crsAscIndex].Year;
-			$scope.deleteCourseTrimester = "Trimester: " + $scope.studCrsiations[crsAscIndex].Trimester;
-			$scope.deleteCourseLectureTimes = "Lecture Times: " + $scope.studCrsiations[crsAscIndex].LectureTimes;
-			$scope.deleteCourseLecturerID = "Lecturer ID: " + $scope.studCrsiations[crsAscIndex].LecturerID;
+			$scope.deleteCourseNameID = $scope.studCrs[crsAscIndex].ID + ": " + $scope.studCrs[crsAscIndex].Name;
+			$scope.deleteCourseYear = "Year: " + $scope.studCrs[crsAscIndex].Year;
+			$scope.deleteCourseTrimester = "Trimester: " + $scope.studCrs[crsAscIndex].Trimester;
+			$scope.deleteCourseLectureTimes = "Lecture Times: " + $scope.studCrs[crsAscIndex].LectureTimes;
+			$scope.deleteCourseLecturerID = "Lecturer ID: " + $scope.studCrs[crsAscIndex].LecturerID;
 
 			for (crs of $scope.courseassociationdata) {
-				if ($scope.studCrsiations[crsAscIndex].ID == crs.CourseID && userID == crs.StudentID) {
+				if ($scope.studCrs[crsAscIndex].ID == crs.CourseID && userID == crs.StudentID) {
 					studentIdx = $scope.courseassociationdata.indexOf(crs);
 				}
 			}
@@ -609,6 +609,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 			$scope.deleteCourseAssociationFeedback = "Successfully deleted course.";
 		} else if ($scope.type == 'student') {
 			// remove course from studentCourseAssociations
+			$scope.studCrs.splice(courseAsscIdx, 1);
 			$scope.studCrsiations.splice(courseAsscIdx, 1);
 
 			$http.delete("https://caab.sim.vuw.ac.nz/api/thompsjord/delete.course_association." + $scope.courseassociationdata[studentIdx].ID + ".json")

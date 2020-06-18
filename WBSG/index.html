@@ -130,7 +130,7 @@
                     <li class="line" style="list-style: none; border-bottom: 4px solid #faa21b; width: 180px;"></li>
                   </div>
                   <div class="grid-item2-assgn grid-item clr-grey">
-                    <li>{{assignment.DueDate}}</li>
+                    <li>{{assignment.DueDate |  date:"EEEE, MMMM d, y 'at' h:mm a"}}</li>
                   </div>
                   <div class="grid-icons grid-item clr-grey">
                     <span class="hover-button fa-stack tooltip" ng-show="type == 'student'">
@@ -195,7 +195,7 @@
                     <li class="line" style="list-style: none; border-bottom: 4px solid #faa21b; width: 180px;"></li>
                   </div>
                   <div class="grid-item2-assgn grid-item clr-grey">
-                    <li>{{assignment.DueDate}}</li>
+                    <li>{{assignment.DueDate | date:"EEEE, MMMM d, y 'at' h:mm a"}}</li>
                   </div>
                   <div class="grid-icons grid-item clr-grey">
                     <a href="#modifyAssgn" ng-click="openModifyAssgn($index)" class="fa-stack"
