@@ -21,19 +21,19 @@
         <p id="login-welcome-header2">If you have a Wellington School of Business and Government (WBSG) login, please
           login using login link</p>
       </div>
-      <a href="#loginPopup">
+      <a href="#Home">
         <img alt="Logo" src="images/logo.svg" class="logo-large center logo-hover">
       </a>
     </div>
 
     <!-- LOGIN POPUP -->
-    <div class="popup-transition overlay" id="loginPopup">
+    <div class="popup-transition overlay" id="Home">
       <form class="popup-content center">
         <img alt="Logo" src="images/logo.svg" class="logo-medium center" id="login-popup-logo">
         <div class="popup-text">
           <h1 id="login-popup-header">Sign in</h1>
         </div>
-        <a href="" class="fa fa-times-circle clr-grey fa-2x popup-close"></a>
+        <a href="#" class="fa fa-times-circle clr-grey fa-2x popup-close"></a>
         <div id="login-input-error" ng-if="invalidCredentials">Incorrect login details</div>
 
         <input type="text" id="login-popup-userinput" class="login-input user-input clr-darkgrey" ng-model="username"
@@ -71,7 +71,7 @@
           <i class="fa fa-user-circle header-user-image fa-2x"></i><span class="header-user-name">{{username}}</span><i
             class="fa fa-angle-down header-user-down"></i>
           <div class="header-dropdown-userlogout">
-            <a href="#logout" ng-click="logout()">Logout</a>
+            <a href="#" ng-click="logout()">Logout</a>
           </div>
         </div>
       </div>

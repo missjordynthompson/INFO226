@@ -134,6 +134,8 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 
 		userID = '';
 		filteredCourses = [];
+		$scope.username = '';
+		$scope.password = '';
 	};
 
 	// Accordion in My Courses Section
@@ -380,8 +382,22 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 	// Add course from course directory to course associations (saved courses)
 	$scope.addToSavedCourses = function (index) {
 		if ($scope.type == 'student') {
+			var courseAsscIDIndex = "1";
+			var bool = false;
+			while (bool == false) {
+				var idx = courseAsscIDIndex
+				for (courseAssc of $scope.courseassociationdata) {
+					if (courseAssc.ID == courseAsscIDIndex) {
+						courseAsscIDIndex++;
+					}
+				}
+				if (idx == courseAsscIDIndex) {
+					bool = true;
+				}
+			};
+
 			var newCourseAssociation = {
-				ID: $scope.courseassociationdata.length + 1,
+				ID: courseAsscIDIndex,
 				StudentID: userID,
 				CourseID: $scope.crsdata[index].ID
 			};
