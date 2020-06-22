@@ -237,7 +237,7 @@
         <div class="main-cards">
           <div class="card">
             <!-- STUDENT'S ASSIGNMENTS FOR ALL COURSES THEY ARE TAKING -->
-            <div id="grid-container-assignments" ng-repeat="assignment in studAssgn = (studentCourseAssociationsAssignments | filter:userSearch)">
+            <div id="grid-container-assignments" class="grid-container-assignmentsStudent" ng-repeat="assignment in studAssgn = (studentCourseAssociationsAssignments | filter:userSearch)">
               <div class="grid-item1 grid-item clr-grey grid-item-header">
                 <li>{{assignment.CourseID}}</li>
                 <li style="font-weight: bold;">{{assignment.Name}}</li>
@@ -258,7 +258,6 @@
                 <li>Assignment ID: {{assignment.ID}}</li>
                 <li>{{assignment.Overview}}</li>
               </div>
-              <div class="noResultsMessage" ng-show="type == 'student' && !studAssgn.length">No assignments avaliable</div>
             </div>
             <div class="noResultsMessage" ng-show="type == 'student' && !studAssgn.length">No assignments avaliable</div>
 
