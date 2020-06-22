@@ -567,10 +567,12 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 
 	$scope.addDeletedCourse = function () {
 		var deleteInx;
+		var crsDataId;
 		// if course exists in saved courses
 		for (crs of $scope.lecCrs) {
 			if ($scope.crsdata[deleteCourseIdx].ID == crs.ID) {
 				deleteInx = $scope.lecCrs.indexOf(crs);
+				crsDataId = crs.ID
 			}
 		}
 
@@ -580,10 +582,11 @@ app.controller('MainCtrl', ['$scope', '$http', '$filter', function ($scope, $htt
 		// if course exists in saved courses
 		$scope.lecCrs.splice(deleteInx, 1);
 
-		$http.delete("https://caab.sim.vuw.ac.nz/api/thompsjord/delete.course." + $scope.crsdata[deleteCourseIdx].ID + ".json")
+		$http.delete("https://caab.sim.vuw.ac.nz/api/thompsjord/delete.course." + crsDataId + ".json")
 		.then(function successCall(response) {
 			$scope.deleteCourseForm = false;
 			$scope.deletedCourse = true;
+			console.log($scope.deletedCourse.value);
 			$scope.deleteCourseFeedback = "Successfully deleted course.";
 		}), function errorCall(response) {
 			$scope.deleteCourseForm = false;
