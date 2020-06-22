@@ -260,6 +260,7 @@
               </div>
               <div class="noResultsMessage" ng-show="type == 'student' && !studAssgn.length">No assignments avaliable</div>
             </div>
+            <div class="noResultsMessage" ng-show="type == 'student' && !studAssgn.length">No assignments avaliable</div>
 
             <!-- LECTURER'S ASSIGNMENTS FOR ALL COURSES THEY ARE TEACHING -->
             <div id="grid-container-assignments" ng-repeat="assignment in lecAssgn = (lecturerCourseAssociationsAssignments | filter:userSearch)">
@@ -396,7 +397,7 @@
                 <li>Lecture ID: {{course.LecturerID}}</li>
               </div>
             </div>
-            <div class="noResultsMessage" ng-show="type == 'lecturer' && !crsdata.length">No courses avaliable</div>
+            <div class="noResultsMessage" ng-show="!crsdata.length">No courses avaliable</div>
           </div>
         </div>
 
